@@ -250,6 +250,31 @@ const App = () => {
           <p className="text-xl md:text-2xl text-slate-300 max-w-3xl leading-relaxed mb-16 font-light">
             Computer Science engineering student in the 5th semester at IIIT Kottayam, specializing in full-stack architecture, generative AI, and agentic workflows. Experienced in building production-ready applications with strong foundations in data structures, algorithms, and machine learning pipelines.
           </p>
+          <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-6">
+              {/* Primary Button: Resume Download */}
+              <a 
+                href="/Shubhomoy_Sarkar_Resume.pdf" 
+                target="_blank" 
+                rel="noreferrer"
+                className="group relative px-8 py-4 bg-amber-500/10 border border-amber-500/50 hover:border-amber-400 rounded-lg transition-all duration-300 overflow-hidden flex items-center gap-3"
+              >
+                <div className="absolute inset-0 bg-linear-to-r from-amber-500/10 to-peach-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                <span className="relative text-amber-400 font-mono tracking-widest text-sm uppercase group-hover:text-amber-300">
+                  Initialize CV
+                </span>
+                <svg className="w-4 h-4 relative text-amber-400 group-hover:text-amber-300 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+              </a>
+
+              {/* Secondary Button: Scroll to Contact */}
+              <a 
+                href="#contact" 
+                className="px-8 py-4 border border-slate-700 hover:border-slate-500 hover:bg-slate-800/50 text-slate-300 hover:text-white rounded-lg transition-all duration-300 font-mono tracking-widest text-sm uppercase"
+              >
+                Comm Link
+              </a>
+            </div>
         </RevealSection>
 
         <RevealSection delay="600ms">
