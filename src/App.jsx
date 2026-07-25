@@ -232,7 +232,7 @@ const App = () => {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
             </span>
             <span className="text-amber-300 font-mono text-xs md:text-sm tracking-[0.2em] uppercase font-bold group-hover:text-amber-100 transition-colors">
-              • Available for Internships
+              Available for Internships
             </span>
           </div>
         </RevealSection>
