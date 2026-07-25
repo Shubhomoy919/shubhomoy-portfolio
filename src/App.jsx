@@ -68,11 +68,21 @@ const App = () => {
       entity: "IIIT Kottayam",
       timeline: "2024 - Present",
       type: "Education",
-      desc: "Current CGPA: 8.24 / 10. Deep grounding in core computer science fundamentals and system design.",
+      desc: "Current CGPA: 8.24 / 10.",
       highlights: [
-        "Core Focus: DS/A, Operating Systems, DBMS, Networks, OOAD",
-        "Class 12 ISC (PCMB): The Modern Academy, Kolkata (88%)",
-        "Class 10 ICSE: The Modern Academy, Kolkata (94%)"
+        "Active member of technical and entrepreneurial student communities."
+      ],
+      color: "border-amber-500"
+    },
+    {
+      role: "Senior Secondary & Secondary Education",
+      entity: "The Modern Academy, Kolkata",
+      timeline: "2022 - 2024",
+      type: "Education",
+      desc: "Completed foundational and advanced secondary schooling with high academic standing.",
+      highlights: [
+        "Class 12 ISC (PCMB): 88% (2024)",
+        "Class 10 ICSE: 94% (2022)"
       ],
       color: "border-amber-500"
     }
@@ -357,7 +367,7 @@ const App = () => {
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-16 tracking-tight text-white flex items-center gap-4">
-              <span className="w-8 w-8 h-0.5 bg-indigo-500"></span>
+              <span className="w-8 h-0.5 bg-indigo-500"></span>
               Education & Experience
             </h2>
             
