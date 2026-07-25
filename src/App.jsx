@@ -268,12 +268,7 @@ const App = () => {
               </a>
 
               {/* Secondary Button: Scroll to Contact */}
-              <a 
-                href="#contact" 
-                className="px-8 py-4 border border-slate-700 hover:border-slate-500 hover:bg-slate-800/50 text-slate-300 hover:text-white rounded-lg transition-all duration-300 font-mono tracking-widest text-sm uppercase"
-              >
-                Comm Link
-              </a>
+              
             </div>
         </RevealSection>
 
