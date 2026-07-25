@@ -106,6 +106,33 @@ const App = () => {
       accentColor: "from-amber-400 to-orange-500"
     },
     {
+      title: "GreenTravel: Decarbonizing Corporate Travel",
+      category: "Machine Learning & Process Mining",
+      desc: "Acted as a Sustainability Data Consultant to analyze historical travel datasets, pinpoint process bottlenecks, and enforce strategic modal shifts to architect a data-backed roadmap for achieving corporate Net-Zero emissions by 2030.",
+      tags: ["Python (Pandas, NumPy)", "Scikit-Learn", "Celonis", "Jupyter", "Data Architecture"],
+      highlights: [
+        { 
+          title: "Relational Data Architecture", 
+          text: "Engineered a robust pipeline linking complex CSV datasets (Trip Data, Event Logs, and Attributes) to map the complete lifecycle of corporate travel behaviors and timestamps." 
+        },
+        { 
+          title: "Process Mining (Celonis)", 
+          text: "Ingested event logs into Celonis enterprise software to act as a business 'X-ray', uncovering critical deviations between corporate travel policy and actual employee behaviors, such as bypassing pre-approvals." 
+        },
+        { 
+          title: "Predictive ML Engine", 
+          text: "Utilized Scikit-Learn to develop machine learning algorithms that forecast future trip carbon outputs and classify which specific journeys were mathematically eligible for a low-carbon modal shift." 
+        },
+        { 
+          title: "Root Cause & Business Impact", 
+          text: "Consolidated disconnected logs to visualize a 178M kg CO2e footprint, identifying the Sales department's short-haul flights as the primary hotspot. Proscribed a data-backed shift to rail for trips under 400km, projecting an 85% per-trip emissions reduction." 
+        }
+      ],
+      github: "https://github.com/Shubhomoy919/capstone-project_iit_guwahati",
+      badgeColor: "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
+      accentColor: "from-emerald-400 to-teal-500"
+    },
+    {
       title: "Decodelabs: GenAI Engine Suite",
       category: "Production Internship Portfolio",
       desc: "A comprehensive suite of production-grade generative AI systems spanning multi-turn conversational agents, static code review engines, and automated multi-modal content pipelines.",
