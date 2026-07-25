@@ -276,15 +276,17 @@ const App = () => {
             </h2>
             
             <div className="space-y-10 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
-              <p>
-                Robust software engineering is rooted in unbreakable theoretical foundations and rigorous problem-solving methodologies. My development approach centers on leveraging core computer science principles to design efficient, scalable systems.
-              </p>
-              <p>
-                My academic path at IIIT Kottayam provides deep mastery across essential computer science disciplines including Data Structures & Algorithms, Operating Systems, Database Management Systems, Computer Networks, Compiler Design, Software Architecture, Computer Organization, and Advanced Mathematics. This strong structural framework allows me to translate theoretical concepts into high-performance, production-ready code.
-              </p>
-              <p>
-                In the application layer, I engineer scalable full-stack applications and advanced AI systems. Leveraging strong backend architectures, Python libraries, machine learning pipelines, and agentic workflows, I bridge the gap between low-level system design and high-level intelligent automation.
-              </p>
+              <p className="text-lg md:text-xl text-slate-300 mb-6 font-light leading-relaxed">
+  I build at the intersection of rigorous computational theory and scalable architecture. True engineering goes beyond writing syntax—it demands a mastery of algorithmic efficiency, robust system design, and the mathematical foundations of computer science.
+</p>
+
+<p className="text-lg md:text-xl text-slate-300 mb-6 font-light leading-relaxed">
+  My core focus is bridging low-level system logic with applied <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400">Artificial Intelligence & Machine Learning</span>. I engineer autonomous workflows by leveraging predictive ML pipelines, probabilistic modeling, and advanced neural architectures to transform complex data into decisive action.
+</p>
+
+<p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
+  Whether I am deploying real-time edge AI surveillance, architecting decarbonization models, or building resilient full-stack platforms, my philosophy remains constant: engineer systems that are <span className="text-white">elegant in design, mathematically sound, and driven by massive real-world impact.</span>
+</p>
             </div>
           </div>
         </RevealSection>
