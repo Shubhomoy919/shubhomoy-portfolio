@@ -102,6 +102,43 @@ const App = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  const achievements = [
+    {
+      title: "Smart India Hackathon 2024",
+      category: "Hackathon Qualifier",
+      date: "2024",
+      desc: "Successfully qualified the internal round for India's premier nationwide innovation and hackathon initiative.",
+      badge: "Qualifier"
+    },
+    {
+      title: "ML Workshop – Techfest, IIT Bombay",
+      category: "Specialized Workshop",
+      date: "2025",
+      desc: "Completed intensive technical training and hands-on machine learning applications during IIT Bombay's annual Techfest.",
+      badge: "Completed"
+    },
+    {
+      title: "Summer Analytics – IIT Guwahati",
+      category: "Data Program",
+      date: "2025",
+      desc: "Participated in the rigorous data science and analytics program covering statistical modeling and analytical tools.",
+      badge: "Participant"
+    },
+    {
+      title: "Cloud with Anthropic API Certification",
+      category: "AI & Cloud Credential",
+      date: "Verified",
+      desc: "Validated expertise in building cloud-integrated AI workflows using Claude models and Anthropic API architectures.",
+      badge: "Certified"
+    },
+    {
+      title: "AWS Cloud Practitioner Essentials",
+      category: "Cloud Architecture",
+      date: "Verified",
+      desc: "Gained comprehensive foundational knowledge of AWS cloud services, infrastructure security, pricing, and deployment models.",
+      badge: "Certified"
+    }
+  ];
 
   // --- DATA ARSENAL ---
   const skills = [
@@ -517,7 +554,52 @@ const App = () => {
           </div>
         </div>
       </section>
-
+{/* ========================================== */}
+      {/* HALL OF RECORDS (ACHIEVEMENTS) */}
+      {/* ========================================== */}
+      <section className="relative z-10 border-t border-slate-900 bg-[#030508] py-24">
+        <RevealSection>
+          <div className="max-w-6xl mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-16 tracking-tight text-white flex items-center gap-4">
+              <span className="w-8 h-0.5 bg-amber-500"></span>
+              Hall of Records
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {achievements.map((item, index) => (
+                <div 
+                  key={index} 
+                  className="p-8 bg-slate-900/40 border border-slate-800 hover:border-amber-500/50 rounded-2xl transition-all duration-300 flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex justify-between items-center mb-6">
+                      <span className="text-xs font-mono tracking-widest uppercase text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                        {item.category}
+                      </span>
+                      <span className="text-slate-500 font-mono text-xs">{item.date}</span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-amber-400 transition-colors">
+                      {item.title}
+                    </h3>
+                    
+                    <p className="text-slate-400 font-light leading-relaxed text-sm mb-6">
+                      {item.desc}
+                    </p>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-slate-800/60 flex justify-between items-center">
+                    <span className="text-slate-500 font-mono text-xs tracking-wider uppercase">Status</span>
+                    <span className="text-emerald-400 font-mono text-xs tracking-widest uppercase bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/20">
+                      {item.badge}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </RevealSection>
+      </section>
       {/* --- 5. CONTACT & DEPLOYMENT --- */}
       {/* ========================================== */}
       {/* CONTACT SECTION */}
