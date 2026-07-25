@@ -128,7 +128,7 @@ const App = () => {
         { title: "Zero-Latency Real-Time SSE", color: "indigo", text: "Architected an Express.js backend utilizing Server-Sent Events (SSE) for dynamic token-by-token streaming from Gemini models." },
         { title: "Dynamic Token Optimization", color: "emerald", text: "Engineered a contextual compression algorithm that achieves a 75%+ reduction in token payload while maintaining complete context retention." }
       ],
-      github: "https://github.org/Shubhomoy919/Bodd-2",
+      github: "https://github.com/Shubhomoy919/Bodd-2",
       badgeColor: "border-amber-500/30 bg-amber-500/10 text-amber-400",
       accentColor: "from-amber-400 to-orange-500"
     },
@@ -169,7 +169,7 @@ const App = () => {
         { title: "Multi-Language AI Code Reviewer", color: "emerald", text: "Automated static code analysis assistant performing bug detection and performance suggestions across Python, Java, and JavaScript." },
         { title: "Cross-Platform Marketing & Image Generation", color: "amber", text: "Generative copywriting pipelines and multi-modal image generation workflows with automated asset persistence." }
       ],
-      github: "https://github.org/Shubhomoy919/decodelabs_tasks",
+      github: "https://github.com/Shubhomoy919/decodelabs_tasks",
       badgeColor: "border-indigo-500/30 bg-indigo-500/10 text-indigo-400",
       accentColor: "from-indigo-400 to-violet-500"
     }
@@ -183,7 +183,7 @@ const App = () => {
         highlights: [
           { title: "Feature 1", color: "amber", text: "Explanation..." }
         ],
-        github: "https://github.org/...",
+        github: "https://github.com/Shubhomoy919/...",
         badgeColor: "border-teal-500/30 bg-teal-500/10 text-teal-400",
         accentColor: "from-teal-400 to-cyan-500"
       }
@@ -435,7 +435,7 @@ const App = () => {
 
             {/* Social/Professional Links */}
             <div className="flex justify-center gap-10 border-t border-slate-900 pt-10 text-sm font-normal uppercase tracking-widest text-slate-400">
-              <a href="https://github.org/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
+              <a href="https://github.com/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
                 GitHub Profile
               </a>
               <a href="https://www.linkedin.com/in/shubhomoy-sarkar-2b2171320" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
