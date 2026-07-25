@@ -212,7 +212,7 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="font-extrabold text-xl tracking-tighter flex items-center gap-3">
             <span className="h-2.5 w-2.5 bg-amber-400 rounded-full shadow-[0_0_12px_rgba(245,158,11,0.8)] animate-pulse"></span>
-            <span className="text-white font-mono tracking-wider">SHUBHOMOY<span className="text-amber-400">.SARKAR</span></span>
+            <span className="text-white font-mono tracking-wider">SHUBHOMOY<span className="text-amber-400">SARKAR</span></span>
           </div>
           <div className="hidden md:flex gap-8 text-xs font-mono font-bold tracking-[0.2em] uppercase text-slate-400">
             <a href="#manifesto" className="hover:text-amber-400 transition-colors">Manifesto</a>
@@ -232,7 +232,7 @@ const App = () => {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
             </span>
             <span className="text-amber-300 font-mono text-xs md:text-sm tracking-[0.2em] uppercase font-bold group-hover:text-amber-100 transition-colors">
-              Systems Online • Available for Internships
+              • Available for Internships
             </span>
           </div>
         </RevealSection>
@@ -400,37 +400,47 @@ const App = () => {
       </section>
 
       {/* --- 5. CONTACT & DEPLOYMENT --- */}
-      <section id="contact" className="relative z-10 border-t border-slate-900 bg-[#030508] py-32 md:py-48">
+      {/* ========================================== */}
+      {/* CONTACT SECTION */}
+      {/* ========================================== */}
+      <section id="contact" className="relative z-10 border-t border-slate-900 bg-[#030508] py-32">
         <RevealSection>
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <h2 className="text-6xl md:text-8xl lg:text-[7rem] font-black mb-12 tracking-tighter text-white leading-[1.1]">
-              Ready to Engineer <br/><span className="text-transparent bg-clip-text bg-linear-to-r from-amber-400 via-orange-400 to-indigo-400 animate-bg-shift drop-shadow-[0_0_40px_rgba(245,158,11,0.3)]">The Future.</span>
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            
+            {/* 1. Scaled-down, professional heading */}
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-white">
+              Ready to Engineer <br className="hidden sm:block" />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-500 to-fuchsia-400">The Future.</span>
             </h2>
-            <p className="text-2xl md:text-3xl text-slate-400 mb-20 font-light max-w-3xl mx-auto leading-relaxed">
-              Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. <strong className="text-white font-medium">Let's build something massive.</strong>
+            
+            {/* 2. Clean, normal-weight paragraph */}
+            <p className="text-lg md:text-xl text-slate-400 mb-12 font-normal max-w-2xl mx-auto leading-relaxed">
+              Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. Let's build something massive.
             </p>
             
-            <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-24">
-              <a href="mailto:shubhomoysarkar00@gmail.com" className="w-full md:w-auto flex flex-col items-center justify-center p-8 md:px-16 bg-slate-900/40 border border-slate-800 hover:border-amber-500 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(245,158,11,0.15)] group">
-                <span className="text-amber-400 font-mono tracking-widest text-sm uppercase mb-4 group-hover:text-amber-300">Email Protocol</span>
-                <span className="text-white font-black text-2xl md:text-3xl">shubhomoysarkar00@gmail.com</span>
+            {/* 3 & 4. Updated headings, normal font weight, single-line phone */}
+            <div className="flex flex-col sm:flex-row justify-center items-stretch gap-6 mb-16">
+              <a href="mailto:shubhomoysarkar00@gmail.com" className="flex-1 max-w-85 p-6 bg-slate-900/40 border border-slate-800 hover:border-amber-500 rounded-2xl transition-all flex flex-col justify-center mx-auto sm:mx-0">
+                <span className="text-amber-400 font-mono text-xs uppercase block mb-2 tracking-widest">Email</span>
+                <span className="text-slate-200 text-lg font-normal">shubhomoysarkar00@gmail.com</span>
               </a>
-              <a href="tel:+919163406409" className="w-full md:w-auto flex flex-col items-center justify-center p-8 md:px-16 bg-slate-900/40 border border-slate-800 hover:border-indigo-500 rounded-3xl transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(99,102,241,0.15)] group">
-                <span className="text-indigo-400 font-mono tracking-widest text-sm uppercase mb-4 group-hover:text-indigo-300">Comm Link</span>
-                <span className="text-white font-black text-2xl md:text-3xl">+91 9163406409</span>
+              
+              <a href="tel:+919163406409" className="flex-1 max-w-85 p-6 bg-slate-900/40 border border-slate-800 hover:border-indigo-500 rounded-2xl transition-all flex flex-col justify-center mx-auto sm:mx-0">
+                <span className="text-indigo-400 font-mono text-xs uppercase block mb-2 tracking-widest">Phone No</span>
+                <span className="text-slate-200 text-lg font-normal whitespace-nowrap">+91 9163406409</span>
               </a>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-12 sm:gap-24 border-t border-slate-900 pt-16">
-              <a href="https://github.org/Shubhomoy919" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 text-xl md:text-2xl font-bold tracking-wider flex items-center gap-4 hover:scale-110">
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
+            {/* Social/Professional Links */}
+            <div className="flex justify-center gap-10 border-t border-slate-900 pt-10 text-sm font-normal uppercase tracking-widest text-slate-400">
+              <a href="https://github.org/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
                 GitHub Profile
               </a>
-              <a href="https://www.linkedin.com/in/shubhomoy-sarkar-2b2171320" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-all duration-300 text-xl md:text-2xl font-bold tracking-wider flex items-center gap-4 hover:scale-110">
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <a href="https://www.linkedin.com/in/shubhomoy-sarkar-2b2171320" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
                 LinkedIn Network
               </a>
             </div>
+            
           </div>
         </RevealSection>
       </section>
