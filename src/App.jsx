@@ -38,6 +38,45 @@ const RevealSection = ({ children, className = "", delay = "0ms" }) => {
 };
 
 const App = () => {
+  const trajectory = [
+    {
+      role: "Generative AI Engineering Intern",
+      entity: "Decodelabs",
+      timeline: "May 2026 - June 2026",
+      type: "Experience",
+      desc: "Engineered production-grade GenAI systems, context-aware memory chatbots, and automated multi-language code review pipelines.",
+      highlights: [
+        "Tech: Python, Google Gemini API, Modular Architecture",
+        "Built intelligent memory buffers & secure multi-modal workflows"
+      ],
+      color: "border-indigo-500"
+    },
+    {
+      role: "PR & Event Management Sublead / E-Cell Core",
+      entity: "Trendles",
+      timeline: "Oct 2025 - Present",
+      type: "Leadership",
+      desc: "Driving campus-wide entrepreneurial initiatives, managing large-scale event logistics, and directing institutional public relations.",
+      highlights: [
+        "Spearheaded digital promotional campaigns & event execution",
+        "Managed financial tracking and budgeting for E-Cell operations"
+      ],
+      color: "border-emerald-500"
+    },
+    {
+      role: "B.Tech in Computer Science & Engineering",
+      entity: "IIIT Kottayam",
+      timeline: "2024 - Present",
+      type: "Education",
+      desc: "Current CGPA: 8.24 / 10. Deep grounding in core computer science fundamentals and system design.",
+      highlights: [
+        "Core Focus: DS/A, Operating Systems, DBMS, Networks, OOAD",
+        "Class 12 ISC (PCMB): The Modern Academy, Kolkata (88%)",
+        "Class 10 ICSE: The Modern Academy, Kolkata (94%)"
+      ],
+      color: "border-amber-500"
+    }
+  ];
   // --- MOUSE SPOTLIGHT ENGINE ---
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [scrolled, setScrolled] = useState(false);
@@ -311,7 +350,55 @@ const App = () => {
           </div>
         </RevealSection>
       </section>
+{/* ========================================== */}
+      {/* EDUCATION & EXPERIENCE SECTION */}
+      {/* ========================================== */}
+      <section className="relative z-10 border-t border-slate-900 bg-[#030508] py-24">
+        <RevealSection>
+          <div className="max-w-5xl mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-16 tracking-tight text-white flex items-center gap-4">
+              <span className="w-8 w-8 h-0.5 bg-indigo-500"></span>
+              Education & Experience
+            </h2>
+            
+            <div className="relative border-l border-slate-800 ml-4 md:ml-6 space-y-16">
+              {trajectory.map((item, index) => (
+                <div key={index} className="relative pl-8 md:pl-12 group">
+                  {/* Glowing Timeline Dot */}
+                  <div className={`absolute -left-1.25 top-1 h-2.5 w-2.5 rounded-full bg-[#030508] border-2 ${item.color} group-hover:scale-150 group-hover:bg-current transition-all duration-300`}></div>
+                  
+                  <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">{item.role}</h3>
+                    <span className="text-slate-500 font-mono text-sm tracking-widest uppercase">{item.timeline}</span>
+                  </div>
+                  
+                  <h4 className="text-lg text-indigo-400 font-medium mb-4">
+                    {item.entity} 
+                    <span className="text-slate-600 ml-2 text-sm uppercase tracking-widest font-mono">[{item.type}]</span>
+                  </h4>
+                  
+                  <p className="text-slate-300 font-light leading-relaxed max-w-3xl mb-6">
+                    {item.desc}
+                  </p>
 
+                  {/* Bullet Points */}
+                  <div className="space-y-3 max-w-3xl">
+                    {item.highlights.map((point, hIndex) => (
+                      <div key={hIndex} className="flex items-start gap-3">
+                        <span className="text-amber-400 mt-1">▹</span>
+                        <p className="text-slate-400 text-sm font-light leading-relaxed">
+                          {point}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              ))}
+            </div>
+          </div>
+        </RevealSection>
+      </section>
       {/* --- 3. FEATURED ARCHITECTURE (SCALABLE DYNAMIC PROJECTS SECTION) --- */}
       <section id="projects" className="relative z-10 px-6 py-32 border-t border-slate-900">
         <div className="max-w-7xl mx-auto space-y-32">
