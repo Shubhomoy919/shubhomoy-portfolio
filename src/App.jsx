@@ -92,6 +92,33 @@ const App = () => {
   // --- SCALABLE PROJECTS ARRAY (Easily add more projects here later!) ---
   const projects = [
     {
+      title: "SentinelAI: Intelligent Edge Surveillance",
+      category: "IoT & Edge AI / Currently in Development",
+      desc: "An end-to-end edge surveillance architecture that upgrades a standard ESP32-CAM into a proactive AI assistant. The system processes live streams on a local server to understand complex scenes, remember temporal events, and allows users to query video history using natural language instead of manually scrubbing footage.",
+      tags: ["ESP32-CAM", "YOLO11n", "ByteTrack", "Qwen2.5-VL", "Llama 3 / Gemma 3", "FaceNet"],
+      highlights: [
+        { 
+          title: "Edge-to-Local AI Pipeline", 
+          text: "Configured an ESP32-CAM as a lightweight edge sensor to stream live video over Wi-Fi to a centralized laptop AI server, isolating compute-heavy inference tasks from the physical hardware while enabling hardware actuation (LEDs/Buzzers) based on AI decisions." 
+        },
+        { 
+          title: "Real-Time Perception & Tracking", 
+          text: "Implemented YOLO11n for rapid object detection and ByteTrack to maintain temporal entity identity across frames, allowing the system to track a specific individual's continuous path rather than isolated bounding boxes." 
+        },
+        { 
+          title: "Semantic Scene Understanding", 
+          text: "Integrated Vision-Language Models (Qwen2.5-VL) and Pose Estimation pipelines to reason about tracked data, translating raw pixel movements into an actionable event database (e.g., translating a bounding box into 'Person left a backpack unattended')." 
+        },
+        { 
+          title: "Conversational NLP Retrieval", 
+          text: "Replaced traditional video scrubbing with an LLM-powered (Gemma 3 / Llama 3) natural language interface, allowing users to query the event database (e.g., 'Who entered the room after 5 PM?') via a comprehensive live dashboard." 
+        }
+      ],
+      github: "#", // Update this with your repository link when ready
+      badgeColor: "border-sky-500/30 bg-sky-500/10 text-sky-400",
+      accentColor: "from-sky-400 to-blue-500"
+    },
+    {
       title: "Bodd AI: DAG Workspace",
       category: "Generative AI & Graph Theory",
       desc: "Engineered a next-generation AI workspace that replaces traditional linear chat with a Directed Acyclic Graph (DAG) topology. This allows users to construct, branch, and merge complex, multi-threaded reasoning paths without context truncation.",
