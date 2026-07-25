@@ -562,7 +562,7 @@ const App = () => {
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-16 tracking-tight text-white flex items-center gap-4">
               <span className="w-8 h-0.5 bg-amber-500"></span>
-              Hall of Records
+              Achievements & Recognitions
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
