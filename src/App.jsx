@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 // --- CUSTOM HOOK: SCROLL ANIMATIONS ---
 const useScrollReveal = () => {
@@ -89,6 +89,7 @@ const App = () => {
       color: "border-amber-500"
     }
   ];
+
   // --- MOUSE SPOTLIGHT ENGINE ---
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [scrolled, setScrolled] = useState(false);
@@ -104,6 +105,7 @@ const App = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   const achievements = [
     {
       title: "Smart India Hackathon 2024",
@@ -111,7 +113,7 @@ const App = () => {
       date: "2024",
       desc: "Successfully qualified the internal round for India's premier nationwide innovation and hackathon initiative.",
       badge: "Qualifier",
-      link: null // Kept clean without link
+      link: null
     },
     {
       title: "ML Workshop – Techfest, IIT Bombay",
@@ -182,12 +184,11 @@ const App = () => {
     }
   ];
 
-  // --- SCALABLE PROJECTS ARRAY (Easily add more projects here later!) ---
- // 1. State for Modal & Active Tabs (Keep this at the top of your component)
+  // State for Modal & Active Tabs
   const [activeProject, setActiveProject] = useState(null);
-  const [modalTab, setModalTab] = useState("architecture"); // 'architecture' or 'telemetry'
+  const [modalTab, setModalTab] = useState("architecture");
 
-  // 2. The Integrated Projects Array
+  // Architecture Projects Array
   const architectureProjects = [
     {
       id: "sentinel",
@@ -290,13 +291,10 @@ const App = () => {
       ]
     }
   ];
-  // ==========================================
-  // OPERATOR TELEMETRY DATA (CRISP & REALISTIC)
-  // ==========================================
+
+  // --- OPERATOR TELEMETRY DATA ---
   const [activeCommit, setActiveCommit] = useState(null);
 
-  // Generates 16 weeks (112 days) of highly realistic GitHub contribution data
-  // Automatically scales to the current date to look 100% authentic
   const heatmapData = useMemo(() => {
     const today = new Date();
     return Array.from({ length: 112 }).map((_, i) => {
@@ -307,7 +305,6 @@ const App = () => {
       const rand = Math.random();
       let commits = 0;
       
-      // Realistic algorithm: Fewer commits on weekends, heavy on weekdays
       if (isWeekend) {
         if (rand > 0.8) commits = Math.floor(Math.random() * 3) + 1;
       } else {
@@ -330,13 +327,16 @@ const App = () => {
     });
   }, []);
 
-  // Useful Meta-Auditor Logs
   const auditorLogs = [
     { module: "DOM Tree", status: "Scanned", msg: "React Fiber tree optimized. No wasteful re-renders." },
     { module: "CSS Engine", status: "Verified", msg: "Tailwind v4 canonical classes applied." },
     { module: "A11y", status: "Passed", msg: "Contrast ratios > 4.5:1. ARIA labels mapped." }
   ];
-        {/* --- 1. THE HERO ENGINE (3-LINE PROFESSIONAL BIO) --- */}
+
+  return (
+    <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
+
+      {/* --- 1. THE HERO ENGINE (3-LINE PROFESSIONAL BIO) --- */}
       <header className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 z-10 pt-20">
         <RevealSection delay="0ms">
           <div className="inline-flex items-center gap-3 mb-8 px-6 py-2.5 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md shadow-[0_0_30px_rgba(245,158,11,0.15)] group hover:border-amber-400/60 transition-all duration-500">
@@ -408,7 +408,7 @@ const App = () => {
         </RevealSection>
       </header>
 
-      {/* --- 2. ENGINEERING MANIFESTO (CORE FOUNDATIONS & ARCHITECTURE) --- */}
+      {/* --- 2. ENGINEERING MANIFESTO --- */}
       <section id="manifesto" className="relative z-10 px-6 py-32">
         <RevealSection>
           <div className="max-w-5xl mx-auto bg-slate-900/30 border border-slate-800 rounded-[3rem] p-10 md:p-24 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] relative overflow-hidden group hover:border-amber-500/30 transition-colors duration-1000">
@@ -420,7 +420,7 @@ const App = () => {
             
             <div className="space-y-8 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-                I build at the cross-section of <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span>  and <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
+                I build at the cross-section of <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span> and <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
               </p>
 
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
@@ -434,9 +434,8 @@ const App = () => {
           </div>
         </RevealSection>
       </section>
-{/* ========================================== */}
-      {/* EDUCATION & EXPERIENCE SECTION */}
-      {/* ========================================== */}
+
+      {/* --- 3. EDUCATION & EXPERIENCE --- */}
       <section id="experience" className="relative z-10 border-t border-slate-900 bg-[#030508] py-24">
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6">
@@ -448,7 +447,6 @@ const App = () => {
             <div className="relative border-l border-slate-800 ml-4 md:ml-6 space-y-16">
               {trajectory.map((item, index) => (
                 <div key={index} className="relative pl-8 md:pl-12 group">
-                  {/* Glowing Timeline Dot */}
                   <div className={`absolute -left-1.25 top-1 h-2.5 w-2.5 rounded-full bg-[#030508] border-2 ${item.color} group-hover:scale-150 group-hover:bg-current transition-all duration-300`}></div>
                   
                   <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-2">
@@ -465,7 +463,6 @@ const App = () => {
                     {item.desc}
                   </p>
 
-                  {/* Bullet Points */}
                   <div className="space-y-3 max-w-3xl mb-6">
                     {item.highlights.map((point, hIndex) => (
                       <div key={hIndex} className="flex items-start gap-3">
@@ -477,7 +474,6 @@ const App = () => {
                     ))}
                   </div>
 
-                  {/* High-Tech Animated Buttons for Certificate & LOR */}
                   {(item.certLink || item.lorLink) && (
                     <div className="flex flex-wrap items-center gap-4 pt-2">
                       {item.certLink && (
@@ -487,14 +483,10 @@ const App = () => {
                           rel="noreferrer"
                           className="group/cert relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-medium text-indigo-300 bg-indigo-950/40 border border-indigo-500/30 hover:border-indigo-400 hover:bg-indigo-500/20 hover:text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.25)] hover:-translate-y-0.5 active:scale-95 overflow-hidden"
                         >
-                          {/* Light sweep animation */}
                           <span className="absolute inset-0 w-1/2 h-full bg-linear-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover/cert:translate-x-[300%] transition-transform duration-1000 ease-in-out"></span>
-
                           <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
                           <span>Completion Certificate</span>
-                          <span className="inline-block transition-transform duration-300 group-hover/cert:translate-x-0.5 group-hover/cert:-translate-y-0.5">
-                            ↗
-                          </span>
+                          <span className="inline-block transition-transform duration-300 group-hover/cert:translate-x-0.5 group-hover/cert:-translate-y-0.5">↗</span>
                         </a>
                       )}
 
@@ -505,33 +497,25 @@ const App = () => {
                           rel="noreferrer"
                           className="group/lor relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-medium text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-400 hover:bg-emerald-500/20 hover:text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:-translate-y-0.5 active:scale-95 overflow-hidden"
                         >
-                          {/* Light sweep animation */}
                           <span className="absolute inset-0 w-1/2 h-full bg-linear-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover/lor:translate-x-[300%] transition-transform duration-1000 ease-in-out"></span>
-
                           <span className="text-emerald-400 font-bold">★</span>
                           <span>Letter of Recommendation</span>
-                          <span className="inline-block transition-transform duration-300 group-hover/lor:translate-x-0.5 group-hover/lor:-translate-y-0.5">
-                            ↗
-                          </span>
+                          <span className="inline-block transition-transform duration-300 group-hover/lor:translate-x-0.5 group-hover/lor:-translate-y-0.5">↗</span>
                         </a>
                       )}
                     </div>
                   )}
-
                 </div>
               ))}
             </div>
           </div>
         </RevealSection>
       </section>
-      {/* ========================================== */}
-      {/* SYSTEM ARCHITECTURE (PROJECTS) SECTION */}
-      {/* ========================================== */}
+
+      {/* --- 4. SYSTEM ARCHITECTURE (PROJECTS) --- */}
       <section id="projects" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
-            
-            {/* Section Header */}
             <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div>
                 <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
@@ -547,7 +531,6 @@ const App = () => {
               </div>
             </div>
 
-            {/* The Targeting Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
               {architectureProjects.map((project) => (
                 <div 
@@ -555,10 +538,8 @@ const App = () => {
                   onClick={() => { setActiveProject(project); setModalTab("architecture"); }}
                   className="group relative rounded-3xl bg-[#070b14] border border-slate-800/80 hover:border-slate-500/50 transition-all duration-500 cursor-pointer overflow-hidden hover:-translate-y-2 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)] flex flex-col min-h-105"
                 >
-                  {/* Holographic Scanline Effect */}
                   <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scan_2s_ease-in-out_infinite] blur-[1px] z-20"></div>
 
-                  {/* Top Control Bar */}
                   <div className="px-5 py-4 border-b border-slate-800/60 flex justify-between items-center bg-slate-950/40 relative z-10">
                     <div className="flex items-center gap-3">
                       <span className={`w-2 h-2 rounded-full shadow-[0_0_10px_currentColor] animate-pulse ${
@@ -571,7 +552,6 @@ const App = () => {
                     </div>
                   </div>
 
-                  {/* Inner Content */}
                   <div className="p-6 flex flex-col grow relative z-10">
                     <h3 className="text-xl font-bold text-white mb-1 tracking-tight group-hover:text-white transition-colors">{project.title}</h3>
                     <p className={`font-mono text-[10px] tracking-widest uppercase mb-4 ${
@@ -585,7 +565,6 @@ const App = () => {
                       {project.desc}
                     </p>
 
-                    {/* Tech Stack Matrix */}
                     <div className="flex flex-wrap gap-2 mt-auto pt-6 border-t border-slate-800/50">
                       {project.tech.map((tech, i) => (
                         <span key={i} className="px-2 py-1 text-[10px] font-mono text-slate-300 bg-slate-900 rounded border border-slate-700/50 group-hover:border-slate-600 transition-colors">
@@ -595,7 +574,6 @@ const App = () => {
                     </div>
                   </div>
 
-                  {/* Ambient Background Glow */}
                   <div className={`absolute bottom-0 right-0 w-64 h-64 opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-[80px] rounded-full pointer-events-none ${
                     project.color === 'emerald' ? 'bg-emerald-500' : 
                     project.color === 'amber' ? 'bg-amber-500' : 
@@ -608,17 +586,13 @@ const App = () => {
           </div>
         </RevealSection>
       </section>
-      {/* ========================================== */}
-      {/* OPERATOR TELEMETRY (LIVE DASHBOARD) */}
-      {/* ========================================== */}
+
+      {/* --- 5. OPERATOR TELEMETRY --- */}
       <section id="telemetry" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900 overflow-hidden">
-        {/* Deep, immersive grid background */}
         <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[48px_48px]"></div>
 
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6 relative z-10">
-            
-            {/* Section Header */}
             <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
@@ -637,10 +611,8 @@ const App = () => {
               </div>
             </div>
 
-            {/* CRISP 3-WIDGET GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-auto">
-              
-              {/* 1. FULL-WIDTH GITHUB HEATMAP (Spans 3 columns) */}
+              {/* 1. Contribution Graph */}
               <div className="lg:col-span-3 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 shadow-xl overflow-hidden group">
                 <div className="flex justify-between items-start md:items-center mb-8 flex-col md:flex-row gap-4">
                   <div>
@@ -656,10 +628,8 @@ const App = () => {
                   </div>
                 </div>
 
-                {/* Heatmap Grid - Scales perfectly to fill space */}
                 <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
                   <div className="min-w-175 flex gap-1.5 justify-between relative z-10">
-                    {/* Map data into 7-day columns */}
                     {Array.from({ length: 16 }).map((_, colIndex) => (
                       <div key={colIndex} className="flex flex-col gap-1.5">
                         {heatmapData.slice(colIndex * 7, (colIndex + 1) * 7).map((data) => (
@@ -675,7 +645,6 @@ const App = () => {
                               'bg-emerald-400 shadow-[0_0_12px_#34d399]'
                             }`}
                           >
-                            {/* Tooltip */}
                             {activeCommit?.id === data.id && (
                               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-[10px] whitespace-nowrap z-50 flex flex-col items-center pointer-events-none shadow-xl">
                                 <span className="text-emerald-400 font-bold">{data.commits} contributions</span>
@@ -691,7 +660,7 @@ const App = () => {
                 </div>
               </div>
 
-              {/* 2. USEFUL: AGENTIC PORTFOLIO AUDITOR (Spans 2 columns) */}
+              {/* 2. Portfolio Auditor */}
               <div className="lg:col-span-2 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col group relative overflow-hidden shadow-xl">
                 <div className="absolute inset-0 bg-linear-to-b from-sky-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                 
@@ -727,7 +696,7 @@ const App = () => {
                 </div>
               </div>
 
-              {/* 3. CRISP OPERATOR DISCIPLINE (Spans 1 column) */}
+              {/* 3. Operator Discipline */}
               <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-amber-500/10 transition-colors duration-700"></div>
                 
@@ -769,21 +738,16 @@ const App = () => {
           </div>
         </RevealSection>
       </section>
-      {/* ========================================== */}
-      {/* THE ADVANCED COMMAND CENTER MODAL */}
-      {/* ========================================== */}
+
+      {/* --- COMMAND CENTER MODAL --- */}
       {activeProject && (
         <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6">
-          {/* Deep Blur Backdrop */}
           <div 
             className="absolute inset-0 bg-black/80 backdrop-blur-2xl transition-opacity"
             onClick={() => setActiveProject(null)}
           ></div>
 
-          {/* Modal Container */}
           <div className="relative w-full max-w-5xl bg-[#030508] border border-slate-700 rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/10">
-            
-            {/* Modal Header Bar */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-center px-6 py-4 border-b border-slate-800 bg-[#070b14]">
               <div className="flex items-center gap-4 mb-4 md:mb-0">
                 <span className="text-amber-500 font-mono text-xs tracking-widest uppercase border border-amber-500/30 bg-amber-500/10 px-3 py-1 rounded-sm">
@@ -792,7 +756,6 @@ const App = () => {
                 <h3 className="text-white font-bold tracking-tight text-lg">{activeProject.title} // Command Center</h3>
               </div>
               
-              {/* Tab Navigation */}
               <div className="flex items-center gap-2 bg-slate-900 rounded-lg p-1 border border-slate-800">
                 <button 
                   onClick={() => setModalTab("architecture")}
@@ -816,13 +779,10 @@ const App = () => {
               </div>
             </div>
 
-            {/* Modal Body */}
-            <div className="p-6 md:p-8 overflow-y-auto bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed relative">
+            <div className="p-6 md:p-8 overflow-y-auto relative">
               <div className="absolute inset-0 bg-[#030508]/95 z-0"></div>
               
               <div className="relative z-10 flex flex-col gap-6">
-                
-                {/* Dynamic Content based on Tab */}
                 {modalTab === 'architecture' ? (
                   <div className="w-full bg-[#070b14] border border-slate-800 rounded-xl p-6 md:p-8 relative overflow-hidden">
                     <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[30px_30px]"></div>
@@ -836,22 +796,17 @@ const App = () => {
                       Infrastructure Pipeline
                     </h4>
                     
-                    {/* ADVANCED DATA FLOW MAP */}
                     <div className="relative z-10 pl-4 md:pl-8 border-l-2 border-slate-800 space-y-8 py-2">
                       {activeProject.blueprint.map((step, index) => (
                         <div key={index} className="relative pl-6 md:pl-8">
-                          {/* Node Connection Point */}
                           <div className={`absolute -left-1.25 md:-left-2.25 top-1.5 w-2 h-2 md:w-4 md:h-4 rounded-full bg-slate-950 border-2 ${
                             activeProject.color === 'emerald' ? 'border-emerald-500' : 
                             activeProject.color === 'amber' ? 'border-amber-500' : 
                             activeProject.color === 'sky' ? 'border-sky-500' : 'border-indigo-500'
                           }`}></div>
                           
-                          {/* Data Flow Arrow (except for last item) */}
                           {index !== activeProject.blueprint.length - 1 && (
-                            <div className="absolute -left-3.5 md:-left-4.5 top-10 text-slate-700">
-                              ↓
-                            </div>
+                            <div className="absolute -left-3.5 md:-left-4.5 top-10 text-slate-700">↓</div>
                           )}
 
                           <div className="bg-slate-900/50 border border-slate-800/80 rounded-lg p-4 hover:border-slate-600 transition-colors">
@@ -873,7 +828,6 @@ const App = () => {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Metrics Dashboard */}
                     <div className="grid grid-cols-2 gap-4">
                       {Object.entries(activeProject.metrics).map(([key, value], i) => (
                         <div key={i} className="bg-[#070b14] border border-slate-800 rounded-xl p-6 hover:border-slate-600 transition-colors">
@@ -883,7 +837,6 @@ const App = () => {
                       ))}
                     </div>
 
-                    {/* ADVANCED SYSTEM LOGS */}
                     <div className="bg-[#070b14] border border-slate-800 rounded-xl p-6 font-mono text-xs h-full flex flex-col min-h-75">
                       <div className="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
                         <p className="text-slate-500 tracking-widest uppercase">Live Telemetry</p>
@@ -910,7 +863,6 @@ const App = () => {
                   </div>
                 )}
                 
-                {/* Bottom Action Footer */}
                 <div className="pt-6 mt-2 border-t border-slate-800/80 flex flex-col sm:flex-row gap-4 justify-end">
                   <a href={activeProject.github} target="_blank" rel="noreferrer" className="px-8 py-3.5 rounded-xl border border-slate-700 text-slate-300 font-mono text-xs tracking-widest uppercase hover:bg-slate-800 hover:text-white transition-all text-center flex items-center justify-center gap-3">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
@@ -920,19 +872,19 @@ const App = () => {
                     Execute Live ↗
                   </a>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       )}
-      {/* --- 4. ARSENAL (SKILLS) --- */}
+
+      {/* --- 6. ARSENAL (SKILLS) --- */}
       <section id="skills" className="relative z-10 py-32 border-t border-slate-900 bg-[#05070a]/90">
         <div className="max-w-7xl mx-auto px-6">
           <RevealSection>
             <div className="flex flex-col items-center text-center mb-24">
               <span className="text-emerald-400 font-mono tracking-widest text-sm uppercase mb-4 flex items-center gap-4">
-                 Technical Arsenal
+                Technical Arsenal
               </span>
               <h2 className="text-6xl md:text-7xl font-black text-white">Core Competencies</h2>
             </div>
@@ -942,7 +894,6 @@ const App = () => {
             {skills.map((skill, index) => (
               <RevealSection key={index} delay={`${index * 200}ms`}>
                 <div className="group relative bg-slate-900/30 border border-slate-800 rounded-[3rem] p-12 backdrop-blur-2xl transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)] hover:border-slate-700 h-full">
-                  
                   <div className={`absolute inset-0 rounded-[3rem] bg-linear-to-b ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none`}></div>
                   <div className={`absolute top-0 left-0 w-full h-2 rounded-t-[3rem] bg-linear-to-r ${skill.color} opacity-70 group-hover:opacity-100 transition-opacity`}></div>
                   
@@ -964,11 +915,9 @@ const App = () => {
           </div>
         </div>
       </section>
-{/* ========================================== */}
-      {/* HALL OF RECORDS (ACHIEVEMENTS) SECTION */}
-      {/* ========================================== */}
+
+      {/* --- 7. HALL OF RECORDS (ACHIEVEMENTS) --- */}
       <section id="achievements" className="relative z-10 border-t border-slate-900 bg-[#030508] py-24 overflow-hidden">
-        {/* Subtle Ambient Background Spotlight */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
         <RevealSection>
@@ -991,11 +940,9 @@ const App = () => {
                   key={index} 
                   className="relative p-7 bg-slate-950/60 backdrop-blur-xl border border-slate-800/80 hover:border-amber-500/40 rounded-2xl transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(245,158,11,0.15)]"
                 >
-                  {/* Subtle Top Inner Glow */}
                   <div className="absolute top-0 left-10 right-10 h-px bg-linear-to-r from-transparent via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                   <div>
-                    {/* Header: Category Pill & Date */}
                     <div className="flex justify-between items-center mb-6">
                       <span className="text-[11px] font-mono tracking-wider uppercase text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 shadow-inner">
                         {item.category}
@@ -1003,25 +950,21 @@ const App = () => {
                       <span className="text-slate-500 font-mono text-xs font-light">{item.date}</span>
                     </div>
                     
-                    {/* Title */}
                     <h3 className="text-lg font-bold text-slate-100 mb-3 tracking-tight group-hover:text-amber-400 transition-colors duration-300">
                       {item.title}
                     </h3>
                     
-                    {/* Description */}
                     <p className="text-slate-400 font-light leading-relaxed text-sm mb-6">
                       {item.desc}
                     </p>
                   </div>
                   
-                  {/* Footer Action Bar */}
                   <div className="pt-4 border-t border-slate-800/60 flex justify-between items-center">
                     <span className="text-slate-500 font-mono text-[11px] tracking-wider uppercase">
                       Status
                     </span>
 
                     <div className="flex items-center gap-3">
-                      {/* Animated Stylish View Credential Button */}
                       {item.link && (
                         <a 
                           href={item.link} 
@@ -1030,13 +973,10 @@ const App = () => {
                           className="group/btn relative inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-500/20 hover:text-white transition-all duration-300 active:scale-95"
                         >
                           <span>Verify</span>
-                          <span className="inline-block transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
-                            ↗
-                          </span>
+                          <span className="inline-block transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">↗</span>
                         </a>
                       )}
 
-                      {/* Status Badge */}
                       <span className="text-emerald-400 font-mono text-[11px] tracking-widest uppercase bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
                         {item.badge}
                       </span>
@@ -1048,26 +988,20 @@ const App = () => {
           </div>
         </RevealSection>
       </section>
-      {/* --- 5. CONTACT & DEPLOYMENT --- */}
-      {/* ========================================== */}
-      {/* CONTACT SECTION */}
-      {/* ========================================== */}
+
+      {/* --- 8. CONTACT SECTION --- */}
       <section id="contact" className="relative z-10 border-t border-slate-900 bg-[#030508] py-32">
         <RevealSection>
           <div className="max-w-4xl mx-auto px-6 text-center">
-            
-            {/* 1. Scaled-down, professional heading */}
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-white">
               Ready to Engineer <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-500 to-fuchsia-400">The Future.</span>
             </h2>
             
-            {/* 2. Clean, normal-weight paragraph */}
             <p className="text-lg md:text-xl text-slate-400 mb-12 font-normal max-w-2xl mx-auto leading-relaxed">
               Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. Let's build something massive.
             </p>
             
-            {/* 3 & 4. Updated headings, normal font weight, single-line phone */}
             <div className="flex flex-col sm:flex-row justify-center items-stretch gap-6 mb-16">
               <a href="mailto:shubhomoysarkar00@gmail.com" className="flex-1 max-w-85 p-6 bg-slate-900/40 border border-slate-800 hover:border-amber-500 rounded-2xl transition-all flex flex-col justify-center mx-auto sm:mx-0">
                 <span className="text-amber-400 font-mono text-xs uppercase block mb-2 tracking-widest">Email</span>
@@ -1080,7 +1014,6 @@ const App = () => {
               </a>
             </div>
 
-            {/* Social/Professional Links */}
             <div className="flex justify-center gap-10 border-t border-slate-900 pt-10 text-sm font-normal uppercase tracking-widest text-slate-400">
               <a href="https://github.com/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
                 GitHub Profile
@@ -1089,10 +1022,12 @@ const App = () => {
                 LinkedIn Network
               </a>
             </div>
-            
           </div>
         </RevealSection>
       </section>
+
+    </div>
+  );
 };
 
 export default App;
