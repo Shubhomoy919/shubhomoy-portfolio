@@ -117,7 +117,7 @@ const App = () => {
       date: "2025",
       desc: "Completed intensive technical training and hands-on machine learning applications during IIT Bombay's annual Techfest.",
       badge: "Completed",
-      link: "/.pdf"
+      link: "/cb86f980-f749-11f0-bf36-77b635c6f78c.pdf"
     },
     {
       title: "Summer Analytics – IIT Guwahati",
@@ -133,7 +133,7 @@ const App = () => {
       date: "Verified",
       desc: "Validated expertise in building cloud-integrated AI workflows using Claude models and Anthropic API architectures.",
       badge: "Certified",
-      link: "/.pdf"
+      link: "/certificate-2vvibhmmqfz3-1780131832.pdf"
     },
     {
       title: "AWS Cloud Practitioner Essentials",
@@ -141,7 +141,7 @@ const App = () => {
       date: "Verified",
       desc: "Gained comprehensive foundational knowledge of AWS cloud services, infrastructure security, pricing, and deployment models.",
       badge: "Certified",
-      link: "/.pdf"
+      link: "/ecf763a3-081e-44ca-9e20-6c809e3b98e9 (1).pdf"
     }
   ];
 
