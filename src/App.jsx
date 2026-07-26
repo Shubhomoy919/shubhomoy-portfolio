@@ -342,7 +342,7 @@ const App = () => {
     song: "The Morning",
     artist: "The Weeknd",
     // Direct link to the official Trilogy album art
-    albumArtUrl: "https://uk.pinterest.com/pin/the-morning-by-the-weeknd--520658406933831625/", 
+    albumArtUrl: "https://i1.sndcdn.com/artworks-LUIwi9mJIYG1-0-t500x500.jpg", 
     colorGlow: "rgba(220,38,38,0.3)" // Moody red glow to match the Weeknd vibe
   };
 
