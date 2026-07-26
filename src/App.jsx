@@ -354,7 +354,12 @@ const App = () => {
       <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-[#030508]/80 backdrop-blur-md border-b border-slate-800/80 py-4 shadow-xl' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           
+          {/* LEFT SIDE: Your Full Name */}
+          <a href="#" className="text-xl md:text-2xl font-black tracking-tighter text-white hover:opacity-80 transition-opacity flex items-center gap-1.5">
+            Shubhomoy<span className="text-amber-500">Sarkar</span>
+          </a>
           
+          {/* RIGHT SIDE: Navigation Links */}
           <div className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest uppercase text-slate-400">
             <a href="#experience" className="hover:text-amber-400 transition-colors">Experience</a>
             <a href="#projects" className="hover:text-amber-400 transition-colors">Architecture</a>
@@ -363,9 +368,11 @@ const App = () => {
             <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
           </div>
 
+          {/* MOBILE ONLY: Connect Button */}
           <a href="#contact" className="md:hidden text-amber-500 font-mono text-[10px] uppercase tracking-widest border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 rounded-md hover:bg-amber-500/20 transition-colors">
             Connect
           </a>
+          
         </div>
       </nav>
       {/* --- 1. THE HERO ENGINE (3-LINE PROFESSIONAL BIO) --- */}
