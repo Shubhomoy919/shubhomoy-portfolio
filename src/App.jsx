@@ -564,14 +564,14 @@ const App = () => {
       {/* ========================================== */}
       <section className="relative z-10 border-t border-slate-900 bg-[#030508] py-24 overflow-hidden">
         {/* Subtle Ambient Background Spotlight */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
         <RevealSection>
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
               <div>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-4 mb-2">
-                  <span className="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-amber-300"></span>
+                  <span className="w-8 h-0.5 bg-linear-to-r from-amber-500 to-amber-300"></span>
                   Hall of Records
                 </h2>
                 <p className="text-slate-400 font-mono text-xs tracking-widest uppercase pl-12">
@@ -587,7 +587,7 @@ const App = () => {
                   className="relative p-7 bg-slate-950/60 backdrop-blur-xl border border-slate-800/80 hover:border-amber-500/40 rounded-2xl transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(245,158,11,0.15)]"
                 >
                   {/* Subtle Top Inner Glow */}
-                  <div className="absolute top-0 left-10 right-10 h-[1px] bg-gradient-to-r from-transparent via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute top-0 left-10 right-10 h-px bg-linear-to-r from-transparent via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                   <div>
                     {/* Header: Category Pill & Date */}
