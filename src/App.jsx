@@ -183,104 +183,108 @@ const App = () => {
   ];
 
   // --- SCALABLE PROJECTS ARRAY (Easily add more projects here later!) ---
-  const projects = [
+ // 1. State for Modal & Active Tabs (Keep this at the top of your component)
+  const [activeProject, setActiveProject] = useState(null);
+  const [modalTab, setModalTab] = useState("architecture"); // 'architecture' or 'telemetry'
+
+  // 2. The Integrated Projects Array
+  const architectureProjects = [
     {
-      title: "SentinelAI: Intelligent Edge Surveillance",
-      category: "IoT & Edge AI / Currently in Development",
-      desc: "An end-to-end edge surveillance architecture that upgrades a standard ESP32-CAM into a proactive AI assistant. The system processes live streams on a local server to understand complex scenes, remember temporal events, and allows users to query video history using natural language instead of manually scrubbing footage.",
-      tags: ["ESP32-CAM", "YOLO11n", "ByteTrack", "Qwen2.5-VL", "Llama 3 / Gemma 3", "FaceNet"],
-      highlights: [
-        { 
-          title: "Edge-to-Local AI Pipeline", 
-          text: "Configured an ESP32-CAM as a lightweight edge sensor to stream live video over Wi-Fi to a centralized laptop AI server, isolating compute-heavy inference tasks from the physical hardware while enabling hardware actuation (LEDs/Buzzers) based on AI decisions." 
-        },
-        { 
-          title: "Real-Time Perception & Tracking", 
-          text: "Implemented YOLO11n for rapid object detection and ByteTrack to maintain temporal entity identity across frames, allowing the system to track a specific individual's continuous path rather than isolated bounding boxes." 
-        },
-        { 
-          title: "Semantic Scene Understanding", 
-          text: "Integrated Vision-Language Models (Qwen2.5-VL) and Pose Estimation pipelines to reason about tracked data, translating raw pixel movements into an actionable event database (e.g., translating a bounding box into 'Person left a backpack unattended')." 
-        },
-        { 
-          title: "Conversational NLP Retrieval", 
-          text: "Replaced traditional video scrubbing with an LLM-powered (Gemma 3 / Llama 3) natural language interface, allowing users to query the event database (e.g., 'Who entered the room after 5 PM?') via a comprehensive live dashboard." 
-        }
+      id: "sentinel",
+      title: "SentinelAI",
+      type: "IoT & Edge AI",
+      status: "IN DEVELOPMENT",
+      desc: "An end-to-end edge surveillance architecture that upgrades a standard ESP32-CAM into a proactive AI assistant. Processes live streams to understand complex scenes and enables NLP video queries.",
+      tech: ["ESP32-CAM", "YOLO11n", "ByteTrack", "Qwen2.5-VL", "Llama 3"],
+      color: "sky",
+      metrics: { 
+        Compute: "Edge-to-Local", 
+        Perception: "Real-Time", 
+        Tracking: "Temporal Entity", 
+        Retrieval: "LLM NLP" 
+      },
+      github: "#", // Add link when ready
+      live: "#",
+      logs: [
+        "[00:00:11] HARDWARE: ESP32-CAM initialized. Streaming via Wi-Fi...",
+        "[00:00:14] VISION: YOLO11n & ByteTrack loaded. Tracking temporal entities.",
+        "[00:00:19] VLM: Qwen2.5-VL translating scene data into semantic event database.",
+        "[00:00:23] NLP: Conversational retrieval ready. Awaiting natural language query."
       ],
-      github: "#", // Update this with your repository link when ready
-      badgeColor: "border-sky-500/30 bg-sky-500/10 text-sky-400",
-      accentColor: "from-sky-400 to-blue-500"
+      blueprint: "ESP32-CAM [Edge] ➔ Wi-Fi Stream ➔ Local AI Server [YOLO/ByteTrack] ➔ Vision-Language Model [Qwen] ➔ Event DB ➔ LLM Query UI"
     },
     {
-      title: "Bodd AI: DAG Workspace",
-      category: "Generative AI & Graph Theory",
-      desc: "Engineered a next-generation AI workspace that replaces traditional linear chat with a Directed Acyclic Graph (DAG) topology. This allows users to construct, branch, and merge complex, multi-threaded reasoning paths without context truncation.",
-      tags: ["React 18", "Vite", "Node.js", "Google GenAI SDK", "React Flow", "Framer Motion"],
-      highlights: [
-        { title: "Algorithmic DAG Safety", color: "amber", text: "Implemented Kahn's Topological Sorting and DFS ancestor traversal to mathematically guarantee graph state integrity and prevent cyclical corruption." },
-        { title: "Zero-Latency Real-Time SSE", color: "indigo", text: "Architected an Express.js backend utilizing Server-Sent Events (SSE) for dynamic token-by-token streaming from Gemini models." },
-        { title: "Dynamic Token Optimization", color: "emerald", text: "Engineered a contextual compression algorithm that achieves a 75%+ reduction in token payload while maintaining complete context retention." }
-      ],
+      id: "boddai",
+      title: "Bodd AI Workspace",
+      type: "GenAI & Graph Theory",
+      status: "SYSTEM ONLINE",
+      desc: "Engineered a next-generation AI workspace that replaces traditional linear chat with a Directed Acyclic Graph (DAG) topology for complex, multi-threaded reasoning without context truncation.",
+      tech: ["React 18", "Express.js", "Gemini SDK", "React Flow", "Kahn's Algo"],
+      color: "amber",
+      metrics: { 
+        Latency: "Zero-Latency SSE", 
+        Algorithm: "Kahn's Sort", 
+        Compression: "75% Token Red.",
+        Topology: "DAG"
+      },
       github: "https://github.com/Shubhomoy919/Bodd-2",
-      badgeColor: "border-amber-500/30 bg-amber-500/10 text-amber-400",
-      accentColor: "from-amber-400 to-orange-500"
+      live: "#",
+      logs: [
+        "[10:14:02] CORE: Initializing DAG topology workspace UI...",
+        "[10:14:04] ALGO: Kahn's Topological Sorting active: preventing cyclical corruption.",
+        "[10:14:07] NET: Express.js SSE backend established for real-time streaming.",
+        "[10:14:12] OPT: Contextual compression applied. Payload reduced by 75%."
+      ],
+      blueprint: "User Branch ➔ React Flow [DAG] ➔ Express Backend [SSE] ➔ Gemini API ➔ Token Compressor ➔ State Tree"
     },
     {
-      title: "GreenTravel: Decarbonizing Corporate Travel",
-      category: "Machine Learning & Process Mining",
-      desc: "Acted as a Sustainability Data Consultant to analyze historical travel datasets, pinpoint process bottlenecks, and enforce strategic modal shifts to architect a data-backed roadmap for achieving corporate Net-Zero emissions by 2030.",
-      tags: ["Python (Pandas, NumPy)", "Scikit-Learn", "Celonis", "Jupyter", "Data Architecture"],
-      highlights: [
-        { 
-          title: "Relational Data Architecture", 
-          text: "Engineered a robust pipeline linking complex CSV datasets (Trip Data, Event Logs, and Attributes) to map the complete lifecycle of corporate travel behaviors and timestamps." 
-        },
-        { 
-          title: "Process Mining (Celonis)", 
-          text: "Ingested event logs into Celonis enterprise software to act as a business 'X-ray', uncovering critical deviations between corporate travel policy and actual employee behaviors, such as bypassing pre-approvals." 
-        },
-        { 
-          title: "Predictive ML Engine", 
-          text: "Utilized Scikit-Learn to develop machine learning algorithms that forecast future trip carbon outputs and classify which specific journeys were mathematically eligible for a low-carbon modal shift." 
-        },
-        { 
-          title: "Root Cause & Business Impact", 
-          text: "Consolidated disconnected logs to visualize a 178M kg CO2e footprint, identifying the Sales department's short-haul flights as the primary hotspot. Proscribed a data-backed shift to rail for trips under 400km, projecting an 85% per-trip emissions reduction." 
-        }
-      ],
+      id: "greentravel",
+      title: "GreenTravel API",
+      type: "ML & Process Mining",
+      status: "DATA MINED",
+      desc: "Analyzed historical corporate travel datasets, pinpointing process bottlenecks to enforce strategic modal shifts and architect a data-backed roadmap for Net-Zero emissions by 2030.",
+      tech: ["Python", "Scikit-Learn", "Celonis", "Pandas", "PostgreSQL"],
+      color: "emerald",
+      metrics: { 
+        Footprint: "178M kg CO2e", 
+        Reduction: "85% per-trip", 
+        Target: "Rail < 400km",
+        Engine: "Predictive ML"
+      },
       github: "https://github.com/Shubhomoy919/capstone-project_iit_guwahati",
-      badgeColor: "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
-      accentColor: "from-emerald-400 to-teal-500"
+      live: "#",
+      logs: [
+        "[08:30:15] DATA: Relational pipeline established. 178M kg CO2e footprint mapped.",
+        "[08:30:22] MINING: Celonis ingested event logs. Policy deviations detected in Sales dept.",
+        "[08:30:29] ML: Scikit-Learn predictive engine forecasting future carbon outputs.",
+        "[08:30:31] ACTION: Proscribing modal shift to rail for trips < 400km."
+      ],
+      blueprint: "CSV Logs ➔ Relational Pipeline ➔ Celonis [Process Mining] ➔ Scikit-Learn [ML Engine] ➔ Policy Execution"
     },
     {
-      title: "Decodelabs: GenAI Engine Suite",
-      category: "Production Internship Portfolio",
+      id: "decodelabs",
+      title: "Decodelabs Suite",
+      type: "Production Suite",
+      status: "AGENTS DEPLOYED",
       desc: "A comprehensive suite of production-grade generative AI systems spanning multi-turn conversational agents, static code review engines, and automated multi-modal content pipelines.",
-      tags: ["Python", "Google Gemini API", "Modular Architecture", "Environment Security"],
-      highlights: [
-        { title: "Context-Aware Memory Chatbot", color: "indigo", text: "Conversational AI agent engineered with state retention and dynamic prompt buffers using Google Gemini API to preserve long-term context." },
-        { title: "Multi-Language AI Code Reviewer", color: "emerald", text: "Automated static code analysis assistant performing bug detection and performance suggestions across Python, Java, and JavaScript." },
-        { title: "Cross-Platform Marketing & Image Generation", color: "amber", text: "Generative copywriting pipelines and multi-modal image generation workflows with automated asset persistence." }
-      ],
+      tech: ["Python", "Gemini API", "Modular Architecture", "Security Pipelines"],
+      color: "indigo",
+      metrics: { 
+        Memory: "Context-Aware", 
+        Analysis: "Multi-Language", 
+        Pipeline: "Multi-Modal",
+        Scale: "Production"
+      },
       github: "https://github.com/Shubhomoy919/decodelabs_tasks",
-      badgeColor: "border-indigo-500/30 bg-indigo-500/10 text-indigo-400",
-      accentColor: "from-indigo-400 to-violet-500"
+      live: "#",
+      logs: [
+        "[SYS:INIT] Decodelabs GenAI Engine Suite booted up.",
+        "[SYS:MEM] Context-aware conversational agent loaded into buffer.",
+        "[SYS:CODE] Static AI code reviewer scanning Python/Java/JS for vulnerabilities.",
+        "[SYS:GEN] Multi-modal content pipeline executing generation workflow."
+      ],
+      blueprint: "User Input ➔ Context/Prompt Buffer ➔ Google Gemini API ➔ Code Analysis / Media Gen ➔ Secure Output"
     }
-    /* 
-      Want to add another project later? Just copy the block below and paste it inside this array:
-      {
-        title: "Your New Project Name",
-        category: "Domain / Category",
-        desc: "Description of your new project...",
-        tags: ["Tech 1", "Tech 2"],
-        highlights: [
-          { title: "Feature 1", color: "amber", text: "Explanation..." }
-        ],
-        github: "https://github.com/Shubhomoy919/...",
-        badgeColor: "border-teal-500/30 bg-teal-500/10 text-teal-400",
-        accentColor: "from-teal-400 to-cyan-500"
-      }
-    */
   ];
 
   return (
@@ -401,7 +405,7 @@ const App = () => {
             
             <div className="space-y-8 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-                I build at the cross-section of <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span> and <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
+                I build at the cross-section of <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span>  and <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
               </p>
 
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
@@ -505,76 +509,213 @@ const App = () => {
           </div>
         </RevealSection>
       </section>
-      {/* --- 3. FEATURED ARCHITECTURE (SCALABLE DYNAMIC PROJECTS SECTION) --- */}
-      <section id="projects" className="relative z-10 px-6 py-32 border-t border-slate-900">
-        <div className="max-w-7xl mx-auto space-y-32">
-          
-          <RevealSection>
-            <div className="flex flex-col mb-16">
-              <span className="text-amber-400 font-mono tracking-widest text-sm md:text-base uppercase mb-4 flex items-center gap-4">
-                <span className="h-px w-12 bg-amber-500"></span> Production Builds
-              </span>
-              <h2 className="text-6xl md:text-7xl font-black text-white">System Architecture</h2>
+      {/* ========================================== */}
+      {/* SYSTEM ARCHITECTURE (PROJECTS) SECTION */}
+      {/* ========================================== */}
+      <section id="projects" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900">
+        <RevealSection>
+          <div className="max-w-7xl mx-auto px-6">
+            
+            {/* Section Header */}
+            <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
+                  <span className="text-amber-500 font-light">/</span> System Architecture
+                </h2>
+                <p className="text-slate-400 font-mono text-sm tracking-widest uppercase pl-8 border-l border-slate-800">
+                  Production Workloads & Prototypes
+                </p>
+              </div>
+              <div className="hidden md:flex items-center gap-3 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="font-mono text-xs text-slate-400 tracking-widest uppercase">All Systems Nominal</span>
+              </div>
             </div>
-          </RevealSection>
 
-          {/* DYNAMICALLY MAPPED PROJECTS (Easy to add more later!) */}
-          {projects.map((proj, index) => (
-            <RevealSection key={index} delay={`${index * 200}ms`}>
-              <div className="group relative bg-slate-900/30 border border-slate-800 hover:border-amber-500/50 rounded-[3rem] p-8 md:p-16 backdrop-blur-2xl transition-all duration-700 hover:shadow-[0_30px_100px_rgba(245,158,11,0.12)] overflow-hidden">
-                <div className="absolute top-[-30%] right-[-20%] w-[70%] h-full bg-amber-600/5 blur-[150px] rounded-full pointer-events-none group-hover:bg-amber-500/10 transition-all duration-1000"></div>
+            {/* The Targeting Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+              {architectureProjects.map((project) => (
+                <div 
+                  key={project.id}
+                  onClick={() => { setActiveProject(project); setModalTab("architecture"); }}
+                  className="group relative rounded-3xl bg-[#070b14] border border-slate-800/80 hover:border-slate-500/50 transition-all duration-500 cursor-pointer overflow-hidden hover:-translate-y-2 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)] flex flex-col min-h-105"
+                >
+                  {/* Holographic Scanline Effect */}
+                  <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scan_2s_ease-in-out_infinite] blur-[1px] z-20"></div>
 
-                <div className="relative z-10 flex flex-col xl:flex-row gap-16 items-center">
-                  <div className="xl:w-1/2">
-                    <div className="flex flex-wrap items-center gap-4 mb-10">
-                      <span className={`px-5 py-2 rounded-full text-xs md:text-sm font-mono font-bold tracking-widest uppercase border ${proj.badgeColor}`}>
-                        {proj.category}
-                      </span>
+                  {/* Top Control Bar */}
+                  <div className="px-5 py-4 border-b border-slate-800/60 flex justify-between items-center bg-slate-950/40 relative z-10">
+                    <div className="flex items-center gap-3">
+                      <span className={`w-2 h-2 rounded-full shadow-[0_0_10px_currentColor] animate-pulse ${
+                        project.color === 'emerald' ? 'text-emerald-500 bg-emerald-500' : 
+                        project.color === 'amber' ? 'text-amber-500 bg-amber-500' : 
+                        project.color === 'sky' ? 'text-sky-500 bg-sky-500' :
+                        'text-indigo-500 bg-indigo-500'
+                      }`}></span>
+                      <span className="text-[9px] font-mono tracking-widest text-slate-300 uppercase">{project.status}</span>
                     </div>
-                    
-                    <h3 className="text-4xl md:text-6xl font-black text-white mb-8 leading-[1.1]">
-                      {proj.title.split(':')[0]}: <br/>
-                      <span className={`text-transparent bg-clip-text bg-linear-to-r ${proj.accentColor}`}>
-                        {proj.title.split(':')[1]}
-                      </span>
-                    </h3>
-                    
-                    <p className="text-slate-300 leading-relaxed mb-12 text-xl md:text-2xl font-light">
-                      {proj.desc}
-                    </p>
-
-                    <a href={proj.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-4 px-10 py-5 bg-slate-100 text-slate-950 hover:bg-amber-400 rounded-2xl font-black text-lg transition-colors duration-300 shadow-2xl uppercase tracking-wider">
-                      Github Repo &rarr;
-                    </a>
                   </div>
 
-                  <div className="xl:w-1/2 w-full space-y-6">
-                    {proj.highlights.map((item, idx) => (
-                      <div key={idx} className="bg-[#0b0e16]/80 p-8 rounded-3xl border border-slate-800/80 hover:border-slate-700 transition-colors relative overflow-hidden group/card">
-                        <div className={`absolute top-0 left-0 w-1 h-full bg-amber-500/50 group-hover/card:bg-amber-400 transition-colors`}></div>
-                        <h4 className={`text-amber-400 font-bold mb-4 flex items-center gap-4 text-xl md:text-2xl`}>
-                          <span className={`h-3.5 w-3.5 bg-amber-500 rounded-full shadow-[0_0_12px_currentColor] animate-pulse`}></span> {item.title}
-                        </h4>
-                        <p className="text-slate-300 leading-relaxed font-light text-lg">{item.text}</p>
-                      </div>
-                    ))}
+                  {/* Inner Content */}
+                  <div className="p-6 flex flex-col grow relative z-10">
+                    <h3 className="text-xl font-bold text-white mb-1 tracking-tight group-hover:text-white transition-colors">{project.title}</h3>
+                    <p className={`font-mono text-[10px] tracking-widest uppercase mb-4 ${
+                      project.color === 'emerald' ? 'text-emerald-400' : 
+                      project.color === 'amber' ? 'text-amber-400' : 
+                      project.color === 'sky' ? 'text-sky-400' :
+                      'text-indigo-400'
+                    }`}>{project.type}</p>
                     
-                    <div className="pt-8 flex flex-wrap gap-3">
-                      {proj.tags.map((tag, i) => (
-                        <span key={i} className="text-sm font-bold text-slate-300 bg-slate-900 border border-slate-800 px-5 py-2.5 rounded-xl shadow-inner">
-                          {tag}
+                    <p className="text-slate-400 text-sm leading-relaxed font-light mb-6 grow">
+                      {project.desc}
+                    </p>
+
+                    {/* Tech Stack Matrix */}
+                    <div className="flex flex-wrap gap-2 mt-auto pt-6 border-t border-slate-800/50">
+                      {project.tech.map((tech, i) => (
+                        <span key={i} className="px-2 py-1 text-[10px] font-mono text-slate-300 bg-slate-900 rounded border border-slate-700/50 group-hover:border-slate-600 transition-colors">
+                          {tech}
                         </span>
                       ))}
                     </div>
                   </div>
-                </div>
-              </div>
-            </RevealSection>
-          ))}
 
-        </div>
+                  {/* Ambient Background Glow */}
+                  <div className={`absolute bottom-0 right-0 w-64 h-64 opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-[80px] rounded-full pointer-events-none ${
+                    project.color === 'emerald' ? 'bg-emerald-500' : 
+                    project.color === 'amber' ? 'bg-amber-500' : 
+                    project.color === 'sky' ? 'bg-sky-500' :
+                    'bg-indigo-500'
+                  }`}></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </RevealSection>
       </section>
 
+      {/* ========================================== */}
+      {/* THE ADVANCED COMMAND CENTER MODAL */}
+      {/* ========================================== */}
+      {activeProject && (
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6">
+          {/* Deep Blur Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-2xl transition-opacity"
+            onClick={() => setActiveProject(null)}
+          ></div>
+
+          {/* Modal Container */}
+          <div className="relative w-full max-w-5xl bg-[#030508] border border-slate-700 rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/10">
+            
+            {/* Modal Header Bar */}
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center px-6 py-4 border-b border-slate-800 bg-[#070b14]">
+              <div className="flex items-center gap-4 mb-4 md:mb-0">
+                <span className="text-amber-500 font-mono text-xs tracking-widest uppercase border border-amber-500/30 bg-amber-500/10 px-3 py-1 rounded-sm">
+                  {activeProject.id}.exe
+                </span>
+                <h3 className="text-white font-bold tracking-tight text-lg">{activeProject.title} // Command Center</h3>
+              </div>
+              
+              {/* Tab Navigation */}
+              <div className="flex items-center gap-2 bg-slate-900 rounded-lg p-1 border border-slate-800">
+                <button 
+                  onClick={() => setModalTab("architecture")}
+                  className={`px-4 py-2 text-xs font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'architecture' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                >
+                  Architecture
+                </button>
+                <button 
+                  onClick={() => setModalTab("telemetry")}
+                  className={`px-4 py-2 text-xs font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'telemetry' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                >
+                  Telemetry
+                </button>
+                <div className="w-px h-6 bg-slate-700 mx-2"></div>
+                <button 
+                  onClick={() => setActiveProject(null)}
+                  className="px-4 py-2 text-xs font-mono tracking-widest uppercase text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 md:p-8 overflow-y-auto bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed relative">
+              <div className="absolute inset-0 bg-[#030508]/95 z-0"></div>
+              
+              <div className="relative z-10 flex flex-col gap-6">
+                
+                {/* Dynamic Content based on Tab */}
+                {modalTab === 'architecture' ? (
+                  <div className="w-full bg-[#070b14] border border-slate-800 rounded-xl p-8 relative overflow-hidden">
+                    {/* Blueprint Grid Background */}
+                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-size-[30px_30px]"></div>
+                    
+                    <h4 className="text-slate-400 font-mono text-xs uppercase tracking-widest mb-8 relative z-10 flex items-center gap-3">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                      Data Flow Map
+                    </h4>
+                    
+                    {/* Blueprint Mapping */}
+                    <div className="relative z-10 font-mono text-sm md:text-base text-blue-300 leading-relaxed border-l-2 border-blue-500/30 pl-6 py-4 bg-blue-500/5 rounded-r-xl">
+                      {activeProject.blueprint.split(' ➔ ').map((node, index, array) => (
+                        <div key={index} className="flex items-center gap-4 my-2">
+                          <span className="px-3 py-1.5 bg-slate-900 border border-blue-500/30 text-white rounded-md shadow-lg text-xs md:text-sm">
+                            {node}
+                          </span>
+                          {index !== array.length - 1 && (
+                            <span className="text-blue-500/50">➔</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Metrics Dashboard */}
+                    <div className="grid grid-cols-2 gap-4">
+                      {Object.entries(activeProject.metrics).map(([key, value], i) => (
+                        <div key={i} className="bg-[#070b14] border border-slate-800 rounded-xl p-6 hover:border-slate-600 transition-colors">
+                          <p className="text-slate-500 font-mono text-[10px] uppercase tracking-widest mb-2">{key}</p>
+                          <p className="text-white font-mono text-lg md:text-xl">{value}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                   {/* Live Terminal Logs */}
+                    <div className="bg-[#070b14] border border-slate-800 rounded-xl p-6 font-mono text-xs text-emerald-400 h-full flex flex-col">
+                      <p className="text-slate-500 mb-4 tracking-widest uppercase border-b border-slate-800 pb-2">System Logs</p>
+                      <div className="grow space-y-3 opacity-80 mt-2">
+                        {activeProject.logs.map((log, i) => (
+                          <p key={i} className="animate-[fade-in_0.5s_ease-out_forwards]" style={{ animationDelay: `${i * 300}ms`, opacity: 0 }}>
+                            {log}
+                          </p>
+                        ))}
+                        <p className="animate-[fade-in_0.5s_ease-out_forwards] text-emerald-500 mt-4" style={{ animationDelay: '1200ms', opacity: 0 }}>
+                          <span className="animate-pulse">_</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Bottom Action Footer */}
+                <div className="pt-6 mt-2 border-t border-slate-800/80 flex flex-col sm:flex-row gap-4 justify-end">
+                  <a href={activeProject.github} target="_blank" rel="noreferrer" className="px-8 py-3.5 rounded-xl border border-slate-700 text-slate-300 font-mono text-xs tracking-widest uppercase hover:bg-slate-800 hover:text-white transition-all text-center flex items-center justify-center gap-3">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
+                    Source Code
+                  </a>
+                  <a href={activeProject.live} target="_blank" rel="noreferrer" className="px-8 py-3.5 rounded-xl bg-amber-500 text-slate-950 font-black tracking-widest text-xs uppercase hover:bg-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transition-all text-center flex items-center justify-center gap-2">
+                    Execute Live ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {/* --- 4. ARSENAL (SKILLS) --- */}
       <section id="skills" className="relative z-10 py-32 border-t border-slate-900 bg-[#05070a]/90">
         <div className="max-w-7xl mx-auto px-6">
