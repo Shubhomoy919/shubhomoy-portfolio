@@ -37,56 +37,105 @@ const RevealSection = ({ children, className = "", delay = "0ms" }) => {
   );
 };
 
-// --- AI DIGITAL TWIN COMPONENT ---
+// --- AI DIGITAL TWIN COMPONENT (ADVANCED ENGINE v3.0) ---
 const DigitalTwin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'system', text: 'INIT // SHUBH-AI ENGINE v2.4.1\nEstablishing neural link...' },
-    { role: 'ai', text: 'Terminal connected. I am the digital twin of Shubhomoy Sarkar. You can query my architecture, my active startup, or my tech stack. What is your directive?' }
+    { role: 'system', text: 'INIT // SHUBH-AI ENGINE v3.0 (CoT-Enabled)\nEstablishing neural link...' },
+    { role: 'ai', text: 'Terminal connected. I am the cognitive digital twin of Shubhomoy Sarkar. I possess full awareness of his architecture, trajectory, and telemetry. You may query any metric, project, or technical definition.' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isThinking, setIsThinking] = useState(false);
+  const [activeContext, setActiveContext] = useState(null); // MEMORY BUFFER
+  const [thoughtLogs, setThoughtLogs] = useState([]);
   const chatEndRef = useRef(null);
 
   // Auto-scroll to bottom of chat
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, thoughtLogs]);
 
-  // The Localized Knowledge Engine (Simulating Context Retrieval)
-  const generateResponse = (query) => {
-    const q = query.toLowerCase();
+  // --- COMPREHENSIVE KNOWLEDGE GRAPH & GLOSSARY ---
+  const knowledgeGraph = {
+    // 1. Projects
+    boddai: "Bodd AI Workspace is a next-generation GenAI workspace. Instead of linear chat arrays, Shubhomoy used React 18, React Flow, and Kahn's Algorithm to create a Directed Acyclic Graph (DAG) topology for multi-threaded AI reasoning without context collapse. Latency is near-zero using SSE.",
+    sentinel: "SentinelAI is a production-level edge IoT surveillance architecture. It upgrades an ESP32-CAM using YOLO11n for perception, ByteTrack for temporal tracking, and Qwen2.5-VL to translate pixels to semantic events, making the live video feed NLP-queryable.",
+    greentravel: "GreenTravel API is an ML & Process Mining project. Shubhomoy used Python, Pandas, Celonis, and Scikit-Learn to analyze 178M kg of CO2e in corporate travel data, predicting emissions and enforcing a Net-Zero roadmap by shifting short-haul trips to rail.",
+    decodelabs_suite: "The Decodelabs Suite is a production-grade AI system featuring context-aware conversational agents and automated multi-language code review pipelines, heavily utilizing the Google Gemini API and modular security layers.",
+    startup: "Shubhomoy is currently architecting an EdTech startup. He is developing a specialized, highly engaging Class 8 Biology curriculum tailored to the Maharashtra Board, merging his engineering scaling abilities with education.",
     
-    setTimeout(() => {
-      let response = "";
-
-      if (q.includes("startup") || q.includes("biology") || q.includes("maharashtra")) {
-        response = "I am currently architecting a startup focused on the EdTech sector. I am developing a specialized, highly engaging curriculum for Class 8 Biology tailored to the Maharashtra Board, bridging my technical engineering skills with scalable education models.";
-      } else if (q.includes("sentinel")) {
-        response = "SentinelAI is a production-level edge surveillance architecture. I integrated an ESP32-CAM with YOLO11n for perception, ByteTrack for temporal tracking, and Qwen2.5-VL to translate tracked pixels into semantic events. It turns a standard camera into an NLP-queryable assistant.";
-      } else if (q.includes("bodd")) {
-        response = "Bodd AI Workspace fundamentally changes LLM context handling. I replaced linear chat arrays with a Directed Acyclic Graph (DAG) topology. By utilizing Kahn's Algorithm, I eliminated graph cycles to ensure complex, multi-threaded AI reasoning without context collapse.";
-      } else if (q.includes("decodelabs") || q.includes("intern")) {
-        response = "At Decodelabs, I engineered production-grade GenAI systems. My core contributions included context-aware memory buffers for chatbots and automated, multi-language code review pipelines driven by the Google Gemini API.";
-      } else if (q.includes("gym") || q.includes("fitness") || q.includes("discipline")) {
-        response = "Physical hypertrophy and software optimization rely on the exact same loop: progressive overload, consistency, and failure analysis. I track my gym metrics with the same discipline as my commit history.";
-      } else if (q.includes("tech") || q.includes("stack") || q.includes("skills")) {
-        response = "My core stack includes React 18, Node.js, C/C++, Python, and PostgreSQL. On the AI side, I actively deploy Gemini SDK, Scikit-Learn, YOLO vision models, and custom agentic multi-node pipelines.";
-      } else {
-        response = "Query unindexed. I am a localized agent, but Shubhomoy's complete neural network is vast. I recommend reaching out to him directly at shubhomoysarkar00@gmail.com for a high-bandwidth conversation.";
-      }
-
-      simulateStreaming(response);
-    }, 600); // Simulated network latency
+    // 2. Experience & Trajectory
+    decodelabs_intern: "Shubhomoy was a Generative AI Engineering Intern at Decodelabs from May to June 2026. He built intelligent memory buffers and secure multi-modal workflows using Python and the Gemini API.",
+    trendles: "He is the PR & Event Management Sublead for Trendles (E-Cell Core) since Oct 2025. He spearheads digital campaigns, manages event execution, and handles financial tracking for institutional entrepreneurial initiatives.",
+    iiit: "He is currently in his 5th semester pursuing a B.Tech in Computer Science & Engineering at IIIT Kottayam (2024-Present), maintaining a CGPA of 8.24/10.",
+    schooling: "He completed his senior secondary education at The Modern Academy, Kolkata. He scored 88% in his Class 12 ISC (PCMB) in 2024, and 94% in his Class 10 ICSE in 2022.",
+    
+    // 3. Telemetry & Discipline
+    gym: "Shubhomoy treats his physical architecture exactly like his software architecture: through consistency and progressive overload (hypertrophy). Currently, his telemetry tracks ~38 hours/week of cognitive load (coding) vs. ~8 hours/week of physical load (gym).",
+    skills: "His technical arsenal spans Theoretical CS (DSA, OS, DBMS, Compiler Design), Advanced AI (Agentic Workflows, Deep Learning, GenAI), and Modern Full-Stack (React, Next.js, PostgreSQL, RESTful APIs, C++, Python, Java).",
+    achievements: "Key milestones include: Qualifying for the Smart India Hackathon 2024, completing the ML Workshop at Techfest IIT Bombay, participating in Summer Analytics at IIT Guwahati, and holding certifications in AWS Cloud Architecture and Anthropic API development.",
+    
+    // 4. Glossary / Definitions
+    def_dag: "Definition [DAG / Directed Acyclic Graph]: A graph data structure that flows in one direction and never forms a closed loop. Shubhomoy uses this in Bodd AI to allow multiple branching AI thought processes without the logic corrupting itself.",
+    def_agentic: "Definition [Agentic Workflows]: Systems where AI models (like Gemini or Llama) are given autonomy to execute multi-step tasks, access tools, and correct their own errors, rather than just answering single prompts.",
+    def_hypertrophy: "Definition [Hypertrophy]: The physical process of increasing muscle mass through mechanical tension and metabolic stress. Shubhomoy maps this concept to engineering: consistent, increasing challenge yields growth.",
+    def_sse: "Definition [SSE / Server-Sent Events]: A unidirectional protocol allowing servers to push real-time updates to web clients. Shubhomoy uses this for zero-latency LLM token streaming in Bodd AI.",
+    def_kahn: "Definition [Kahn's Algorithm]: A graph theory algorithm used for topological sorting. Shubhomoy implemented it to detect and prevent cyclical logic corruption in his Bodd AI workspace.",
   };
 
-  // Simulates token-by-token LLM generation
+  // --- THE COGNITIVE REASONING ENGINE (NLP & MEMORY) ---
+  const processQuery = (query) => {
+    const q = query.toLowerCase();
+    let response = "";
+    let newContext = null;
+
+    // 1. Check for definitions/meanings
+    if (q.includes("mean") || q.includes("what is") || q.includes("define")) {
+      if (q.includes("dag") || q.includes("directed acyclic")) response = knowledgeGraph.def_dag;
+      else if (q.includes("agentic") || q.includes("workflow")) response = knowledgeGraph.def_agentic;
+      else if (q.includes("hypertrophy")) response = knowledgeGraph.def_hypertrophy;
+      else if (q.includes("sse") || q.includes("latency")) response = knowledgeGraph.def_sse;
+      else if (q.includes("kahn")) response = knowledgeGraph.def_kahn;
+    }
+
+    // 2. Check Memory/Context (If they ask "what tech did he use for it?")
+    if (!response && (q.includes("it") || q.includes("that") || q.includes("tech"))) {
+      if (activeContext === 'boddai' && q.includes("tech")) response = "For Bodd AI, he utilized React 18, React Flow, Express.js (SSE), Google Gemini SDK, and Kahn's Algorithm.";
+      else if (activeContext === 'sentinel' && q.includes("tech")) response = "For SentinelAI, the stack is ESP32-CAM, YOLO11n, ByteTrack, Qwen2.5-VL, and Llama 3.";
+      else if (activeContext === 'greentravel' && q.includes("tech")) response = "For GreenTravel, he used Python, Pandas, PostgreSQL, Celonis (Process Mining), and Scikit-Learn.";
+    }
+
+    // 3. Route specific topics & Update Context Buffer
+    if (!response) {
+      if (q.includes("bodd") || q.includes("workspace")) { response = knowledgeGraph.boddai; newContext = 'boddai'; }
+      else if (q.includes("sentinel") || q.includes("camera") || q.includes("surveillance")) { response = knowledgeGraph.sentinel; newContext = 'sentinel'; }
+      else if (q.includes("green") || q.includes("travel") || q.includes("emission")) { response = knowledgeGraph.greentravel; newContext = 'greentravel'; }
+      else if (q.includes("startup") || q.includes("biology") || q.includes("edtech")) { response = knowledgeGraph.startup; newContext = 'startup'; }
+      else if (q.includes("decode") || q.includes("intern")) { response = knowledgeGraph.decodelabs_intern; newContext = 'decodelabs'; }
+      else if (q.includes("trendles") || q.includes("e-cell") || q.includes("pr ")) { response = knowledgeGraph.trendles; newContext = 'trendles'; }
+      else if (q.includes("iiit") || q.includes("cgpa") || q.includes("college") || q.includes("degree")) { response = knowledgeGraph.iiit; }
+      else if (q.includes("school") || q.includes("class 10") || q.includes("class 12") || q.includes("icse") || q.includes("isc") || q.includes("marks")) { response = knowledgeGraph.schooling; }
+      else if (q.includes("gym") || q.includes("fitness") || q.includes("discipline") || q.includes("physical")) { response = knowledgeGraph.gym; }
+      else if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("know")) { response = knowledgeGraph.skills; }
+      else if (q.includes("achieve") || q.includes("hackathon") || q.includes("certif")) { response = knowledgeGraph.achievements; }
+      else if (q.includes("who are you") || q.includes("what are you")) { response = "I am a localized NLP state-machine mimicking a Large Language Model. I am designed to parse your queries and retrieve precise data regarding Shubhomoy Sarkar's capabilities, proving his ability to build context-aware UI/UX."; }
+      else {
+        response = "Query out of bounds. My local vector embedding does not contain data for that specific request. However, Shubhomoy's complete neural network is vast. I recommend reaching out to him directly at shubhomoysarkar00@gmail.com.";
+      }
+    }
+
+    if (newContext) setActiveContext(newContext); // Update Memory
+
+    return response;
+  };
+
   const simulateStreaming = (fullText) => {
+    setIsThinking(false);
     setIsTyping(true);
     let currentText = "";
     let i = 0;
     
-    // Add empty AI message first
     setMessages(prev => [...prev, { role: 'ai', text: '' }]);
 
     const streamInterval = setInterval(() => {
@@ -101,67 +150,88 @@ const DigitalTwin = () => {
         clearInterval(streamInterval);
         setIsTyping(false);
       }
-    }, 15); // Milliseconds per token
+    }, 12); // Fast token streaming
   };
 
   const handleSend = (e) => {
     e.preventDefault();
-    if (!input.trim() || isTyping) return;
+    if (!input.trim() || isTyping || isThinking) return;
     
-    setMessages(prev => [...prev, { role: 'user', text: input }]);
     const userQuery = input;
+    setMessages(prev => [...prev, { role: 'user', text: userQuery }]);
     setInput('');
-    generateResponse(userQuery);
+    setIsThinking(true);
+    setThoughtLogs([]);
+
+    // --- SIMULATED CHAIN OF THOUGHT (CoT) REASONING ---
+    const thoughtProcess = [
+      `[SYS] Parsing syntax for semantic intent...`,
+      `[MEM] Checking context buffer... (Active Context: ${activeContext || 'NULL'})`,
+      `[DB] Querying localized knowledge graph...`,
+      `[LLM] Assembling response payload...`
+    ];
+
+    let step = 0;
+    const thoughtInterval = setInterval(() => {
+      if (step < thoughtProcess.length) {
+        setThoughtLogs(prev => [...prev, thoughtProcess[step]]);
+        step++;
+      } else {
+        clearInterval(thoughtInterval);
+        const finalResponse = processQuery(userQuery);
+        simulateStreaming(finalResponse);
+      }
+    }, 400); // Wait 400ms between thoughts
   };
 
   return (
     <>
       {/* Floating Action Button (FAB) */}
-      <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50">
+      <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-100">
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className={`relative group flex items-center justify-center w-16 h-16 rounded-full bg-slate-900 border ${isOpen ? 'border-amber-500' : 'border-slate-700'} hover:border-amber-400 transition-all duration-300 shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden`}
+          className={`relative group flex items-center justify-center w-16 h-16 rounded-full bg-[#070b14] border ${isOpen ? 'border-sky-500' : 'border-slate-700'} hover:border-sky-400 transition-all duration-300 shadow-[0_0_40px_rgba(0,0,0,0.8)] overflow-hidden`}
         >
-          <div className={`absolute inset-0 bg-amber-500/10 ${isOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100 transition-opacity`}></div>
-          <svg className={`w-6 h-6 text-amber-500 transition-transform duration-500 ${isOpen ? 'rotate-90 scale-0' : 'rotate-0 scale-100'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-          <svg className={`absolute w-6 h-6 text-amber-500 transition-transform duration-500 ${isOpen ? 'rotate-0 scale-100' : '-rotate-90 scale-0'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          <div className={`absolute inset-0 bg-sky-500/10 ${isOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100 transition-opacity`}></div>
+          <svg className={`w-6 h-6 text-sky-400 transition-transform duration-500 ${isOpen ? 'rotate-90 scale-0' : 'rotate-0 scale-100'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          <svg className={`absolute w-6 h-6 text-sky-400 transition-transform duration-500 ${isOpen ? 'rotate-0 scale-100' : '-rotate-90 scale-0'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           
-          {/* Pulsing ring when closed */}
-          {!isOpen && <div className="absolute inset-0 rounded-full border border-amber-500/50 animate-ping"></div>}
+          {!isOpen && <div className="absolute inset-0 rounded-full border border-sky-500/50 animate-ping"></div>}
         </button>
       </div>
 
-      {/* The Chat Interface */}
-      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] md:w-100 h-125 max-h-[70vh] bg-[#070b14]/95 backdrop-blur-2xl border border-slate-700 rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9)] z-50 flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
+      {/* The Command Line Interface */}
+      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] md:w-112.5 h-137.5 max-h-[75vh] bg-[#030508]/95 backdrop-blur-3xl border border-slate-700 rounded-2xl shadow-[0_30px_80px_-15px_rgba(0,0,0,0.9)] z-100 flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
         
-        {/* Header */}
-        <div className="bg-slate-950/80 px-5 py-4 border-b border-slate-800 flex justify-between items-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-amber-500/50 to-transparent"></div>
+        {/* Terminal Header */}
+        <div className="bg-[#070b14] px-5 py-4 border-b border-slate-800 flex justify-between items-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-sky-500 to-transparent"></div>
           <div className="flex items-center gap-3 relative z-10">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-            </span>
+            <div className="w-8 h-8 rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center text-sky-400">
+               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
             <div>
-              <h3 className="text-white font-bold text-sm tracking-widest font-mono">SHUBH-AI // TERMINAL</h3>
-              <p className="text-emerald-500 text-[9px] tracking-widest font-mono uppercase">Neural Link Established</p>
+              <h3 className="text-white font-bold text-xs tracking-widest font-mono uppercase">Shubh-AI // CoT_Agent</h3>
+              <p className="text-sky-500 text-[9px] tracking-widest font-mono uppercase flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span> Online
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Chat Log */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed">
+        {/* Chat / Terminal Log */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed">
           {messages.map((msg, i) => (
             <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-              <span className={`text-[9px] font-mono tracking-widest uppercase mb-1 ${msg.role === 'user' ? 'text-amber-500' : msg.role === 'system' ? 'text-slate-500' : 'text-sky-400'}`}>
-                {msg.role === 'user' ? 'GUEST_USER' : msg.role === 'system' ? 'SYS_KERNEL' : 'SHUBH_AI'}
+              <span className={`text-[9px] font-mono tracking-widest uppercase mb-1 flex items-center gap-1 ${msg.role === 'user' ? 'text-amber-500' : msg.role === 'system' ? 'text-slate-500' : 'text-sky-400'}`}>
+                {msg.role === 'user' ? 'GUEST' : msg.role === 'system' ? 'SYS_KERNEL' : 'SHUBH_AI'}
               </span>
-              <div className={`px-4 py-3 rounded-xl max-w-[85%] font-mono text-xs leading-relaxed ${
+              <div className={`px-4 py-3 max-w-[90%] font-mono text-[11px] leading-relaxed tracking-wide ${
                 msg.role === 'user' 
-                  ? 'bg-amber-500/10 border border-amber-500/30 text-amber-100 rounded-tr-sm' 
+                  ? 'bg-amber-500/10 border border-amber-500/30 text-amber-200 rounded-2xl rounded-tr-sm' 
                   : msg.role === 'system'
                   ? 'bg-transparent border border-slate-800 text-slate-500 w-full rounded-sm'
-                  : 'bg-slate-900 border border-slate-700 text-slate-300 rounded-tl-sm shadow-[0_0_15px_rgba(56,189,248,0.05)]'
+                  : 'bg-slate-900/80 border border-slate-700 text-slate-300 rounded-2xl rounded-tl-sm shadow-[0_0_15px_rgba(56,189,248,0.05)]'
               }`}>
                 {msg.text}
                 {isTyping && i === messages.length - 1 && msg.role === 'ai' && (
@@ -170,33 +240,44 @@ const DigitalTwin = () => {
               </div>
             </div>
           ))}
+          
+          {/* Chain of Thought (Thinking) UI */}
+          {isThinking && (
+            <div className="flex flex-col items-start w-full border border-slate-800/80 rounded-lg p-3 bg-slate-950/50 font-mono text-[9px] text-slate-500 space-y-2">
+               {thoughtLogs.map((log, index) => (
+                 <span key={index} className="animate-fade-in text-sky-500/70">{log}</span>
+               ))}
+               <span className="animate-pulse">_</span>
+            </div>
+          )}
           <div ref={chatEndRef} />
         </div>
 
-        {/* Quick Actions (Actionable Chips) */}
-        {!isTyping && messages.length < 4 && (
-          <div className="px-5 pb-3 flex flex-wrap gap-2">
-            <button onClick={() => {setInput("Tell me about your biology startup."); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Startup?</button>
-            <button onClick={() => {setInput("Explain SentinelAI."); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">SentinelAI</button>
+        {/* Predictive Prompts */}
+        {!isTyping && !isThinking && (
+          <div className="px-5 pb-3 flex flex-wrap gap-2 border-b border-slate-800/50 bg-[#070b14]">
+            <button onClick={() => {setInput("What is Kahn's algorithm?"); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">What is Kahn's?</button>
+            <button onClick={() => {setInput("Tell me about the EdTech Startup."); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Startup</button>
+            <button onClick={() => {setInput("What is his CGPA?"); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">CGPA</button>
           </div>
         )}
 
-        {/* Input Area */}
-        <div className="p-4 bg-slate-950 border-t border-slate-800">
+        {/* Input Terminal */}
+        <div className="p-4 bg-slate-950">
           <form onSubmit={handleSend} className="relative flex items-center">
-            <span className="absolute left-3 text-amber-500 font-mono text-sm font-bold">{'>'}</span>
+            <span className="absolute left-4 text-sky-500 font-mono text-sm font-bold">{'>'}</span>
             <input 
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              disabled={isTyping}
-              placeholder={isTyping ? "PROCESSING..." : "Execute command..."}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg py-3 pl-8 pr-12 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all disabled:opacity-50"
+              disabled={isTyping || isThinking}
+              placeholder={isThinking || isTyping ? "AWAITING ENGINE..." : "Execute command..."}
+              className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3.5 pl-9 pr-12 text-xs font-mono text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all disabled:opacity-50"
             />
             <button 
               type="submit" 
-              disabled={!input.trim() || isTyping}
-              className="absolute right-2 p-1.5 bg-amber-500/10 text-amber-500 hover:bg-amber-500 hover:text-slate-950 rounded-md transition-colors disabled:opacity-30 disabled:hover:bg-amber-500/10 disabled:hover:text-amber-500"
+              disabled={!input.trim() || isTyping || isThinking}
+              className="absolute right-2 p-2 bg-sky-500/10 text-sky-500 hover:bg-sky-500 hover:text-[#070b14] rounded-lg transition-colors disabled:opacity-30 disabled:hover:bg-sky-500/10 disabled:hover:text-sky-500"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
@@ -206,7 +287,6 @@ const DigitalTwin = () => {
     </>
   );
 };
-
 const App = () => {
   const trajectory = [
     {
