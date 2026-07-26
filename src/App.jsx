@@ -49,7 +49,9 @@ const App = () => {
         "Tech: Python, Google Gemini API, Modular Architecture",
         "Built intelligent memory buffers & secure multi-modal workflows"
       ],
-      color: "border-indigo-500"
+      color: "border-indigo-500",
+      certLink: "/DecodeLabs Internship Certificate (1).pdf", 
+      lorLink: "/Letter_of_Recommendation.pdf"         
     },
     {
       role: "PR & Event Management Sublead / E-Cell Core",
@@ -434,7 +436,7 @@ const App = () => {
                   </p>
 
                   {/* Bullet Points */}
-                  <div className="space-y-3 max-w-3xl">
+                  <div className="space-y-3 max-w-3xl mb-6">
                     {item.highlights.map((point, hIndex) => (
                       <div key={hIndex} className="flex items-start gap-3">
                         <span className="text-amber-400 mt-1">▹</span>
@@ -444,6 +446,47 @@ const App = () => {
                       </div>
                     ))}
                   </div>
+
+                  {/* High-Tech Animated Buttons for Certificate & LOR */}
+                  {(item.certLink || item.lorLink) && (
+                    <div className="flex flex-wrap items-center gap-4 pt-2">
+                      {item.certLink && (
+                        <a 
+                          href={item.certLink} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="group/cert relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-medium text-indigo-300 bg-indigo-950/40 border border-indigo-500/30 hover:border-indigo-400 hover:bg-indigo-500/20 hover:text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.25)] hover:-translate-y-0.5 active:scale-95 overflow-hidden"
+                        >
+                          {/* Light sweep animation */}
+                          <span className="absolute inset-0 w-1/2 h-full bg-linear-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover/cert:translate-x-[300%] transition-transform duration-1000 ease-in-out"></span>
+
+                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                          <span>Completion Certificate</span>
+                          <span className="inline-block transition-transform duration-300 group-hover/cert:translate-x-0.5 group-hover/cert:-translate-y-0.5">
+                            ↗
+                          </span>
+                        </a>
+                      )}
+
+                      {item.lorLink && (
+                        <a 
+                          href={item.lorLink} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="group/lor relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-medium text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-400 hover:bg-emerald-500/20 hover:text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:-translate-y-0.5 active:scale-95 overflow-hidden"
+                        >
+                          {/* Light sweep animation */}
+                          <span className="absolute inset-0 w-1/2 h-full bg-linear-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover/lor:translate-x-[300%] transition-transform duration-1000 ease-in-out"></span>
+
+                          <span className="text-emerald-400 font-bold">★</span>
+                          <span>Letter of Recommendation</span>
+                          <span className="inline-block transition-transform duration-300 group-hover/lor:translate-x-0.5 group-hover/lor:-translate-y-0.5">
+                            ↗
+                          </span>
+                        </a>
+                      )}
+                    </div>
+                  )}
 
                 </div>
               ))}
@@ -572,7 +615,7 @@ const App = () => {
               <div>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-4 mb-2">
                   <span className="w-8 h-0.5 bg-linear-to-r from-amber-500 to-amber-300"></span>
-                  Achievements and Credentials
+                  Hall Of Records
                 </h2>
                 <p className="text-slate-400 font-mono text-xs tracking-widest uppercase pl-12">
                   Verified Milestones & Cloud Credentials
