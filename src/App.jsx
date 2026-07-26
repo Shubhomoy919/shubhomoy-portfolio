@@ -405,7 +405,7 @@ const App = () => {
               </p>
 
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-                Whether that’s deploying real-time edge AI surveillance, architecting decarbonization models, or engineering production-grade GenAI workflows, my focus is taking intelligent systems out of Jupyter notebooks and into <span className="text-white font-medium">live, high-throughput environments.</span>
+                Whether that’s deploying real-time edge AI surveillance, architecting decarbonization models, or engineering production-grade GenAI workflows, my focus is taking intelligent systems out of Jupyter notebooks and into live, high-throughput environments.
               </p>
 
               <p className="text-base md:text-lg text-amber-500 font-mono tracking-widest uppercase mt-8 border-l-2 border-amber-500 pl-4 bg-amber-500/5 py-2 inline-block pr-6 rounded-r-lg">
