@@ -399,18 +399,18 @@ const App = () => {
               <span className="text-transparent bg-clip-text bg-linear-to-b from-amber-400 to-amber-700">/</span> Engineering Manifesto
             </h2>
             
-            <div className="space-y-10 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
-              <p className="text-lg md:text-xl text-slate-300 mb-6 font-light leading-relaxed">
-  I build at the intersection of rigorous computational theory and scalable architecture. True engineering goes beyond writing syntax—it demands a mastery of algorithmic efficiency, robust system design, and the mathematical foundations of computer science.
-</p>
+            <div className="space-y-8 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
+              <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
+                I build at the cross-section of full-stack engineering and <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
+              </p>
 
-<p className="text-lg md:text-xl text-slate-300 mb-6 font-light leading-relaxed">
-  My core focus is bridging low-level system logic with applied <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400">Artificial Intelligence & Machine Learning</span>. I engineer autonomous workflows by leveraging predictive ML pipelines, probabilistic modeling, and advanced neural architectures to transform complex data into decisive action.
-</p>
+              <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
+                Whether that’s deploying real-time edge AI surveillance, architecting decarbonization models, or engineering production-grade GenAI workflows, my focus is taking intelligent systems out of Jupyter notebooks and into <span className="text-white font-medium">live, high-throughput environments.</span>
+              </p>
 
-<p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-  Whether I am deploying real-time edge AI surveillance, architecting decarbonization models, or building resilient full-stack platforms, my philosophy remains constant: engineer systems that are <span className="text-white">elegant in design, mathematically sound, and driven by massive real-world impact.</span>
-</p>
+              <p className="text-base md:text-lg text-amber-500 font-mono tracking-widest uppercase mt-8 border-l-2 border-amber-500 pl-4 bg-amber-500/5 py-2 inline-block pr-6 rounded-r-lg">
+                Fast execution, solid logic, zero fluff.
+              </p>
             </div>
           </div>
         </RevealSection>
