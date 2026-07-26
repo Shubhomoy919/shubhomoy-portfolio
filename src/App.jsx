@@ -108,35 +108,40 @@ const App = () => {
       category: "Hackathon Qualifier",
       date: "2024",
       desc: "Successfully qualified the internal round for India's premier nationwide innovation and hackathon initiative.",
-      badge: "Qualifier"
+      badge: "Qualifier",
+      link: "#" // Replace with your actual certificate link or PDF path
     },
     {
       title: "ML Workshop – Techfest, IIT Bombay",
       category: "Specialized Workshop",
       date: "2025",
       desc: "Completed intensive technical training and hands-on machine learning applications during IIT Bombay's annual Techfest.",
-      badge: "Completed"
+      badge: "Completed",
+      link: "#" // Replace with your certificate link
     },
     {
       title: "Summer Analytics – IIT Guwahati",
       category: "Data Program",
       date: "2025",
       desc: "Participated in the rigorous data science and analytics program covering statistical modeling and analytical tools.",
-      badge: "Participant"
+      badge: "Participant",
+      link: "#" // Replace with your certificate link
     },
     {
       title: "Cloud with Anthropic API Certification",
       category: "AI & Cloud Credential",
       date: "Verified",
       desc: "Validated expertise in building cloud-integrated AI workflows using Claude models and Anthropic API architectures.",
-      badge: "Certified"
+      badge: "Certified",
+      link: "#" // Replace with your credential link
     },
     {
       title: "AWS Cloud Practitioner Essentials",
       category: "Cloud Architecture",
       date: "Verified",
       desc: "Gained comprehensive foundational knowledge of AWS cloud services, infrastructure security, pricing, and deployment models.",
-      badge: "Certified"
+      badge: "Certified",
+      link: "#" // Replace with your credential link
     }
   ];
 
@@ -590,9 +595,21 @@ const App = () => {
                   
                   <div className="pt-4 border-t border-slate-800/60 flex justify-between items-center">
                     <span className="text-slate-500 font-mono text-xs tracking-wider uppercase">Status</span>
-                    <span className="text-emerald-400 font-mono text-xs tracking-widest uppercase bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/20">
-                      {item.badge}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      {item.link && item.link !== "#" && (
+                        <a 
+                          href={item.link} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="text-xs font-mono text-amber-400 hover:underline"
+                        >
+                          Verify ↗
+                        </a>
+                      )}
+                      <span className="text-emerald-400 font-mono text-xs tracking-widest uppercase bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/20">
+                        {item.badge}
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
