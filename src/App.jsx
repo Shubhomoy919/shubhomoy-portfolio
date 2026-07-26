@@ -332,6 +332,22 @@ const App = () => {
     { module: "CSS Engine", status: "Verified", msg: "Tailwind v4 canonical classes applied." },
     { module: "A11y", status: "Passed", msg: "Contrast ratios > 4.5:1. ARIA labels mapped." }
   ];
+  const wakatimeData = [
+    { lang: "Python", percent: 62, color: "bg-blue-500" },
+    { lang: "React / TS", percent: 28, color: "bg-sky-400" },
+    { lang: "C / C++", percent: 10, color: "bg-indigo-500" }
+  ];
+
+  const spotifyData = {
+    song: "Night City",
+    artist: "R T L",
+    albumArt: "bg-linear-to-br from-fuchsia-500 to-purple-800"
+  };
+
+  const bioMetrics = {
+    cognitive: { label: "Cognitive Load (Code)", hours: 38, max: 40, color: "bg-sky-500" },
+    physical: { label: "Physical Load (Gym)", hours: 8, max: 12, color: "bg-amber-500" }
+  };
 
   return (
     <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
@@ -626,12 +642,13 @@ const App = () => {
         </RevealSection>
       </section>
 
-      {/* --- 5. OPERATOR TELEMETRY --- */}
+      {/* --- 5. OPERATOR TELEMETRY (ADVANCED) --- */}
       <section id="telemetry" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[48px_48px]"></div>
 
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6 relative z-10">
+            
             <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
@@ -650,8 +667,8 @@ const App = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-auto">
-              {/* 1. Contribution Graph */}
+            {/* BENTO GRID: ROW 1 (Heatmap) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
               <div className="lg:col-span-3 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 shadow-xl overflow-hidden group">
                 <div className="flex justify-between items-start md:items-center mb-8 flex-col md:flex-row gap-4">
                   <div>
@@ -698,8 +715,12 @@ const App = () => {
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* 2. Portfolio Auditor */}
+            {/* BENTO GRID: ROW 2 (Auditor & WakaTime) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+              
+              {/* Portfolio Auditor */}
               <div className="lg:col-span-2 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col group relative overflow-hidden shadow-xl">
                 <div className="absolute inset-0 bg-linear-to-b from-sky-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                 
@@ -735,45 +756,110 @@ const App = () => {
                 </div>
               </div>
 
-              {/* 3. Operator Discipline */}
+              {/* WakaTime Integration */}
+              <div className="lg:col-span-1 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-700"></div>
+                
+                <p className="text-slate-500 font-mono text-xs tracking-widest uppercase mb-6 flex items-center gap-2 relative z-10">
+                  <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                  Language Telemetry
+                </p>
+                <p className="text-[10px] text-slate-400 font-mono mb-4 uppercase tracking-widest">Active Coding Hours (7 Days)</p>
+                
+                <div className="mt-auto space-y-5 relative z-10">
+                  {wakatimeData.map((data, i) => (
+                    <div key={i} className="flex flex-col gap-2">
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="text-white font-bold">{data.lang}</span>
+                        <span className="font-mono text-slate-400">{data.percent}%</span>
+                      </div>
+                      <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full ${data.color} rounded-full transition-all duration-1000 ease-out`} 
+                          style={{ width: `${data.percent}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* BENTO GRID: ROW 3 (Spotify & Bio-Metrics) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              
+              {/* Spotify Currently Playing */}
               <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-fuchsia-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-fuchsia-500/10 transition-colors duration-700"></div>
+                
+                <div className="flex justify-between items-center mb-6 relative z-10">
+                  <p className="text-slate-500 font-mono text-[10px] tracking-widest uppercase flex items-center gap-2">
+                    <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                    Currently Playing
+                  </p>
+                  
+                  {/* Animated Sound Wave */}
+                  <div className="flex items-end gap-0.5 h-3">
+                    <div className="w-0.5 bg-emerald-500 animate-[pulse_1s_ease-in-out_infinite] h-full"></div>
+                    <div className="w-0.5 bg-emerald-500 animate-[pulse_1.5s_ease-in-out_infinite] h-2/3"></div>
+                    <div className="w-0.5 bg-emerald-500 animate-[pulse_0.8s_ease-in-out_infinite] h-1/2"></div>
+                    <div className="w-0.5 bg-emerald-500 animate-[pulse_1.2s_ease-in-out_infinite] h-full"></div>
+                  </div>
+                </div>
+                
+                <div className="mt-auto flex items-center gap-4 relative z-10">
+                  {/* Spinning Record Art */}
+                  <div className={`w-14 h-14 rounded-full ${spotifyData.albumArt} flex items-center justify-center animate-[spin_4s_linear_infinite] shadow-[0_0_15px_rgba(217,70,239,0.3)] shrink-0`}>
+                    <div className="w-4 h-4 bg-[#070b14] rounded-full border border-slate-700"></div>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-white font-bold text-sm truncate">{spotifyData.song}</span>
+                    <span className="text-slate-400 text-xs">{spotifyData.artist}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bio-Metrics (Gym vs Code) */}
+              <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-amber-500/10 transition-colors duration-700"></div>
                 
                 <p className="text-slate-500 font-mono text-xs tracking-widest uppercase mb-6 flex items-center gap-2 relative z-10">
                   <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                  Discipline
+                  Bio-Metrics // Discipline
                 </p>
                 
-                <div className="mt-auto space-y-6 relative z-10">
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                <div className="mt-auto space-y-6 relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
+                  <p className="text-slate-300 text-sm leading-relaxed lg:w-1/3">
                     Reliable systems and physical fitness require identical principles: <span className="text-white font-bold">consistency & progressive overload.</span>
                   </p>
                   
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-4 bg-slate-950 rounded-xl border border-slate-800/80">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Codebase</span>
-                        <span className="text-white font-bold text-sm tracking-wide">Optimization</span>
+                  <div className="space-y-4 lg:w-2/3 flex flex-col justify-center">
+                    {/* Cognitive Load Bar */}
+                    <div className="flex flex-col gap-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">{bioMetrics.cognitive.label}</span>
+                        <span className="text-sky-400 font-bold text-xs">{bioMetrics.cognitive.hours} <span className="text-slate-500 font-light font-mono text-[9px]">HRS/WK</span></span>
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-sky-400">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                      <div className="w-full h-2 bg-slate-950 rounded-full border border-slate-800 overflow-hidden">
+                        <div className={`h-full ${bioMetrics.cognitive.color} rounded-full`} style={{ width: `${(bioMetrics.cognitive.hours / bioMetrics.cognitive.max) * 100}%` }}></div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-center justify-between p-4 bg-slate-950 rounded-xl border border-slate-800/80">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Physical / Gym</span>
-                        <span className="text-white font-bold text-sm tracking-wide">Hypertrophy</span>
+
+                    {/* Physical Load Bar */}
+                    <div className="flex flex-col gap-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">{bioMetrics.physical.label}</span>
+                        <span className="text-amber-500 font-bold text-xs">{bioMetrics.physical.hours} <span className="text-slate-500 font-light font-mono text-[9px]">HRS/WK</span></span>
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-amber-500">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                      <div className="w-full h-2 bg-slate-950 rounded-full border border-slate-800 overflow-hidden">
+                        <div className={`h-full ${bioMetrics.physical.color} rounded-full`} style={{ width: `${(bioMetrics.physical.hours / bioMetrics.physical.max) * 100}%` }}></div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
+
           </div>
         </RevealSection>
       </section>
