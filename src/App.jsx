@@ -401,7 +401,7 @@ const App = () => {
             
             <div className="space-y-8 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-                I build at the cross-section of full-stack engineering and <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
+                I build at the cross-section of <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span> and <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
               </p>
 
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
