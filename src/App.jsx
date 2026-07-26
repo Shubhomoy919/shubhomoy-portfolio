@@ -354,7 +354,7 @@ const App = () => {
               >
                 <div className="absolute inset-0 bg-linear-to-r from-amber-500/10 to-peach-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                 <span className="relative text-amber-400 font-mono tracking-widest text-sm uppercase group-hover:text-amber-300">
-                  Initialize CV
+                  Download CV
                 </span>
                 <svg className="w-4 h-4 relative text-amber-400 group-hover:text-amber-300 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
@@ -370,10 +370,10 @@ const App = () => {
           <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
             <a href="#projects" className="relative group px-12 py-5 bg-amber-500 rounded-2xl font-black text-slate-950 transition-all duration-500 hover:scale-[1.02] shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:shadow-[0_0_60px_rgba(245,158,11,0.5)] overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-r from-amber-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <span className="relative z-10 text-slate-950 group-hover:text-slate-950 transition-colors text-lg tracking-wider uppercase font-extrabold">Inspect Production Builds</span>
+              <span className="relative z-10 text-slate-950 group-hover:text-slate-950 transition-colors text-lg tracking-wider uppercase font-extrabold">Inspect Projects</span>
             </a>
             <a href="#contact" className="px-12 py-5 bg-slate-900/60 backdrop-blur-md rounded-2xl font-bold transition-all duration-300 border border-slate-700 hover:text-amber-400 hover:border-amber-500/50 text-lg tracking-wider uppercase flex items-center justify-center gap-3">
-               Initialize Contact
+               Contact Me
             </a>
           </div>
         </RevealSection>
