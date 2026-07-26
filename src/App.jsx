@@ -197,21 +197,22 @@ const App = () => {
       desc: "An end-to-end edge surveillance architecture that upgrades a standard ESP32-CAM into a proactive AI assistant. Processes live streams to understand complex scenes and enables NLP video queries.",
       tech: ["ESP32-CAM", "YOLO11n", "ByteTrack", "Qwen2.5-VL", "Llama 3"],
       color: "sky",
-      metrics: { 
-        Compute: "Edge-to-Local", 
-        Perception: "Real-Time", 
-        Tracking: "Temporal Entity", 
-        Retrieval: "LLM NLP" 
-      },
-      github: "#", // Add link when ready
+      metrics: { Compute: "Edge-to-Local", Perception: "Real-Time", Tracking: "Temporal", Retrieval: "LLM NLP" },
+      github: "#",
       live: "#",
       logs: [
-        "[00:00:11] HARDWARE: ESP32-CAM initialized. Streaming via Wi-Fi...",
-        "[00:00:14] VISION: YOLO11n & ByteTrack loaded. Tracking temporal entities.",
-        "[00:00:19] VLM: Qwen2.5-VL translating scene data into semantic event database.",
-        "[00:00:23] NLP: Conversational retrieval ready. Awaiting natural language query."
+        { time: "00:00:11.241", level: "INFO", module: "HARDWARE", msg: "ESP32-CAM initialized. Streaming via RTSP over Wi-Fi.", color: "text-blue-400" },
+        { time: "00:00:14.002", level: "SUCCESS", module: "VISION", msg: "YOLO11n & ByteTrack loaded. Tracking temporal entities.", color: "text-emerald-400" },
+        { time: "00:00:19.892", level: "WARN", module: "VLM", msg: "Frame drop detected. Qwen2.5-VL adjusting probabilistic threshold.", color: "text-amber-400" },
+        { time: "00:00:23.105", level: "INFO", module: "NLP", msg: "Conversational retrieval ready. Awaiting natural language query.", color: "text-blue-400" }
       ],
-      blueprint: "ESP32-CAM [Edge] ➔ Wi-Fi Stream ➔ Local AI Server [YOLO/ByteTrack] ➔ Vision-Language Model [Qwen] ➔ Event DB ➔ LLM Query UI"
+      blueprint: [
+        { node: "Edge Sensor", tech: "ESP32-CAM", desc: "Captures & streams raw video" },
+        { node: "Transport", tech: "Wi-Fi (RTSP)", desc: "Low-latency frame transmission to server" },
+        { node: "Perception Node", tech: "YOLO11n + ByteTrack", desc: "Object detection & temporal tracking" },
+        { node: "Semantic Engine", tech: "Qwen2.5-VL", desc: "Translates tracked pixels to semantic events" },
+        { node: "Query Interface", tech: "Llama 3 + PostGIS", desc: "NLP interface for querying event history" }
+      ]
     },
     {
       id: "boddai",
@@ -221,21 +222,22 @@ const App = () => {
       desc: "Engineered a next-generation AI workspace that replaces traditional linear chat with a Directed Acyclic Graph (DAG) topology for complex, multi-threaded reasoning without context truncation.",
       tech: ["React 18", "Express.js", "Gemini SDK", "React Flow", "Kahn's Algo"],
       color: "amber",
-      metrics: { 
-        Latency: "Zero-Latency SSE", 
-        Algorithm: "Kahn's Sort", 
-        Compression: "75% Token Red.",
-        Topology: "DAG"
-      },
+      metrics: { Latency: "Zero-Latency SSE", Algorithm: "Kahn's Sort", Compression: "75% Token Red.", Topology: "DAG" },
       github: "https://github.com/Shubhomoy919/Bodd-2",
       live: "#",
       logs: [
-        "[10:14:02] CORE: Initializing DAG topology workspace UI...",
-        "[10:14:04] ALGO: Kahn's Topological Sorting active: preventing cyclical corruption.",
-        "[10:14:07] NET: Express.js SSE backend established for real-time streaming.",
-        "[10:14:12] OPT: Contextual compression applied. Payload reduced by 75%."
+        { time: "10:14:02.105", level: "INFO", module: "DAG_CORE", msg: "Initializing workspace UI. Allocating memory buffers.", color: "text-blue-400" },
+        { time: "10:14:04.422", level: "WARN", module: "ALGO", msg: "Cyclical dependency detected. Kahn's Sorting bypassed corruption.", color: "text-amber-400" },
+        { time: "10:14:07.019", level: "SUCCESS", module: "NET", msg: "Express.js SSE connection established. Latency: 12ms.", color: "text-emerald-400" },
+        { time: "10:14:12.890", level: "DEBUG", module: "OPT", msg: "Contextual compression successful. Payload compressed by 75%.", color: "text-slate-400" }
       ],
-      blueprint: "User Branch ➔ React Flow [DAG] ➔ Express Backend [SSE] ➔ Gemini API ➔ Token Compressor ➔ State Tree"
+      blueprint: [
+        { node: "Client UI", tech: "React 18 + React Flow", desc: "Renders interactive DAG canvas" },
+        { node: "Safety Engine", tech: "Kahn's Algorithm", desc: "Prevents graph cycles and logic corruption" },
+        { node: "API Gateway", tech: "Express.js (SSE)", desc: "Maintains zero-latency continuous data stream" },
+        { node: "Optimization", tech: "Context Compressor", desc: "Reduces token payload dynamically" },
+        { node: "LLM Inference", tech: "Google Gemini", desc: "Generates node-specific responses" }
+      ]
     },
     {
       id: "greentravel",
@@ -245,21 +247,22 @@ const App = () => {
       desc: "Analyzed historical corporate travel datasets, pinpointing process bottlenecks to enforce strategic modal shifts and architect a data-backed roadmap for Net-Zero emissions by 2030.",
       tech: ["Python", "Scikit-Learn", "Celonis", "Pandas", "PostgreSQL"],
       color: "emerald",
-      metrics: { 
-        Footprint: "178M kg CO2e", 
-        Reduction: "85% per-trip", 
-        Target: "Rail < 400km",
-        Engine: "Predictive ML"
-      },
+      metrics: { Footprint: "178M kg CO2e", Reduction: "85% per-trip", Target: "Rail < 400km", Engine: "Predictive ML" },
       github: "https://github.com/Shubhomoy919/capstone-project_iit_guwahati",
       live: "#",
       logs: [
-        "[08:30:15] DATA: Relational pipeline established. 178M kg CO2e footprint mapped.",
-        "[08:30:22] MINING: Celonis ingested event logs. Policy deviations detected in Sales dept.",
-        "[08:30:29] ML: Scikit-Learn predictive engine forecasting future carbon outputs.",
-        "[08:30:31] ACTION: Proscribing modal shift to rail for trips < 400km."
+        { time: "08:30:15.001", level: "INFO", module: "DATA", msg: "Relational pipeline established. 178M kg CO2e mapped.", color: "text-blue-400" },
+        { time: "08:30:22.404", level: "WARN", module: "MINING", msg: "Policy deviations detected in Sales department logs.", color: "text-amber-400" },
+        { time: "08:30:29.811", level: "INFO", module: "ML_CORE", msg: "Scikit-Learn engine forecasting future carbon outputs.", color: "text-blue-400" },
+        { time: "08:30:31.999", level: "SUCCESS", module: "EXEC", msg: "Modal shift proscribed: Rail enforced for trips < 400km.", color: "text-emerald-400" }
       ],
-      blueprint: "CSV Logs ➔ Relational Pipeline ➔ Celonis [Process Mining] ➔ Scikit-Learn [ML Engine] ➔ Policy Execution"
+      blueprint: [
+        { node: "Data Ingestion", tech: "Pandas + CSV", desc: "Consolidates disconnected historical travel logs" },
+        { node: "Relational Mapping", tech: "PostgreSQL", desc: "Links employee attributes to temporal trip data" },
+        { node: "Process Mining", tech: "Celonis", desc: "Uncovers behavioral deviations from corporate policy" },
+        { node: "Predictive Engine", tech: "Scikit-Learn", desc: "Forecasts emissions & identifies shift opportunities" },
+        { node: "Action Output", tech: "Strategic Roadmap", desc: "Enforces rail alternatives for short-haul travel" }
+      ]
     },
     {
       id: "decodelabs",
@@ -269,24 +272,24 @@ const App = () => {
       desc: "A comprehensive suite of production-grade generative AI systems spanning multi-turn conversational agents, static code review engines, and automated multi-modal content pipelines.",
       tech: ["Python", "Gemini API", "Modular Architecture", "Security Pipelines"],
       color: "indigo",
-      metrics: { 
-        Memory: "Context-Aware", 
-        Analysis: "Multi-Language", 
-        Pipeline: "Multi-Modal",
-        Scale: "Production"
-      },
+      metrics: { Memory: "Context-Aware", Analysis: "Multi-Language", Pipeline: "Multi-Modal", Scale: "Production" },
       github: "https://github.com/Shubhomoy919/decodelabs_tasks",
       live: "#",
       logs: [
-        "[SYS:INIT] Decodelabs GenAI Engine Suite booted up.",
-        "[SYS:MEM] Context-aware conversational agent loaded into buffer.",
-        "[SYS:CODE] Static AI code reviewer scanning Python/Java/JS for vulnerabilities.",
-        "[SYS:GEN] Multi-modal content pipeline executing generation workflow."
+        { time: "SYS:BOOT", level: "INFO", module: "INIT", msg: "Decodelabs GenAI Engine Suite initialized.", color: "text-blue-400" },
+        { time: "SYS:MEM", level: "SUCCESS", module: "AGENT", msg: "Context-aware conversational agent loaded into buffer.", color: "text-emerald-400" },
+        { time: "SYS:SCAN", level: "WARN", module: "REVIEW", msg: "Vulnerabilities detected in Javascript payload. Patching...", color: "text-amber-400" },
+        { time: "SYS:GEN", level: "INFO", module: "MEDIA", msg: "Multi-modal content pipeline executing generation workflow.", color: "text-blue-400" }
       ],
-      blueprint: "User Input ➔ Context/Prompt Buffer ➔ Google Gemini API ➔ Code Analysis / Media Gen ➔ Secure Output"
+      blueprint: [
+        { node: "Input Gateway", tech: "User Interface", desc: "Captures text, code, or multi-modal prompts" },
+        { node: "State Manager", tech: "Memory Buffer", desc: "Retains context for multi-turn conversations" },
+        { node: "Routing Logic", tech: "Modular Handlers", desc: "Directs request to Reviewer, Chat, or Media engine" },
+        { node: "AI Processor", tech: "Google Gemini API", desc: "Executes core generative and analytical tasks" },
+        { node: "Output Pipeline", tech: "Security Layer", desc: "Sanitizes and delivers final assets" }
+      ]
     }
   ];
-
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-200 font-sans selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden">
       
@@ -646,6 +649,94 @@ const App = () => {
               <div className="absolute inset-0 bg-[#030508]/95 z-0"></div>
               
               <div className="relative z-10 flex flex-col gap-6">
+                
+                {/* Dynamic Content based on Tab */}
+                {modalTab === 'architecture' ? (
+                  <div className="w-full bg-[#070b14] border border-slate-800 rounded-xl p-6 md:p-8 relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[30px_30px]"></div>
+                    
+                    <h4 className="text-slate-400 font-mono text-xs uppercase tracking-widest mb-8 relative z-10 flex items-center gap-3">
+                      <span className={`w-2 h-2 rounded-full animate-pulse ${
+                        activeProject.color === 'emerald' ? 'bg-emerald-500' : 
+                        activeProject.color === 'amber' ? 'bg-amber-500' : 
+                        activeProject.color === 'sky' ? 'bg-sky-500' : 'bg-indigo-500'
+                      }`}></span>
+                      Infrastructure Pipeline
+                    </h4>
+                    
+                    {/* ADVANCED DATA FLOW MAP */}
+                    <div className="relative z-10 pl-4 md:pl-8 border-l-2 border-slate-800 space-y-8 py-2">
+                      {activeProject.blueprint.map((step, index) => (
+                        <div key={index} className="relative pl-6 md:pl-8">
+                          {/* Node Connection Point */}
+                          <div className={`absolute -left-1.25 md:-left-2.25 top-1.5 w-2 h-2 md:w-4 md:h-4 rounded-full bg-slate-950 border-2 ${
+                            activeProject.color === 'emerald' ? 'border-emerald-500' : 
+                            activeProject.color === 'amber' ? 'border-amber-500' : 
+                            activeProject.color === 'sky' ? 'border-sky-500' : 'border-indigo-500'
+                          }`}></div>
+                          
+                          {/* Data Flow Arrow (except for last item) */}
+                          {index !== activeProject.blueprint.length - 1 && (
+                            <div className="absolute -left-3.5 md:-left-4.5 top-10 text-slate-700">
+                              ↓
+                            </div>
+                          )}
+
+                          <div className="bg-slate-900/50 border border-slate-800/80 rounded-lg p-4 hover:border-slate-600 transition-colors">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+                              <h5 className="text-white font-bold text-sm md:text-base">{step.node}</h5>
+                              <span className={`font-mono text-[10px] px-2 py-1 rounded bg-slate-950 border border-slate-800 ${
+                                activeProject.color === 'emerald' ? 'text-emerald-400' : 
+                                activeProject.color === 'amber' ? 'text-amber-400' : 
+                                activeProject.color === 'sky' ? 'text-sky-400' : 'text-indigo-400'
+                              }`}>
+                                {step.tech}
+                              </span>
+                            </div>
+                            <p className="text-slate-400 text-xs md:text-sm">{step.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Metrics Dashboard */}
+                    <div className="grid grid-cols-2 gap-4">
+                      {Object.entries(activeProject.metrics).map(([key, value], i) => (
+                        <div key={i} className="bg-[#070b14] border border-slate-800 rounded-xl p-6 hover:border-slate-600 transition-colors">
+                          <p className="text-slate-500 font-mono text-[10px] uppercase tracking-widest mb-2">{key}</p>
+                          <p className="text-white font-mono text-sm md:text-lg">{value}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* ADVANCED SYSTEM LOGS */}
+                    <div className="bg-[#070b14] border border-slate-800 rounded-xl p-6 font-mono text-xs h-full flex flex-col min-h-75">
+                      <div className="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                        <p className="text-slate-500 tracking-widest uppercase">Live Telemetry</p>
+                        <p className="text-emerald-500 animate-pulse text-[10px]">● REC</p>
+                      </div>
+                      
+                      <div className="grow space-y-3">
+                        {activeProject.logs.map((log, i) => (
+                          <div key={i} className="flex flex-col sm:flex-row sm:gap-3 opacity-90 hover:opacity-100 transition-opacity">
+                            <span className="text-slate-600 shrink-0">[{log.time}]</span>
+                            <div className="flex gap-3">
+                              <span className={`shrink-0 w-12 ${log.color}`}>[{log.level}]</span>
+                              <span className="text-slate-300">
+                                <span className="text-slate-500">[{log.module}]</span> {log.msg}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                        <p className="text-slate-500 mt-4">
+                          <span className="animate-pulse">_</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 
                 {/* Dynamic Content based on Tab */}
                 {modalTab === 'architecture' ? (
