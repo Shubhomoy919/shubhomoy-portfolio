@@ -336,6 +336,14 @@ const App = () => {
   return (
     <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
 
+      {/* --- EXACT AMBIENT BACKGROUND GLOWS (FROM SCREENSHOT) --- */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Intense Amber glow on the left */}
+        <div className="absolute top-[5%] left-[-15%] w-150 h-150 rounded-full bg-amber-500/15 blur-[120px]"></div>
+        {/* Deep Indigo/Purple glow on the right */}
+        <div className="absolute top-[25%] right-[-15%] w-150 h-150 rounded-full bg-indigo-500/15 blur-[120px]"></div>
+      </div>
+
 {/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
       <div 
         className="pointer-events-none fixed inset-0 z-50 transition duration-300 hidden lg:block" 
@@ -345,9 +353,7 @@ const App = () => {
       {/* --- GLOBAL NAVIGATION BAR --- */}
       <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-[#030508]/80 backdrop-blur-md border-b border-slate-800/80 py-4 shadow-xl' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <a href="#" className="text-2xl font-black tracking-tighter text-white hover:opacity-80 transition-opacity">
-            S<span className="text-amber-500">.</span>
-          </a>
+          
           
           <div className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest uppercase text-slate-400">
             <a href="#experience" className="hover:text-amber-400 transition-colors">Experience</a>
