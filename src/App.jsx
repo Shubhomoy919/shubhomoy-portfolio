@@ -723,7 +723,7 @@ const App = () => {
                           <div key={i} className="flex flex-col sm:flex-row sm:gap-3 opacity-90 hover:opacity-100 transition-opacity">
                             <span className="text-slate-600 shrink-0">[{log.time}]</span>
                             <div className="flex gap-3">
-                              <span className={`shrink-0 w-12 ${log.color}`}>[{log.level}]</span>
+                              <span className={`shrink-0 w-16 ${log.color}`}>[{log.level}]</span>
                               <span className="text-slate-300">
                                 <span className="text-slate-500">[{log.module}]</span> {log.msg}
                               </span>
@@ -738,60 +738,6 @@ const App = () => {
                   </div>
                 )}
                 
-                {/* Dynamic Content based on Tab */}
-                {modalTab === 'architecture' ? (
-                  <div className="w-full bg-[#070b14] border border-slate-800 rounded-xl p-8 relative overflow-hidden">
-                    {/* Blueprint Grid Background */}
-                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-size-[30px_30px]"></div>
-                    
-                    <h4 className="text-slate-400 font-mono text-xs uppercase tracking-widest mb-8 relative z-10 flex items-center gap-3">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                      Data Flow Map
-                    </h4>
-                    
-                    {/* Blueprint Mapping */}
-                    <div className="relative z-10 font-mono text-sm md:text-base text-blue-300 leading-relaxed border-l-2 border-blue-500/30 pl-6 py-4 bg-blue-500/5 rounded-r-xl">
-                      {activeProject.blueprint.split(' ➔ ').map((node, index, array) => (
-                        <div key={index} className="flex items-center gap-4 my-2">
-                          <span className="px-3 py-1.5 bg-slate-900 border border-blue-500/30 text-white rounded-md shadow-lg text-xs md:text-sm">
-                            {node}
-                          </span>
-                          {index !== array.length - 1 && (
-                            <span className="text-blue-500/50">➔</span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Metrics Dashboard */}
-                    <div className="grid grid-cols-2 gap-4">
-                      {Object.entries(activeProject.metrics).map(([key, value], i) => (
-                        <div key={i} className="bg-[#070b14] border border-slate-800 rounded-xl p-6 hover:border-slate-600 transition-colors">
-                          <p className="text-slate-500 font-mono text-[10px] uppercase tracking-widest mb-2">{key}</p>
-                          <p className="text-white font-mono text-lg md:text-xl">{value}</p>
-                        </div>
-                      ))}
-                    </div>
-
-                   {/* Live Terminal Logs */}
-                    <div className="bg-[#070b14] border border-slate-800 rounded-xl p-6 font-mono text-xs text-emerald-400 h-full flex flex-col">
-                      <p className="text-slate-500 mb-4 tracking-widest uppercase border-b border-slate-800 pb-2">System Logs</p>
-                      <div className="grow space-y-3 opacity-80 mt-2">
-                        {activeProject.logs.map((log, i) => (
-                          <p key={i} className="animate-[fade-in_0.5s_ease-out_forwards]" style={{ animationDelay: `${i * 300}ms`, opacity: 0 }}>
-                            {log}
-                          </p>
-                        ))}
-                        <p className="animate-[fade-in_0.5s_ease-out_forwards] text-emerald-500 mt-4" style={{ animationDelay: '1200ms', opacity: 0 }}>
-                          <span className="animate-pulse">_</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
                 {/* Bottom Action Footer */}
                 <div className="pt-6 mt-2 border-t border-slate-800/80 flex flex-col sm:flex-row gap-4 justify-end">
                   <a href={activeProject.github} target="_blank" rel="noreferrer" className="px-8 py-3.5 rounded-xl border border-slate-700 text-slate-300 font-mono text-xs tracking-widest uppercase hover:bg-slate-800 hover:text-white transition-all text-center flex items-center justify-center gap-3">
@@ -802,6 +748,7 @@ const App = () => {
                     Execute Live ↗
                   </a>
                 </div>
+
               </div>
             </div>
           </div>
