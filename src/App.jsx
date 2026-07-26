@@ -290,6 +290,42 @@ const App = () => {
       ]
     }
   ];
+  // ==========================================
+  // DASHBOARD DATA (LIVE TELEMETRY)
+  // ==========================================
+  const [activeCommit, setActiveCommit] = useState(null);
+
+  // Heatmap with "Live Sync" simulating real-time pushed code
+  const heatmapData = Array.from({ length: 112 }).map((_, i) => {
+    const rand = Math.random();
+    let level = 0, commits = 0;
+    if (rand > 0.4) { level = 1; commits = Math.floor(Math.random() * 3) + 1; }
+    if (rand > 0.7) { level = 2; commits = Math.floor(Math.random() * 5) + 4; }
+    if (rand > 0.9) { level = 3; commits = Math.floor(Math.random() * 10) + 8; }
+    
+    // Make 2 random recent tiles act as "live syncing" (pulsing)
+    const isLive = i === 108 || i === 110; 
+    return { id: i, level, commits, date: `${112 - i} days ago`, isLive };
+  });
+
+  // Categorized Stack displaying pure engineering + CS Theory
+  const coreStack = {
+    engineering: [
+      { name: "Python", meta: "Data/Backend", color: "text-amber-400", border: "border-amber-400/30", bg: "bg-amber-400/10" },
+      { name: "C / C++", meta: "Low-Level Sys", color: "text-blue-400", border: "border-blue-400/30", bg: "bg-blue-400/10" },
+      { name: "React 18", meta: "Client Logic", color: "text-sky-400", border: "border-sky-400/30", bg: "bg-sky-400/10" },
+      { name: "Node / SQL", meta: "Persistence", color: "text-emerald-400", border: "border-emerald-400/30", bg: "bg-emerald-400/10" },
+    ],
+    intelligence: [
+      { name: "Gemini SDK", meta: "Agentic AI", color: "text-indigo-400", border: "border-indigo-400/30", bg: "bg-indigo-400/10" },
+      { name: "OpenCV", meta: "Edge Vision", color: "text-red-400", border: "border-red-400/30", bg: "bg-red-400/10" },
+    ],
+    theory: [
+      { name: "Probabilistic Modeling", meta: "Math", color: "text-purple-400", border: "border-purple-400/30", bg: "bg-purple-400/10" },
+      { name: "Automata / FAs", meta: "Computation", color: "text-orange-400", border: "border-orange-400/30", bg: "bg-orange-400/10" },
+      { name: "OOAD Patterns", meta: "Architecture", color: "text-teal-400", border: "border-teal-400/30", bg: "bg-teal-400/10" }
+    ]
+  };
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-200 font-sans selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden">
       
@@ -592,6 +628,211 @@ const App = () => {
                   }`}></div>
                 </div>
               ))}
+            </div>
+          </div>
+        </RevealSection>
+      </section>
+      {/* ========================================== */}
+      {/* LIVE TELEMETRY & ARSENAL (THE DASHBOARD) */}
+      {/* ========================================== */}
+      <section id="arsenal" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900 overflow-hidden">
+        {/* Holographic Radar Background */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.8)_0%,transparent_100%)]"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 border border-slate-800/20 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 border border-slate-800/30 rounded-full animate-[spin_40s_linear_infinite_reverse] pointer-events-none"></div>
+
+        <RevealSection>
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            
+            {/* Section Header */}
+            <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
+                  <span className="text-emerald-500 font-light">/</span> Live Telemetry
+                </h2>
+                <p className="text-slate-400 font-mono text-sm tracking-widest uppercase pl-8 border-l border-slate-800">
+                  The Arsenal & Operator Metrics
+                </p>
+              </div>
+              <div className="hidden md:flex items-center gap-3 bg-[#05080f]/80 backdrop-blur-md border border-slate-800 px-5 py-2.5 rounded-xl shadow-[0_0_20px_-5px_rgba(16,185,129,0.2)]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Global State:</span>
+                <span className="text-emerald-400 font-mono text-xs font-bold tracking-widest">OPTIMAL</span>
+              </div>
+            </div>
+
+            {/* THE ULTRA BENTO BOX GRID */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-auto">
+              
+              {/* 1. THE NEURAL MATRIX (Core Stack) - Spans 2 columns */}
+              <div className="lg:col-span-2 bg-[#05080f]/80 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-6 md:p-8 hover:border-slate-500/50 transition-all duration-500 group relative overflow-hidden shadow-[0_0_40px_-20px_rgba(0,0,0,0.5)]">
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none group-hover:bg-indigo-500/20 group-hover:scale-110 transition-all duration-700"></div>
+                
+                <div className="flex justify-between items-center mb-8 relative z-10">
+                  <p className="text-slate-500 font-mono text-xs tracking-widest uppercase flex items-center gap-2">
+                    <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    Neural Matrix // Stack Domains
+                  </p>
+                </div>
+
+                <div className="space-y-6 relative z-10">
+                  {/* Category Loop */}
+                  {Object.entries(coreStack).map(([category, skills], idx) => (
+                    <div key={idx} className="flex flex-col md:flex-row gap-4 md:items-center">
+                      <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest w-24 shrink-0">[{category}]</span>
+                      <div className="flex flex-wrap gap-2 md:gap-3">
+                        {skills.map((tech, i) => (
+                          <div key={i} className={`px-3 py-1.5 md:px-4 md:py-2 rounded-lg border ${tech.border} ${tech.bg} flex items-center gap-2 hover:-translate-y-1 hover:shadow-[0_10px_20px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 cursor-default backdrop-blur-sm`}>
+                            <span className={`font-black tracking-tight ${tech.color} text-xs md:text-sm`}>{tech.name}</span>
+                            <span className="hidden md:block w-px h-3 bg-slate-700/50"></span>
+                            <span className="hidden md:block text-[9px] font-mono text-slate-400 uppercase tracking-widest">{tech.meta}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 2. OPERATOR BIO-METRICS (SVG Data Viz) */}
+              <div className="bg-[#05080f]/80 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-6 md:p-8 hover:border-slate-500/50 transition-all duration-500 relative flex flex-col shadow-[0_0_40px_-20px_rgba(0,0,0,0.5)] group overflow-hidden">
+                <div className="absolute top-0 right-0 w-full h-1 bg-linear-to-r from-transparent via-sky-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                <p className="text-slate-500 font-mono text-xs tracking-widest uppercase mb-6 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                  Bio-Metrics
+                </p>
+                
+                <div className="flex justify-around items-center mb-6">
+                  {/* Gauge 1: Algorithmic Output */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-16 h-16 mb-2">
+                      <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
+                        <path strokeDasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke="#1e293b" strokeWidth="3" fill="none" />
+                        <path strokeDasharray="65, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke="#38bdf8" strokeWidth="3" fill="none" strokeLinecap="round" className="animate-[fade-in_1s_ease-out_forwards] drop-shadow-[0_0_4px_#38bdf8]" />
+                      </svg>
+                      <span className="absolute inset-0 flex items-center justify-center font-mono text-xs text-white">65%</span>
+                    </div>
+                    <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest text-center">Algorithmic<br/>Output</span>
+                  </div>
+
+                  {/* Gauge 2: Gym */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-16 h-16 mb-2">
+                      <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
+                        <path strokeDasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke="#1e293b" strokeWidth="3" fill="none" />
+                        <path strokeDasharray="35, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke="#f59e0b" strokeWidth="3" fill="none" strokeLinecap="round" className="animate-[fade-in_1.5s_ease-out_forwards] drop-shadow-[0_0_4px_#f59e0b]" />
+                      </svg>
+                      <span className="absolute inset-0 flex items-center justify-center font-mono text-xs text-white">35%</span>
+                    </div>
+                    <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest text-center">Physical<br/>Iron (Gym)</span>
+                  </div>
+                </div>
+
+                {/* Live Heartbeat SVG (Caffeine) */}
+                <div className="mt-auto p-4 rounded-xl bg-emerald-950/20 border border-emerald-900/40 relative overflow-hidden">
+                  <div className="flex justify-between items-end mb-2 relative z-10">
+                    <span className="text-[10px] font-mono text-emerald-500/70 uppercase tracking-widest">Caffeine Levels</span>
+                    <span className="text-xs font-mono font-bold text-emerald-400 drop-shadow-[0_0_5px_#34d399]">OPTIMAL</span>
+                  </div>
+                  {/* The ECG Line */}
+                  <svg className="w-full h-8 opacity-80 relative z-10" viewBox="0 0 200 40">
+                    <polyline points="0,20 40,20 50,5 60,35 70,20 130,20 140,5 150,35 160,20 200,20" fill="none" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    {/* Scanning overlay simulating a monitor */}
+                    <rect x="0" y="0" w="100%" h="100%" fill="url(#gradient)" className="animate-[scan-horizontal_2s_linear_infinite]" />
+                    <linearGradient id="gradient">
+                      <stop offset="0%" stopColor="#05080f" stopOpacity="1" />
+                      <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+                    </linearGradient>
+                  </svg>
+                </div>
+              </div>
+
+              {/* 3. WAKATIME TERMINAL (Live Startup Process) */}
+              <div className="lg:col-span-1 bg-[#05080f]/80 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-6 md:p-8 hover:border-slate-500/50 transition-all duration-500 shadow-[0_0_40px_-20px_rgba(0,0,0,0.5)] flex flex-col">
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800/80">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-red-500/80 border border-red-500/20 shadow-[0_0_4px_#ef4444]"></span>
+                    <span className="w-3 h-3 rounded-full bg-amber-500/80 border border-amber-500/20 shadow-[0_0_4px_#f59e0b]"></span>
+                    <span className="w-3 h-3 rounded-full bg-emerald-500/80 border border-emerald-500/20 shadow-[0_0_4px_#10b981]"></span>
+                  </div>
+                  <span className="text-slate-500 font-mono text-[10px] tracking-widest uppercase">sys_terminal_zsh</span>
+                </div>
+                
+                {/* Advanced CS/Math Boot Sequence */}
+                <div className="font-mono text-[11px] md:text-xs text-slate-400 space-y-2.5 grow">
+                  <p className="text-sky-400 font-bold">shubh@operator <span className="text-slate-300 font-normal">~ init --pipeline=edge_ai</span></p>
+                  
+                  <div className="animate-[fade-in_0.1s_ease-out_forwards]" style={{ animationDelay: '300ms', opacity: 0 }}>
+                    <p className="text-emerald-400 mb-1 flex items-center gap-2">✔ Tensor Cores allocated.</p>
+                    <p className="text-slate-500 pl-4">&gt; NPU Load: [||||||||||......] 62%</p>
+                  </div>
+                  
+                  <div className="animate-[fade-in_0.1s_ease-out_forwards] pt-2 border-t border-slate-800/50 mt-2" style={{ animationDelay: '800ms', opacity: 0 }}>
+                    <p className="text-sky-400 font-bold">shubh@operator <span className="text-slate-300 font-normal">~ execute --module=algorithms</span></p>
+                  </div>
+
+                  <div className="animate-[fade-in_0.1s_ease-out_forwards]" style={{ animationDelay: '1200ms', opacity: 0 }}>
+                    <p className="text-amber-400 mb-1 flex items-center gap-2">
+                      <span className="animate-spin text-amber-500">⟳</span> Active Engineering Process
+                    </p>
+                    <p className="text-slate-300 pl-4 leading-relaxed">
+                      Deploying Directed Acyclic Graphs:<br/>
+                      <span className="text-emerald-400">Kahn's Topological Sort...</span>
+                    </p>
+                  </div>
+
+                  <p className="animate-[fade-in_0.1s_ease-out_forwards] text-indigo-400 pt-2 flex items-center gap-2 mt-auto" style={{ animationDelay: '1600ms', opacity: 0 }}>
+                    &gt; INJECTING PROBABILISTIC MODELS <span className="w-2 h-4 bg-indigo-400 animate-pulse block"></span>
+                  </p>
+                </div>
+              </div>
+
+              {/* 4. GITHUB HEATMAP (Live Commits) */}
+              <div className="lg:col-span-2 bg-[#05080f]/80 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-6 md:p-8 hover:border-slate-500/50 transition-all duration-500 relative group overflow-hidden shadow-[0_0_40px_-20px_rgba(0,0,0,0.5)] flex flex-col justify-between">
+                <div className="flex justify-between items-start md:items-center mb-8 relative z-10 flex-col md:flex-row gap-4">
+                  <div>
+                    <p className="text-slate-500 font-mono text-xs tracking-widest uppercase flex items-center gap-2 mb-1">
+                      <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                      Git Telemetry
+                    </p>
+                    <p className="text-white font-bold text-lg">1,492 <span className="text-slate-500 font-normal text-sm">Commits (Simulated)</span></p>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-ping"></span>
+                    <span className="text-[9px] font-mono tracking-widest text-emerald-400 uppercase">Awaiting Push</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-0.75 sm:gap-1.5 md:gap-2 relative z-10 w-full h-full content-end">
+                  {heatmapData.map((data, i) => (
+                    <div 
+                      key={i} 
+                      onMouseEnter={() => setActiveCommit(data)}
+                      onMouseLeave={() => setActiveCommit(null)}
+                      className={`relative h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 rounded-xs transition-all duration-300 hover:scale-125 hover:z-20 cursor-crosshair ${
+                        data.isLive ? 'bg-emerald-400 shadow-[0_0_15px_#34d399] animate-[pulse_1.5s_ease-in-out_infinite]' :
+                        data.level === 0 ? 'bg-slate-800/50 hover:bg-slate-700' :
+                        data.level === 1 ? 'bg-emerald-900/60 border border-emerald-800 hover:border-emerald-500' :
+                        data.level === 2 ? 'bg-emerald-600 shadow-[0_0_6px_#059669]' :
+                        'bg-emerald-400 shadow-[0_0_12px_#34d399]'
+                      }`}
+                    >
+                      {activeCommit?.id === data.id && (
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-[10px] whitespace-nowrap z-50 flex flex-col items-center pointer-events-none shadow-xl">
+                          <span className="text-emerald-400 font-bold">{data.commits} commits</span>
+                          <span className="text-slate-400">{data.isLive ? 'Just now' : data.date}</span>
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-[5px] border-transparent border-t-slate-700"></div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         </RevealSection>
