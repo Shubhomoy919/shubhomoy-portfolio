@@ -109,7 +109,7 @@ const App = () => {
       date: "2024",
       desc: "Successfully qualified the internal round for India's premier nationwide innovation and hackathon initiative.",
       badge: "Qualifier",
-      link: "#" // Replace with your actual certificate link or PDF path
+      link: null // Kept clean without link
     },
     {
       title: "ML Workshop – Techfest, IIT Bombay",
@@ -117,7 +117,7 @@ const App = () => {
       date: "2025",
       desc: "Completed intensive technical training and hands-on machine learning applications during IIT Bombay's annual Techfest.",
       badge: "Completed",
-      link: "#" // Replace with your certificate link
+      link: "/.pdf"
     },
     {
       title: "Summer Analytics – IIT Guwahati",
@@ -125,7 +125,7 @@ const App = () => {
       date: "2025",
       desc: "Participated in the rigorous data science and analytics program covering statistical modeling and analytical tools.",
       badge: "Participant",
-      link: "#" // Replace with your certificate link
+      link: null
     },
     {
       title: "Cloud with Anthropic API Certification",
@@ -133,7 +133,7 @@ const App = () => {
       date: "Verified",
       desc: "Validated expertise in building cloud-integrated AI workflows using Claude models and Anthropic API architectures.",
       badge: "Certified",
-      link: "#" // Replace with your credential link
+      link: "/.pdf"
     },
     {
       title: "AWS Cloud Practitioner Essentials",
@@ -141,7 +141,7 @@ const App = () => {
       date: "Verified",
       desc: "Gained comprehensive foundational knowledge of AWS cloud services, infrastructure security, pricing, and deployment models.",
       badge: "Certified",
-      link: "#" // Replace with your credential link
+      link: "/.pdf"
     }
   ];
 
@@ -560,53 +560,79 @@ const App = () => {
         </div>
       </section>
 {/* ========================================== */}
-      {/* HALL OF RECORDS (ACHIEVEMENTS) */}
+      {/* HALL OF RECORDS (ACHIEVEMENTS) SECTION */}
       {/* ========================================== */}
-      <section className="relative z-10 border-t border-slate-900 bg-[#030508] py-24">
+      <section className="relative z-10 border-t border-slate-900 bg-[#030508] py-24 overflow-hidden">
+        {/* Subtle Ambient Background Spotlight */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+
         <RevealSection>
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-16 tracking-tight text-white flex items-center gap-4">
-              <span className="w-8 h-0.5 bg-amber-500"></span>
-              Achievements & Recognitions
-            </h2>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-4 mb-2">
+                  <span className="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-amber-300"></span>
+                  Hall of Records
+                </h2>
+                <p className="text-slate-400 font-mono text-xs tracking-widest uppercase pl-12">
+                  Verified Milestones & Cloud Credentials
+                </p>
+              </div>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {achievements.map((item, index) => (
                 <div 
                   key={index} 
-                  className="p-8 bg-slate-900/40 border border-slate-800 hover:border-amber-500/50 rounded-2xl transition-all duration-300 flex flex-col justify-between group"
+                  className="relative p-7 bg-slate-950/60 backdrop-blur-xl border border-slate-800/80 hover:border-amber-500/40 rounded-2xl transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(245,158,11,0.15)]"
                 >
+                  {/* Subtle Top Inner Glow */}
+                  <div className="absolute top-0 left-10 right-10 h-[1px] bg-gradient-to-r from-transparent via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
                   <div>
+                    {/* Header: Category Pill & Date */}
                     <div className="flex justify-between items-center mb-6">
-                      <span className="text-xs font-mono tracking-widest uppercase text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                      <span className="text-[11px] font-mono tracking-wider uppercase text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20 shadow-inner">
                         {item.category}
                       </span>
-                      <span className="text-slate-500 font-mono text-xs">{item.date}</span>
+                      <span className="text-slate-500 font-mono text-xs font-light">{item.date}</span>
                     </div>
                     
-                    <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-amber-400 transition-colors">
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-slate-100 mb-3 tracking-tight group-hover:text-amber-400 transition-colors duration-300">
                       {item.title}
                     </h3>
                     
+                    {/* Description */}
                     <p className="text-slate-400 font-light leading-relaxed text-sm mb-6">
                       {item.desc}
                     </p>
                   </div>
                   
+                  {/* Footer Action Bar */}
                   <div className="pt-4 border-t border-slate-800/60 flex justify-between items-center">
-                    <span className="text-slate-500 font-mono text-xs tracking-wider uppercase">Status</span>
+                    <span className="text-slate-500 font-mono text-[11px] tracking-wider uppercase">
+                      Status
+                    </span>
+
                     <div className="flex items-center gap-3">
-                      {item.link && item.link !== "#" && (
+                      {/* Animated Stylish View Credential Button */}
+                      {item.link && (
                         <a 
                           href={item.link} 
                           target="_blank" 
                           rel="noreferrer"
-                          className="text-xs font-mono text-amber-400 hover:underline"
+                          className="group/btn relative inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-500/20 hover:text-white transition-all duration-300 active:scale-95"
                         >
-                          Verify ↗
+                          <span>Verify</span>
+                          <span className="inline-block transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
+                            ↗
+                          </span>
                         </a>
                       )}
-                      <span className="text-emerald-400 font-mono text-xs tracking-widest uppercase bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/20">
+
+                      {/* Status Badge */}
+                      <span className="text-emerald-400 font-mono text-[11px] tracking-widest uppercase bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
                         {item.badge}
                       </span>
                     </div>
