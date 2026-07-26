@@ -572,7 +572,7 @@ const App = () => {
               <div>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-4 mb-2">
                   <span className="w-8 h-0.5 bg-linear-to-r from-amber-500 to-amber-300"></span>
-                  Hall of Records
+                  Achievements and Credentials
                 </h2>
                 <p className="text-slate-400 font-mono text-xs tracking-widest uppercase pl-12">
                   Verified Milestones & Cloud Credentials
