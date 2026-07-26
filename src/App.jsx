@@ -305,11 +305,13 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="font-extrabold text-xl tracking-tighter flex items-center gap-3">
             <span className="h-2.5 w-2.5 bg-amber-400 rounded-full shadow-[0_0_12px_rgba(245,158,11,0.8)] animate-pulse"></span>
-            <span className="text-white font-mono tracking-wider">SHUBHOMOY<span className="text-amber-400">SARKAR</span></span>
+            <span className="text-white font-mono tracking-wider">SHUBHOMOY<span className="text-amber-400"> SARKAR</span></span>
           </div>
-          <div className="hidden md:flex gap-8 text-xs font-mono font-bold tracking-[0.2em] uppercase text-slate-400">
+          <div className="hidden md:flex gap-6 lg:gap-8 text-xs font-mono font-bold tracking-[0.2em] uppercase text-slate-400">
             <a href="#manifesto" className="hover:text-amber-400 transition-colors">Manifesto</a>
-            <a href="#projects" className="hover:text-indigo-400 transition-colors">Architecture</a>
+            <a href="#experience" className="hover:text-indigo-400 transition-colors">Trajectory</a>
+            <a href="#achievements" className="hover:text-amber-400 transition-colors">Records</a>
+            <a href="#projects" className="hover:text-cyan-400 transition-colors">Architecture</a>
             <a href="#skills" className="hover:text-emerald-400 transition-colors">Arsenal</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
@@ -407,7 +409,7 @@ const App = () => {
 {/* ========================================== */}
       {/* EDUCATION & EXPERIENCE SECTION */}
       {/* ========================================== */}
-      <section className="relative z-10 border-t border-slate-900 bg-[#030508] py-24">
+      <section id="experience" className="relative z-10 border-t border-slate-900 bg-[#030508] py-24">
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-16 tracking-tight text-white flex items-center gap-4">
@@ -605,7 +607,7 @@ const App = () => {
 {/* ========================================== */}
       {/* HALL OF RECORDS (ACHIEVEMENTS) SECTION */}
       {/* ========================================== */}
-      <section className="relative z-10 border-t border-slate-900 bg-[#030508] py-24 overflow-hidden">
+      <section id="achievements" className="relative z-10 border-t border-slate-900 bg-[#030508] py-24 overflow-hidden">
         {/* Subtle Ambient Background Spotlight */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
