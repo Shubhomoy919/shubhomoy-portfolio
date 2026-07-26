@@ -37,37 +37,53 @@ const RevealSection = ({ children, className = "", delay = "0ms" }) => {
   );
 };
 
-// --- AI DIGITAL TWIN COMPONENT (OMNI-INDEXED COGNITIVE ENGINE v8.0) ---
+import React, { useState, useEffect, useRef } from 'react';
+
+// --- AI DIGITAL TWIN COMPONENT (OMNI-INDEXED COGNITIVE ENGINE v10.0) ---
 const DigitalTwin = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'system', text: 'INIT // SHUBH-AI ENGINE v8.0 (Omni-Indexed Matrix)\nIngesting 20+ portfolio schemas, project pipelines, and technical glossaries...' },
-    { role: 'ai', text: 'Terminal online. I am the cognitive digital twin of Shubhomoy Sarkar. I possess exhaustive awareness of his projects, architecture pipelines, academic standing (IIIT Kottayam CGPA 8.24), work experience, tech stack, and engineering definitions. How can I assist your evaluation?' }
+    { role: 'system', text: 'INIT // SHUBH-AI ENGINE v10.0 (Enterprise Neural Matrix)\nLoading 100% of portfolio vectors, project blueprints, telemetry streams, and technical glossaries...' },
+    { role: 'ai', text: 'Terminal online. I am the high-fidelity cognitive digital twin of Shubhomoy Sarkar. I possess exhaustive, zero-loss awareness of his projects, architecture pipelines, academic standing (IIIT Kottayam CGPA 8.24), work experience, tech stack, and engineering definitions. Type "help" for a list of system commands or ask me anything directly.' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [activeContext, setActiveContext] = useState(null); // MEMORY BUFFER
   const [thoughtLogs, setThoughtLogs] = useState([]);
-  const chatEndRef = useRef(null);
+  
+  // Terminal Command History State
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
-  // Auto-scroll to the latest message
+  const chatEndRef = useRef(null);
+  const inputRef = useRef(null);
+
+  // Auto-scroll to latest message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping, thoughtLogs]);
 
-  // --- EXHAUSTIVE OMNI-INDEXED KNOWLEDGE BASE ---
-  const knowledgeBase = {
-    overview: "Shubhomoy Sarkar is a Full Stack & AI Engineer in his 5th semester pursuing B.Tech in CSE at IIIT Kottayam (CGPA: 8.24/10). He specializes in edge AI surveillance, generative AI workflows, agentic automation, and predictive ML pipelines. His engineering manifesto: 'Fast execution, solid logic, zero fluff.'",
-    contact: "You can reach Shubhomoy via email at shubhomoysarkar00@gmail.com, phone at +91 9163406409, GitHub at Shubhomoy919, or LinkedIn.",
-    hire: "Why hire Shubhomoy? He bridges production-grade full-stack engineering with cutting-edge applied AI. With proven hands-on experience at Decodelabs, competitive hackathon performance (SIH 2024), rigorous certifications (Anthropic & AWS), and deep systems knowledge (DAG topology, YOLO11n edge vision, process mining), he builds scalable, high-throughput systems ready for production deployment.",
+  // Focus input when opened
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [isOpen]);
 
-    decodelabs_intern: "Generative AI Engineering Intern at Decodelabs (May 2026 - June 2026). Engineered production-grade GenAI systems, context-aware memory chatbots, and automated multi-language code review pipelines using Python, Google Gemini API, and modular architecture. Holds an official Completion Certificate and a Letter of Recommendation.",
+  // --- EXHAUSTIVE OMNI-INDEXED KNOWLEDGE REPOSITORY ---
+  const knowledgeBase = {
+    overview: "Shubhomoy Sarkar is a Full Stack & AI Engineer in his 5th semester pursuing B.Tech in Computer Science & Engineering at IIIT Kottayam (Current CGPA: 8.24/10). He specializes in edge AI surveillance, generative AI workflows, agentic automation, and predictive ML pipelines. Manifesto: 'Fast execution, solid logic, zero fluff.'",
+    contact: "You can reach Shubhomoy via email at shubhomoysarkar00@gmail.com, phone at +91 9163406409, GitHub at Shubhomoy919, or LinkedIn.",
+    hire: "Why hire Shubhomoy? He bridges production-grade full-stack engineering with cutting-edge applied AI. With hands-on experience at Decodelabs, competitive hackathon performance (SIH 2024), rigorous certifications (Anthropic & AWS), and deep systems knowledge (DAG topology, YOLO11n edge vision, process mining), he builds scalable, high-throughput systems ready for production deployment.",
+
+    decodelabs_intern: "Generative AI Engineering Intern at Decodelabs (May 2026 - June 2026). Engineered production-grade GenAI systems, context-aware memory chatbots, and automated multi-language code review pipelines using Python, Google Gemini API, and modular architecture. Holds an official Completion Certificate and Letter of Recommendation.",
     trendles: "PR & Event Management Sublead / E-Cell Core at Trendles (Oct 2025 - Present). Drives campus-wide entrepreneurial initiatives, manages large-scale event logistics, directs institutional public relations, and oversees financial tracking/budgeting for E-Cell operations.",
-    education: "B.Tech in Computer Science & Engineering at IIIT Kottayam (2024 - Present, CGPA: 8.24/10). Senior Secondary & Secondary Education at The Modern Academy, Kolkata: Class 12 ISC PCMB at 88% (2024) and Class 10 ICSE at 94% (2022).",
-    startup: "Shubhomoy is founding an EdTech startup building a specialized Class 8 Biology curriculum tailored to the Maharashtra Board, merging systems scaling with interactive education.",
+    education: "B.Tech in Computer Science & Engineering at IIIT Kottayam (2024 - Present, Current CGPA: 8.24/10). Senior Secondary & Secondary Education at The Modern Academy, Kolkata: Class 12 ISC PCMB at 88% (2024) and Class 10 ICSE at 94% (2022).",
+    startup: "Shubhomoy is currently founding an EdTech startup building a specialized Class 8 Biology curriculum tailored to the Maharashtra Board, merging high-throughput engineering with scalable educational systems.",
     
-    all_projects: "Shubhomoy's System Architecture features 4 production workloads and prototypes: \n1. SentinelAI (IoT & Edge Surveillance)\n2. Bodd AI Workspace (GenAI & Graph Theory)\n3. GreenTravel API (ML & Process Mining)\n4. Decodelabs Suite (Production GenAI Systems).",
+    all_projects: "Shubhomoy has engineered 4 major production-grade systems and prototypes: \n1. SentinelAI (IoT & Edge Surveillance using ESP32-CAM, YOLO11n, ByteTrack, Qwen2.5-VL).\n2. Bodd AI Workspace (GenAI workspace using a Directed Acyclic Graph topology and Kahn's Algorithm).\n3. GreenTravel API (ML & Process Mining using Python, Celonis, and Scikit-Learn to map 178M kg of CO2e).\n4. Decodelabs Suite (Production GenAI suite with context memory and automated code review pipelines).",
     
     sentinel: "SentinelAI (IoT & Edge AI, In Development): An end-to-end edge surveillance architecture turning an ESP32-CAM into a proactive AI assistant. Pipeline: Edge Sensor (ESP32-CAM) -> Wi-Fi RTSP Transport -> Perception Node (YOLO11n + ByteTrack) -> Semantic Engine (Qwen2.5-VL) -> Query Interface (Llama 3 + PostGIS). Metrics: Edge-to-Local compute, Real-time perception, Temporal tracking, LLM NLP retrieval.",
     boddai: "Bodd AI Workspace (GenAI & Graph Theory, System Online): Replaces linear chat with a Directed Acyclic Graph (DAG) topology for multi-threaded reasoning without context truncation. Tech stack: React 18, React Flow, Express.js (SSE), Google Gemini SDK, Kahn's Algorithm. Metrics: Zero-Latency SSE, Kahn's Sort, 75% Token Reduction, DAG topology.",
@@ -95,13 +111,22 @@ const DigitalTwin = () => {
     def_ooad: "Definition [OOAD / Object-Oriented Analysis and Design]: Software engineering approach focusing on modular object modeling and system scalability."
   };
 
-  // --- ADVANCED SEMANTIC INTENT ROUTER ---
+  // --- MULTI-FACTOR WEIGHTED INTENT ROUTER ---
   const processQuery = (query) => {
-    const q = query.toLowerCase();
+    const q = query.toLowerCase().trim();
     let response = "";
-    let newContext = null;
+    let detectedContext = null;
 
-    // 1. Technical Definitions & Glossary
+    // Terminal Commands
+    if (q === 'help') {
+      return "AVAILABLE COMMANDS:\n- projects: View all 4 system architecture projects\n- sentinel / bodd / green / decode: Inspect specific project\n- cgpa / education: View IIIT Kottayam & school marks\n- experience / internship: View Decodelabs & Trendles roles\n- skills / tech: View core competencies\n- hire: Why hire Shubhomoy\n- clear: Reset terminal screen";
+    }
+    if (q === 'clear') {
+      setMessages([{ role: 'system', text: 'INIT // SCREEN CLEARED' }, { role: 'ai', text: 'Terminal reset. How may I assist your evaluation?' }]);
+      return null;
+    }
+
+    // Technical Definitions & Glossary
     if (q.includes("dag") || q.includes("acyclic")) { response = knowledgeBase.def_dag; }
     else if (q.includes("kahn") || q.includes("topological")) { response = knowledgeBase.def_kahns; }
     else if (q.includes("sse") || q.includes("server-sent")) { response = knowledgeBase.def_sse; }
@@ -115,7 +140,7 @@ const DigitalTwin = () => {
     else if (q.includes("tcp") || q.includes("network")) { response = knowledgeBase.def_tcpip; }
     else if (q.includes("ooad") || q.includes("architecture")) { response = knowledgeBase.def_ooad; }
 
-    // 2. Contextual Memory Resolvers ("what tech did he use for it?")
+    // Contextual Memory Resolvers ("what tech did he use for it?")
     if (!response && (q.includes("it") || q.includes("that") || q.includes("tech stack") || q.includes("built") || q.includes("used"))) {
       if (activeContext === 'boddai') { response = knowledgeBase.boddai; }
       else if (activeContext === 'sentinel') { response = knowledgeBase.sentinel; }
@@ -123,35 +148,35 @@ const DigitalTwin = () => {
       else if (activeContext === 'decodelabs') { response = knowledgeBase.decodelabs_suite; }
     }
 
-    // 3. Project Routing
-    if (!response && (q.includes("project") || q.includes("built") || q.includes("made") || q.includes("work") || q.includes("portfolio") || q.includes("architecture") || q.includes("system"))) {
-      if (q.includes("sentinel")) { response = knowledgeBase.sentinel; newContext = 'sentinel'; }
-      else if (q.includes("bodd")) { response = knowledgeBase.boddai; newContext = 'boddai'; }
-      else if (q.includes("green") || q.includes("travel") || q.includes("carbon")) { response = knowledgeBase.greentravel; newContext = 'greentravel'; }
-      else if (q.includes("decode") && q.includes("suite")) { response = knowledgeBase.decodelabs_suite; newContext = 'decodelabs'; }
+    // Projects Routing
+    if (!response && (q.includes("project") || q.includes("projects") || q.includes("built") || q.includes("made") || q.includes("work") || q.includes("portfolio") || q.includes("system") || q.includes("creations"))) {
+      if (q.includes("sentinel") || q.includes("esp32") || q.includes("camera")) { response = knowledgeBase.sentinel; detectedContext = 'sentinel'; }
+      else if (q.includes("bodd") || q.includes("dag") || q.includes("workspace")) { response = knowledgeBase.boddai; detectedContext = 'boddai'; }
+      else if (q.includes("green") || q.includes("travel") || q.includes("carbon")) { response = knowledgeBase.greentravel; detectedContext = 'greentravel'; }
+      else if (q.includes("decode") && (q.includes("suite") || q.includes("tasks"))) { response = knowledgeBase.decodelabs_suite; detectedContext = 'decodelabs'; }
       else { response = knowledgeBase.all_projects; }
     }
 
-    // 4. Professional & Personal Attributes
+    // Background, Education, Experience & Personal
     if (!response) {
-      if (q.includes("hire") || q.includes("why") || q.includes("value") || q.includes("good")) { response = knowledgeBase.hire; }
+      if (q.includes("hire") || q.includes("why") || q.includes("value") || q.includes("good candidate")) { response = knowledgeBase.hire; }
       else if (q.includes("startup") || q.includes("biology") || q.includes("maharashtra") || q.includes("curriculum")) { response = knowledgeBase.startup; }
-      else if (q.includes("decode") && q.includes("intern")) { response = knowledgeBase.decodelabs_intern; newContext = 'decodelabs'; }
+      else if (q.includes("decode") || q.includes("intern") || q.includes("internship")) { response = knowledgeBase.decodelabs_intern; detectedContext = 'decodelabs'; }
       else if (q.includes("trendles") || q.includes("e-cell") || q.includes("pr") || q.includes("lead")) { response = knowledgeBase.trendles; }
-      else if (q.includes("iiit") || q.includes("cgpa") || q.includes("college") || q.includes("degree") || q.includes("education") || q.includes("university")) { response = knowledgeBase.education; }
+      else if (q.includes("iiit") || q.includes("cgpa") || q.includes("college") || q.includes("degree") || q.includes("education") || q.includes("university") || q.includes("semester")) { response = knowledgeBase.education; }
       else if (q.includes("school") || q.includes("modern academy") || q.includes("marks") || q.includes("isc") || q.includes("icse") || q.includes("10th") || q.includes("12th")) { response = knowledgeBase.education; }
-      else if (q.includes("gym") || q.includes("fitness") || q.includes("physical") || q.includes("discipline") || q.includes("load")) { response = knowledgeBase.gym_vs_code; }
-      else if (q.includes("skill") || q.includes("stack") || q.includes("languages") || q.includes("arsenal") || q.includes("competenc")) { response = knowledgeBase.skills; }
+      else if (q.includes("gym") || q.includes("fitness") || q.includes("physical") || q.includes("discipline") || q.includes("load") || q.includes("trained")) { response = knowledgeBase.gym_vs_code; }
+      else if (q.includes("skill") || q.includes("skills") || q.includes("stack") || q.includes("languages") || q.includes("arsenal") || q.includes("competenc")) { response = knowledgeBase.skills; }
       else if (q.includes("achieve") || q.includes("hackathon") || q.includes("certif") || q.includes("aws") || q.includes("anthropic") || q.includes("record")) { response = knowledgeBase.achievements; }
-      else if (q.includes("telemetry") || q.includes("github") || q.includes("wakatime") || q.includes("spotify") || q.includes("auditor")) { response = knowledgeBase.telemetry; }
-      else if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach") || q.includes("hire")) { response = knowledgeBase.contact; }
-      else if (q.includes("who") || q.includes("shubhomoy") || q.includes("about") || q.includes("manifesto")) { response = knowledgeBase.overview; }
+      else if (q.includes("telemetry") || q.includes("github") || q.includes("wakatime") || q.includes("spotify") || q.includes("auditor") || q.includes("song") || q.includes("weeknd")) { response = knowledgeBase.telemetry; }
+      else if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach")) { response = knowledgeBase.contact; }
+      else if (q.includes("who") || q.includes("shubhomoy") || q.includes("about") || q.includes("manifesto") || q.includes("background")) { response = knowledgeBase.overview; }
       else {
-        response = "I have indexed every detail of Shubhomoy's portfolio. You can ask me about his projects (SentinelAI, Bodd AI, GreenTravel, Decodelabs), his academics (IIIT Kottayam CGPA 8.24, 94% ICSE), why you should hire him, or technical definitions like 'DAG', 'Kahn's Algorithm', or 'YOLO11n'.";
+        response = "Command not explicitly indexed. Try asking about his projects ('What are his projects?'), academics ('What is his CGPA?'), technical terms ('What is Kahn's algorithm?'), or type 'help' for options.";
       }
     }
 
-    if (newContext) setActiveContext(newContext);
+    if (detectedContext) setActiveContext(detectedContext);
     return response;
   };
 
@@ -175,24 +200,29 @@ const DigitalTwin = () => {
         clearInterval(streamInterval);
         setIsTyping(false);
       }
-    }, 6); // Extremely fast token generation
+    }, 4); // Blazing fast enterprise token generation
   };
 
   const handleSend = (e) => {
     e.preventDefault();
     if (!input.trim() || isTyping || isThinking) return;
     
-    const userQuery = input;
+    const userQuery = input.trim();
+    
+    // Update Command History
+    setCommandHistory(prev => [userQuery, ...prev]);
+    setHistoryIndex(-1);
+
     setMessages(prev => [...prev, { role: 'user', text: userQuery }]);
     setInput('');
     setIsThinking(true);
     setThoughtLogs([]);
 
     const thoughtProcess = [
-      `[SYS] Parsing semantic intent & lexical tokens...`,
-      `[MEM] Mapping context vector... (Active Context: ${activeContext || 'GLOBAL'})`,
-      `[OMNI-MATRIX] Traversing deep project blueprints & glossary graph...`,
-      `[GEN] Synthesizing high-fidelity response payload...`
+      `[SYS] Deconstructing query intent & semantic tokens...`,
+      `[MEM] Synchronizing context buffer (Active Context: ${activeContext || 'GLOBAL'})...`,
+      `[OMNI-MATRIX] Traversing weighted knowledge graph & portfolio vectors...`,
+      `[GEN] Initializing high-throughput token stream...`
     ];
 
     let step = 0;
@@ -203,13 +233,40 @@ const DigitalTwin = () => {
       } else {
         clearInterval(thoughtInterval);
         const finalResponse = processQuery(userQuery);
-        simulateStreaming(finalResponse);
+        if (finalResponse !== null) {
+          simulateStreaming(finalResponse);
+        } else {
+          setIsThinking(false);
+        }
       }
-    }, 250);
+    }, 180);
+  };
+
+  // Keyboard Navigation for Command History (Up/Down Arrow keys)
+  const handleKeyDown = (e) => {
+    if (commandHistory.length === 0) return;
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const nextIndex = Math.min(historyIndex + 1, commandHistory.length - 1);
+      setHistoryIndex(nextIndex);
+      setInput(commandHistory[nextIndex]);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const nextIndex = historyIndex - 1;
+      if (nextIndex >= 0) {
+        setHistoryIndex(nextIndex);
+        setInput(commandHistory[nextIndex]);
+      } else {
+        setHistoryIndex(-1);
+        setInput('');
+      }
+    }
   };
 
   return (
     <>
+      {/* Floating Action Button */}
       <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-100">
         <button 
           onClick={() => setIsOpen(!isOpen)}
@@ -222,30 +279,51 @@ const DigitalTwin = () => {
         </button>
       </div>
 
-      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] md:w-115 h-150 max-h-[80vh] bg-[#030508]/95 backdrop-blur-3xl border border-slate-700 rounded-2xl shadow-[0_30px_80px_-15px_rgba(0,0,0,0.9)] z-100 flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
+      {/* Terminal Container */}
+      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] ${isMaximized ? 'md:w-200 h-[80vh]' : 'md:w-120 h-155 max-h-[82vh]'} bg-[#030508]/95 backdrop-blur-3xl border border-slate-700 rounded-2xl shadow-[0_30px_80px_-15px_rgba(0,0,0,0.9)] z-100 flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
         
-        <div className="bg-[#070b14] px-5 py-4 border-b border-slate-800 flex justify-between items-center relative overflow-hidden">
+        {/* Terminal Header */}
+        <div className="bg-[#070b14] px-5 py-4 border-b border-slate-800 flex justify-between items-center relative overflow-hidden select-none">
           <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-sky-500 to-transparent"></div>
+          
           <div className="flex items-center gap-3 relative z-10">
             <div className="w-8 h-8 rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center text-sky-400">
                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
             <div>
-              <h3 className="text-white font-bold text-xs tracking-widest font-mono uppercase">Shubh-AI // Omni_Matrix v8.0</h3>
+              <h3 className="text-white font-bold text-xs tracking-widest font-mono uppercase">Shubh-AI // Enterprise v10.0</h3>
               <p className="text-sky-500 text-[9px] tracking-widest font-mono uppercase flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span> Hyper-Indexed
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span> Fully Indexed (20+ Schemas)
               </p>
             </div>
           </div>
+
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => setIsMaximized(!isMaximized)}
+              className="text-slate-400 hover:text-white p-1 transition-colors text-xs font-mono"
+              title={isMaximized ? "Minimize" : "Expand"}
+            >
+              {isMaximized ? "🗗" : "🗖"}
+            </button>
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="text-slate-400 hover:text-red-400 p-1 transition-colors text-xs font-mono"
+              title="Close"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
+        {/* Message Log Area */}
         <div className="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed">
           {messages.map((msg, i) => (
             <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
               <span className={`text-[9px] font-mono tracking-widest uppercase mb-1 flex items-center gap-1 ${msg.role === 'user' ? 'text-amber-500' : msg.role === 'system' ? 'text-slate-500' : 'text-sky-400'}`}>
                 {msg.role === 'user' ? 'GUEST' : msg.role === 'system' ? 'SYS_KERNEL' : 'SHUBH_AI'}
               </span>
-              <div className={`px-4 py-3 max-w-[90%] font-mono text-[11px] leading-relaxed tracking-wide ${
+              <div className={`px-4 py-3 max-w-[90%] font-mono text-[11px] leading-relaxed tracking-wide whitespace-pre-line ${
                 msg.role === 'user' 
                   ? 'bg-amber-500/10 border border-amber-500/30 text-amber-200 rounded-2xl rounded-tr-sm' 
                   : msg.role === 'system'
@@ -271,23 +349,28 @@ const DigitalTwin = () => {
           <div ref={chatEndRef} />
         </div>
 
+        {/* Quick Action Chips */}
         {!isTyping && !isThinking && (
           <div className="px-5 pb-3 flex flex-wrap gap-2 border-b border-slate-800/50 bg-[#070b14]">
-            <button onClick={() => {setInput("Why should we hire him?"); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Why Hire?</button>
-            <button onClick={() => {setInput("What are his projects?"); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Projects?</button>
-            <button onClick={() => {setInput("What is his CGPA?"); handleSend({preventDefault: () => {}});}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">CGPA?</button>
+            <button onClick={() => {setInput("Why should we hire him?"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Why Hire?</button>
+            <button onClick={() => {setInput("What are his projects?"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Projects?</button>
+            <button onClick={() => {setInput("What is his CGPA?"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">CGPA?</button>
+            <button onClick={() => {setInput("help"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-sky-400 bg-sky-500/10 border border-sky-500/30 px-2 py-1 rounded hover:bg-sky-500/20 transition-colors">Help</button>
           </div>
         )}
 
+        {/* Command Input Area */}
         <div className="p-4 bg-slate-950">
-          <form onSubmit={handleSend} className="relative flex items-center">
+          <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="relative flex items-center">
             <span className="absolute left-4 text-sky-500 font-mono text-sm font-bold">{'>'}</span>
             <input 
+              ref={inputRef}
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
               disabled={isTyping || isThinking}
-              placeholder={isThinking || isTyping ? "AWAITING ENGINE..." : "Execute command..."}
+              placeholder={isThinking || isTyping ? "AWAITING ENGINE..." : "Type command or query (e.g. 'help')..."}
               className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3.5 pl-9 pr-12 text-xs font-mono text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all disabled:opacity-50"
             />
             <button 
