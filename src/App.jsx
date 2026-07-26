@@ -339,9 +339,11 @@ const App = () => {
   ];
 
   const spotifyData = {
-    song: "Night City",
-    artist: "R T L",
-    albumArt: "bg-linear-to-br from-fuchsia-500 to-purple-800"
+    song: "The Morning",
+    artist: "The Weeknd",
+    // Direct link to the official Trilogy album art
+    albumArtUrl: "https://upload.wikimedia.org/wikipedia/en/2/29/The_Weeknd_-_Trilogy.png", 
+    colorGlow: "rgba(220,38,38,0.3)" // Moody red glow to match the Weeknd vibe
   };
 
   const bioMetrics = {
@@ -808,10 +810,26 @@ const App = () => {
                 </div>
                 
                 <div className="mt-auto flex items-center gap-4 relative z-10">
-                  {/* Spinning Record Art */}
-                  <div className={`w-14 h-14 rounded-full ${spotifyData.albumArt} flex items-center justify-center animate-[spin_4s_linear_infinite] shadow-[0_0_15px_rgba(217,70,239,0.3)] shrink-0`}>
-                    <div className="w-4 h-4 bg-[#070b14] rounded-full border border-slate-700"></div>
+                  
+                  {/* ADVANCED VINYL RECORD COMPONENT */}
+                  <div 
+                    className="relative w-14 h-14 rounded-full animate-[spin_4s_linear_infinite] shrink-0 border border-slate-800 transition-shadow duration-500 group-hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]"
+                    style={{ boxShadow: `0 0 15px ${spotifyData.colorGlow}` }}
+                  >
+                    {/* The Album Cover Image */}
+                    <img 
+                      src={spotifyData.albumArtUrl} 
+                      alt="Album Art" 
+                      className="absolute inset-0 w-full h-full object-cover rounded-full"
+                    />
+                    
+                    {/* Vinyl Grooves & Edge Shadow (Makes it look like a physical record) */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)] rounded-full pointer-events-none"></div>
+                    
+                    {/* The Center Spindle Hole */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#070b14] rounded-full border border-slate-700/80 shadow-inner z-10"></div>
                   </div>
+
                   <div className="flex flex-col">
                     <span className="text-white font-bold text-sm truncate">{spotifyData.song}</span>
                     <span className="text-slate-400 text-xs">{spotifyData.artist}</span>
