@@ -317,7 +317,6 @@ const App = () => {
           </div>
         </div>
       </nav>
-
       {/* --- 1. THE HERO ENGINE (3-LINE PROFESSIONAL BIO) --- */}
       <header className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 z-10 pt-20">
         <RevealSection delay="0ms">
@@ -535,7 +534,7 @@ const App = () => {
                     </p>
 
                     <a href={proj.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-4 px-10 py-5 bg-slate-100 text-slate-950 hover:bg-amber-400 rounded-2xl font-black text-lg transition-colors duration-300 shadow-2xl uppercase tracking-wider">
-                      Inspect Architecture &rarr;
+                      Github Repo &rarr;
                     </a>
                   </div>
 
