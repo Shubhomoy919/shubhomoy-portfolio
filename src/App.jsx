@@ -1,4 +1,85 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import * as THREE from 'three';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Stars, Float } from '@react-three/drei';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ReactLenis } from '@studio-freight/react-lenis';
+
+// --- 1. BOOT SEQUENCE COMPONENT ---
+const BootSequence = ({ onComplete }) => {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setStep(1), 600);
+    const t2 = setTimeout(() => setStep(2), 1200);
+    const t3 = setTimeout(() => setStep(3), 1800);
+    const t4 = setTimeout(() => onComplete(), 2800);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+  }, [onComplete]);
+
+  return (
+    <motion.div 
+      className="fixed inset-0 z-9999 bg-[#030508] flex flex-col items-center justify-center p-6 select-none"
+      exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
+      <div className="max-w-2xl w-full flex flex-col font-mono text-sm md:text-base space-y-2">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}><span className="text-slate-500">System.Initialize()</span></motion.div>
+        {step >= 1 && <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><span className="text-sky-400">Loading Neural Vectors & DAG Topologies... [OK]</span></motion.div>}
+        {step >= 2 && <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><span className="text-amber-500">Injecting Context Matrix... [OK]</span></motion.div>}
+        {step >= 3 && <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-8 self-center text-center"><span className="text-white text-xl md:text-2xl font-bold tracking-[0.2em] uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">Welcome, Operator.</span></motion.div>}
+      </div>
+    </motion.div>
+  );
+};
+
+// --- 2. CUSTOM PHYSICS CURSOR ---
+const CustomCursor = ({ mousePos }) => {
+  return (
+    <>
+      <motion.div
+        className="fixed top-0 left-0 w-10 h-10 rounded-full border border-amber-500/50 pointer-events-none z-9999 hidden lg:block mix-blend-screen"
+        animate={{ x: mousePos.x - 20, y: mousePos.y - 20 }}
+        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}
+      />
+      <motion.div
+        className="fixed top-0 left-0 w-2 h-2 bg-sky-400 rounded-full pointer-events-none z-9999 hidden lg:block shadow-[0_0_10px_#38bdf8]"
+        animate={{ x: mousePos.x - 4, y: mousePos.y - 4 }}
+        transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.1 }}
+      />
+    </>
+  );
+};
+
+// --- 3. REACT THREE FIBER NEURAL ENVIRONMENT ---
+const NeuralScene = () => {
+  const groupRef = useRef();
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, state.pointer.x * 0.3, 0.05);
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, -state.pointer.y * 0.3, 0.05);
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <Stars radius={50} depth={50} count={3000} factor={4} saturation={0} fade speed={1.5} />
+      <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
+        <mesh position={[-8, 2, -10]}>
+          <torusKnotGeometry args={[7, 0.15, 200, 32]} />
+          <meshStandardMaterial color="#38bdf8" wireframe opacity={0.15} transparent />
+        </mesh>
+      </Float>
+      <Float speed={3} rotationIntensity={2} floatIntensity={1.5}>
+        <mesh position={[10, -4, -15]}>
+          <icosahedronGeometry args={[5, 1]} />
+          <meshStandardMaterial color="#f59e0b" wireframe opacity={0.15} transparent />
+        </mesh>
+      </Float>
+    </group>
+  );
+};
 
 // --- CUSTOM HOOK: SCROLL ANIMATIONS ---
 const useScrollReveal = () => {
@@ -419,6 +500,7 @@ const DigitalTwin = () => {
 
 
 const App = () => {
+  const [booted, setBooted] = useState(false);
   const trajectory = [
     {
       role: "Generative AI Engineering Intern",
@@ -822,28 +904,31 @@ const App = () => {
   };
 
  return (
-    <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
+    <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
+      <AnimatePresence>
+        {!booted && <BootSequence onComplete={() => setBooted(true)} />}
+      </AnimatePresence>
+      
+      <CustomCursor mousePos={mousePos} />
 
-      {/* --- EXACT AMBIENT BACKGROUND GLOWS (BULLETPROOF INLINE STYLES) --- */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Intense Amber glow on the left */}
-        <div 
-          className="absolute top-[5%] left-[-15%] rounded-full"
-          style={{ width: '600px', height: '600px', backgroundColor: 'rgba(245, 158, 11, 0.15)', filter: 'blur(120px)' }}
-        ></div>
+      {/* Adding cursor-none to hide the default browser pointer */}
+      <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
         
-        {/* Deep Indigo/Purple glow on the right */}
-        <div 
-          className="absolute top-[25%] right-[-15%] rounded-full"
-          style={{ width: '600px', height: '600px', backgroundColor: 'rgba(99, 102, 241, 0.15)', filter: 'blur(120px)' }}
-        ></div>
-      </div>
-      {/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
-      <div 
-        className="pointer-events-none fixed inset-0 z-50 transition duration-300 hidden lg:block" 
-        style={{ background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.05), transparent 80%)` }}
-      ></div>
+        {/* --- 3D WEBGL BACKGROUND --- */}
+        <div className="fixed inset-0 z-0 pointer-events-none bg-[#030508]">
+          <Canvas camera={{ position: [0, 0, 20], fov: 60 }}>
+            <ambientLight intensity={0.2} />
+            <pointLight position={[10, 10, 10]} color="#f59e0b" intensity={2} />
+            <pointLight position={[-10, -10, -10]} color="#38bdf8" intensity={2} />
+            <NeuralScene />
+          </Canvas>
+        </div>
 
+        {/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
+        <div 
+          className="pointer-events-none fixed inset-0 z-1 transition duration-300 hidden lg:block" 
+          style={{ background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.05), transparent 80%)` }}
+        ></div>
       {/* --- GLOBAL NAVIGATION BAR --- */}
       <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-[#030508]/80 backdrop-blur-md border-b border-slate-800/80 py-4 shadow-xl' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -1666,6 +1751,7 @@ const App = () => {
 <DigitalTwin />
 
     </div>
+    </ReactLenis>
   );
 };
 
