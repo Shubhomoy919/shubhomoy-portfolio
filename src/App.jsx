@@ -1135,7 +1135,7 @@ const App = () => {
                 {/* Dynamic Month Mapping */}
                 <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
                   <div className="flex flex-wrap gap-2.5 items-center relative z-10 min-w-max">
-                    {currentMonthHeatmap.map((data) => (
+                    {heatmapData.map((data) => (
                       <div 
                         key={data.day} 
                         onMouseEnter={() => setActiveCommit(data)}
