@@ -417,7 +417,6 @@ const DigitalTwin = () => {
   );
 };
 
-export default DigitalTwin;
 
 const App = () => {
   const trajectory = [
