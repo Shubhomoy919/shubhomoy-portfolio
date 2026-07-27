@@ -42,14 +42,23 @@ const DigitalTwin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'system', text: 'INIT // SHUBH-AI ENGINE v10.0 (Enterprise Neural Matrix)\nLoading 100% of portfolio vectors, project blueprints, telemetry streams, and technical glossaries...' },
-    { role: 'ai', text: 'Terminal online. I am the high-fidelity cognitive digital twin of Shubhomoy Sarkar. I possess exhaustive, zero-loss awareness of his projects, architecture pipelines, academic standing (IIIT Kottayam CGPA 8.24), work experience, tech stack, and engineering definitions. Type "help" for a list of system commands or ask me anything directly.' }
+    { 
+      role: 'system', 
+      text: 'INIT // SHUBH-AI KERNEL v11.0 (Cognitive Neural Matrix Active)\nIndexed: 100% Portfolio Vectors, Architecture Graphs, Deep Engineering Glossaries, & Recruiter Evaluation Models.' 
+    },
+    { 
+      role: 'ai', 
+      text: 'Terminal online. I am Shubhomoy Sarkar’s high-fidelity AI Digital Twin. I have full technical and operational awareness of his engineering projects (SentinelAI, Bodd AI, GreenTravel API, Decodelabs), IIIT Kottayam academic record (CGPA 8.24), certifications, and live telemetry.\n\nType a query or enter "/" to view system commands.' 
+    }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
-  const [activeContext, setActiveContext] = useState(null); // MEMORY BUFFER
+  
+  // Advanced State & Memory
+  const [activeContext, setActiveContext] = useState(null); // Context buffer for pronouns
   const [thoughtLogs, setThoughtLogs] = useState([]);
+  const [suggestedChips, setSuggestedChips] = useState(["/eval", "What are his projects?", "Explain Kahn's Algo", "CGPA & Marks"]);
   
   // Terminal Command History State
   const [commandHistory, setCommandHistory] = useState([]);
@@ -58,127 +67,147 @@ const DigitalTwin = () => {
   const chatEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Auto-scroll to latest message
+  // Auto-scroll
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping, thoughtLogs]);
 
-  // Focus input when opened
+  // Focus on open
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [isOpen]);
 
-  // --- EXHAUSTIVE OMNI-INDEXED KNOWLEDGE REPOSITORY ---
-  const knowledgeBase = {
-    overview: "Shubhomoy Sarkar is a Full Stack & AI Engineer in his 5th semester pursuing B.Tech in Computer Science & Engineering at IIIT Kottayam (Current CGPA: 8.24/10). He specializes in edge AI surveillance, generative AI workflows, agentic automation, and predictive ML pipelines. Manifesto: 'Fast execution, solid logic, zero fluff.'",
-    contact: "You can reach Shubhomoy via email at shubhomoysarkar00@gmail.com, phone at +91 9163406409, GitHub at Shubhomoy919, or LinkedIn.",
-    hire: "Why hire Shubhomoy? He bridges production-grade full-stack engineering with cutting-edge applied AI. With hands-on experience at Decodelabs, competitive hackathon performance (SIH 2024), rigorous certifications (Anthropic & AWS), and deep systems knowledge (DAG topology, YOLO11n edge vision, process mining), he builds scalable, high-throughput systems ready for production deployment.",
+  // --- EXHAUSTIVE OMNI-INDEXED DEEP KNOWLEDGE GRAPH ---
+  const knowledgeGraph = {
+    overview: "Shubhomoy Sarkar is a Full Stack & AI Systems Engineer in his 5th semester pursuing B.Tech in CSE at IIIT Kottayam (Current CGPA: 8.24/10). He specializes in edge AI surveillance, generative AI workflows, agentic automation, and predictive ML pipelines. Manifesto: 'Fast execution, solid logic, zero fluff.'",
+    
+    contact: "Reach Shubhomoy directly:\n• Email: shubhomoysarkar00@gmail.com\n• Phone: +91 9163406409\n• GitHub: github.com/Shubhomoy919\n• LinkedIn: linkedin.com/in/shubhomoy-sarkar-2b2171320",
+    
+    hire: "EVALUATION SUMMARY // Why Hire Shubhomoy?\n1. Production Engineering: Hands-on experience building GenAI memory systems and multi-modal pipelines at Decodelabs.\n2. Deep Systems Thinking: Uses advanced Computer Science primitives (DAG topology, Kahn's topological sort, Server-Sent Events, Edge-to-Local YOLO vision).\n3. Competitive & Certified: SIH 2024 Qualifier, Anthropic Cloud API Certified, and AWS Cloud Practitioner Essentials Certified.\n4. High Output & Discipline: Tracks ~38 hrs/wk cognitive coding load and applies physical hypertrophy principles (progressive overload) to engineering scaling.",
 
-    decodelabs_intern: "Generative AI Engineering Intern at Decodelabs (May 2026 - June 2026). Engineered production-grade GenAI systems, context-aware memory chatbots, and automated multi-language code review pipelines using Python, Google Gemini API, and modular architecture. Holds an official Completion Certificate and Letter of Recommendation.",
-    trendles: "PR & Event Management Sublead / E-Cell Core at Trendles (Oct 2025 - Present). Drives campus-wide entrepreneurial initiatives, manages large-scale event logistics, directs institutional public relations, and oversees financial tracking/budgeting for E-Cell operations.",
-    education: "B.Tech in Computer Science & Engineering at IIIT Kottayam (2024 - Present, Current CGPA: 8.24/10). Senior Secondary & Secondary Education at The Modern Academy, Kolkata: Class 12 ISC PCMB at 88% (2024) and Class 10 ICSE at 94% (2022).",
-    startup: "Shubhomoy is currently founding an EdTech startup building a specialized Class 8 Biology curriculum tailored to the Maharashtra Board, merging high-throughput engineering with scalable educational systems.",
+    decodelabs_intern: "Generative AI Engineering Intern at Decodelabs (May 2026 - June 2026):\n• Engineered production GenAI systems, context-aware memory chatbots, and automated multi-language code review pipelines.\n• Core Stack: Python, Google Gemini API, Modular Security Pipelines.\n• Credentials: Verified Completion Certificate & Letter of Recommendation available in portfolio.",
     
-    all_projects: "Shubhomoy has engineered 4 major production-grade systems and prototypes: \n1. SentinelAI (IoT & Edge Surveillance using ESP32-CAM, YOLO11n, ByteTrack, Qwen2.5-VL).\n2. Bodd AI Workspace (GenAI workspace using a Directed Acyclic Graph topology and Kahn's Algorithm).\n3. GreenTravel API (ML & Process Mining using Python, Celonis, and Scikit-Learn to map 178M kg of CO2e).\n4. Decodelabs Suite (Production GenAI suite with context memory and automated code review pipelines).",
+    trendles: "PR & Event Management Sublead / E-Cell Core at Trendles (Oct 2025 - Present):\n• Spearheads campus-wide entrepreneurial events, manages media outreach, and oversees financial budgeting/tracking for E-Cell operations.",
     
-    sentinel: "SentinelAI (IoT & Edge AI, In Development): An end-to-end edge surveillance architecture turning an ESP32-CAM into a proactive AI assistant. Pipeline: Edge Sensor (ESP32-CAM) -> Wi-Fi RTSP Transport -> Perception Node (YOLO11n + ByteTrack) -> Semantic Engine (Qwen2.5-VL) -> Query Interface (Llama 3 + PostGIS). Metrics: Edge-to-Local compute, Real-time perception, Temporal tracking, LLM NLP retrieval.",
-    boddai: "Bodd AI Workspace (GenAI & Graph Theory, System Online): Replaces linear chat with a Directed Acyclic Graph (DAG) topology for multi-threaded reasoning without context truncation. Tech stack: React 18, React Flow, Express.js (SSE), Google Gemini SDK, Kahn's Algorithm. Metrics: Zero-Latency SSE, Kahn's Sort, 75% Token Reduction, DAG topology.",
-    greentravel: "GreenTravel API (ML & Process Mining, Data Mined): Analyzed corporate travel datasets (178M kg CO2e) to enforce modal shifts for Net-Zero 2030. Tech stack: Python, Pandas, PostgreSQL, Celonis, Scikit-Learn. Metrics: 178M kg CO2e footprint, 85% per-trip reduction, target rail < 400km, Predictive ML engine.",
-    decodelabs_suite: "Decodelabs Suite (Production Suite, Agents Deployed): Comprehensive suite of generative AI systems. Tech stack: Python, Gemini API, Modular Architecture, Security Pipelines. Metrics: Context-Aware Memory, Multi-Language Analysis, Multi-Modal Pipeline, Production Scale.",
+    education: "ACADEMIC STANDING:\n• B.Tech in CSE at IIIT Kottayam (2024 - Present): Current CGPA 8.24 / 10 (5th Semester).\n• The Modern Academy, Kolkata:\n  - Class 12 ISC (PCMB): 88% (2024)\n  - Class 10 ICSE: 94% (2022)",
+    
+    startup: "EDTECH STARTUP INITIATIVE:\n• Shubhomoy is actively founding an EdTech startup building a specialized Class 8 Biology interactive curriculum tailored to the Maharashtra State Board, combining high-throughput web engineering with scalable pedagogical design.",
+    
+    all_projects: "PRODUCTION SYSTEMS & ARCHITECTURES:\n1. SentinelAI: Edge IoT surveillance (ESP32-CAM -> YOLO11n + ByteTrack -> Qwen2.5-VL -> Llama 3 + PostGIS).\n2. Bodd AI Workspace: Non-linear GenAI reasoning DAG using Kahn's topological sort & SSE.\n3. GreenTravel API: Decarbonization process mining analyzing 178M kg CO2e via Celonis & Scikit-Learn.\n4. Decodelabs Suite: Multi-turn GenAI agents with context-aware memory buffers.",
 
-    telemetry: "Operator Telemetry tracks real-time GitHub activity (Shubhomoy919, synced to today), WakaTime active coding hours (62% Python, 28% React/TS, 10% C/C++), a local GenAI Portfolio Auditor (DOM Tree optimized, Tailwind v4 canonical classes, A11y contrast > 4.5:1), and Spotify playing 'The Morning' by The Weeknd.",
-    gym_vs_code: "Bio-Metrics // Discipline: Shubhomoy maps physical hypertrophy directly to code optimization. His weekly load tracks ~38 hours of cognitive load (coding optimization) vs. ~8 hours of physical load (gym training), relying on consistency and progressive overload.",
+    sentinel: "PROJECT // SentinelAI (IoT & Edge AI Surveillance):\n• Concept: Upgrades standard ESP32-CAM into a proactive AI assistant.\n• Architecture: ESP32-CAM Sensor -> RTSP Wi-Fi Transport -> Perception Node (YOLO11n object detection + ByteTrack entity association) -> Semantic Engine (Qwen2.5-VL visual context) -> Query Interface (Llama 3 + PostGIS spatial index).\n• Impact: Converts raw video feeds into queryable semantic video data.",
     
-    achievements: "Hall of Records & Credentials: \n- Smart India Hackathon 2024 (Internal Round Qualifier)\n- ML Workshop at Techfest, IIT Bombay (2025, Completed)\n- Summer Analytics at IIT Guwahati (2025, Data Program Participant)\n- Cloud with Anthropic API Certification (Verified Certified)\n- AWS Cloud Practitioner Essentials (Verified Certified).",
+    boddai: "PROJECT // Bodd AI Workspace (Graph Theory & GenAI):\n• Concept: Replaces linear chat threads with a Directed Acyclic Graph (DAG) for branching multi-threaded AI reasoning.\n• Architecture: React 18 frontend with React Flow, Express.js backend with Server-Sent Events (SSE), Google Gemini SDK, Kahn's Topological Sorting algorithm.\n• Key Metric: 75% token payload reduction via dynamic context compression, zero-latency streaming.",
     
-    skills: "Core Competencies: Theoretical & Core CS (DSA complexity optimization, OS/DBMS concurrency & ACID properties, Computer Networks TCP/IP, Compiler Design state machines, OOAD scalable design), Advanced AI & ML (GenAI, Agentic workflows, Deep learning, Pandas, NumPy, Scikit-Learn, bioinformatics pipelines), Modern Full-Stack (C, C++, Java, Python, JavaScript, React, Next.js, RESTful APIs, PostgreSQL schema optimization).",
+    greentravel: "PROJECT // GreenTravel API (ML & Process Mining):\n• Concept: Data-driven corporate travel decarbonization platform targeting Net-Zero 2030 emissions.\n• Tech Stack: Python, Pandas, PostgreSQL, Celonis Process Mining, Scikit-Learn.\n• Impact: Analyzed 178M kg CO2e footprint, enforced modal shift (<400km trip shift to rail), achieved 85% per-trip carbon reduction.",
     
-    def_dag: "Definition [DAG / Directed Acyclic Graph]: A finite directed graph with no directed cycles. Used in Bodd AI to allow branching, non-linear LLM reasoning streams without context collapse.",
-    def_kahns: "Definition [Kahn's Algorithm]: An algorithm for topological sorting used in Bodd AI as a safety engine to detect and prevent cyclical logic corruption.",
-    def_sse: "Definition [SSE / Server-Sent Events]: A unidirectional protocol for real-time server updates. Used in Bodd AI for zero-latency LLM token streaming.",
-    def_yolo: "Definition [YOLO11n]: A state-of-the-art real-time object detection model used in SentinelAI for edge perception.",
-    def_byatrack: "Definition [ByteTrack]: A multi-object tracking algorithm that associates detection boxes across frames for temporal tracking in SentinelAI.",
-    def_qwen: "Definition [Qwen2.5-VL]: A Vision-Language Model used in SentinelAI to translate raw pixel frames into semantic text events.",
-    def_celonis: "Definition [Celonis]: Market-leading process mining software used in GreenTravel to uncover policy deviations in corporate travel logs.",
-    def_fiber: "Definition [React Fiber]: The internal reconciliation engine in React 18 for incremental rendering and prioritization.",
-    def_hypertrophy: "Definition [Hypertrophy]: Muscle growth via progressive overload—a principle Shubhomoy applies to software systems architecture.",
-    def_acid: "Definition [ACID Properties]: Atomicity, Consistency, Isolation, Durability. Fundamental database guarantees highlighted in his OS & DBMS core competency.",
-    def_tcpip: "Definition [TCP/IP]: Transmission Control Protocol / Internet Protocol. Core networking model covered in his Computer Networks coursework.",
-    def_ooad: "Definition [OOAD / Object-Oriented Analysis and Design]: Software engineering approach focusing on modular object modeling and system scalability."
+    decodelabs_suite: "PROJECT // Decodelabs Production GenAI Suite:\n• Concept: Enterprise generative AI suite spanning multi-turn conversational memory, static code review, and content generation.\n• Tech Stack: Python, Gemini API, Modular Router, Security Sanitization Layer.",
+
+    telemetry: "LIVE TELEMETRY & AUDITOR:\n• Real-Time GitHub API Integration: Live contribution matrix for current month + dynamic language byte breakdown across repos.\n• GenAI Portfolio Auditor: React Fiber DOM tree optimization, Tailwind v4 canonical utilities, WCAG 2.1 A11y contrast ratios (>4.5:1).\n• Spotify Integration: 'The Morning' by The Weeknd (Custom animated vinyl widget).",
+
+    achievements: "HALL OF RECORDS & CREDENTIALS:\n• Smart India Hackathon 2024: Internal Round Qualifier.\n• IIT Bombay Techfest 2025: Completed Machine Learning Workshop.\n• IIT Guwahati Summer Analytics 2025: Data Science Program Participant.\n• Anthropic API Certification: Verified AI/Cloud Workflow Credential.\n• AWS Cloud Practitioner Essentials: Verified AWS Cloud Credential.",
+
+    skills: "CORE COMPETENCIES:\n1. Theoretical CS: DSA complexity optimization, OS concurrency, DBMS indexing/ACID, Computer Networks TCP/IP, TOC state machines, OOAD.\n2. AI / ML / DL: GenAI, Agentic workflows, Scikit-Learn, Pandas, NumPy, Deep Learning, Computer Vision (YOLO/ByteTrack/VLMs).\n3. Full-Stack: C, C++, Java, Python, JavaScript, TypeScript, React, Next.js, Express.js, REST APIs, PostgreSQL, Tailwind CSS.",
+
+    // --- DEEP ENGINEERING GLOSSARY & CONCEPT EXPLANATIONS ---
+    def_dag: "ENGINEERING EXPLANATION // DAG (Directed Acyclic Graph):\nA Directed Acyclic Graph is a finite directed graph with no directed cycles. In Bodd AI, it is used as the fundamental spatial topology for conversation branches. Unlike linear chat histories that truncate prior context, a DAG lets developers fork reasoning streams into independent nodes while preserving explicit parent-child lineage.",
+    
+    def_kahns: "ENGINEERING EXPLANATION // Kahn's Algorithm:\nKahn's Algorithm is a linear-time ($O(|V| + |E|)$) topological sorting method that operates by iteratively removing nodes with zero in-degrees (no incoming dependencies). In Bodd AI, it acts as a real-time graph integrity engine to detect and prevent circular context loops during branch merging, ensuring logical consistency before sending payloads to LLMs.",
+    
+    def_sse: "ENGINEERING EXPLANATION // SSE (Server-Sent Events):\nServer-Sent Events is a unidirectional HTTP streaming protocol (`text/event-stream`) allowing servers to push real-time updates over a single persistent TCP connection. Bodd AI utilizes SSE instead of WebSockets or Polling to stream Gemini LLM tokens to the client with sub-15ms latency while minimizing socket handshake overhead.",
+    
+    def_yolo: "ENGINEERING EXPLANATION // YOLO11n (You Only Look Once v11 Nano):\nYOLO11n is an ultra-lightweight real-time object detection architecture optimized for edge devices. In SentinelAI, it runs on local edge compute to extract bounding boxes and confidence class scores from ESP32-CAM RTSP video feeds at high FPS without cloud latency.",
+    
+    def_byatrack: "ENGINEERING EXPLANATION // ByteTrack:\nByteTrack is a multi-object tracking algorithm that associates low-confidence detection boxes instead of discarding them, utilizing Kalman filtering and Intersection over Union (IoU) mapping. SentinelAI employs ByteTrack to maintain continuous spatial-temporal entity IDs across video frames.",
+    
+    def_qwen: "ENGINEERING EXPLANATION // Qwen2.5-VL (Vision-Language Model):\nQwen2.5-VL is a multimodal vision-language neural network capable of reasoning over spatial pixel coordinates and time-series video frames. SentinelAI feeds ByteTrack object crops into Qwen2.5-VL to generate structured natural-language event descriptions for PostGIS storage.",
+    
+    def_celonis: "ENGINEERING EXPLANATION // Celonis & Process Mining:\nProcess mining extracts event logs from transactional databases to reconstruct, visualize, and analyze end-to-end execution flows. In GreenTravel API, Celonis isolates non-compliant corporate travel booking pathways, identifying operational bottlenecks to enforce low-carbon modal shifts.",
+    
+    def_fiber: "ENGINEERING EXPLANATION // React Fiber Engine:\nReact Fiber is the internal reconciliation engine introduced in React 16+. It breaks rendering work into incremental units, enabling time-slicing and priority-based scheduling. The GenAI Portfolio Auditor inspects Fiber tree nodes to confirm zero redundant re-renders during state mutations.",
+    
+    def_hypertrophy: "ENGINEERING METAPHOR // Progressive Overload & Hypertrophy:\nHypertrophy is the structural growth of muscle tissue induced by systematic progressive overload. Shubhomoy applies this exact discipline to software systems engineering: progressively overloading systems with higher concurrency, bigger payloads, and harder algorithms while systematically refactoring code bottlenecks."
   };
 
-  // --- MULTI-FACTOR WEIGHTED INTENT ROUTER ---
+  // --- MULTI-FACTOR WEIGHTED INTENT & ROUTING ENGINE ---
   const processQuery = (query) => {
     const q = query.toLowerCase().trim();
     let response = "";
     let detectedContext = null;
+    let nextChips = ["/eval", "What are his projects?", "CGPA & Marks", "Help"];
 
-    // Terminal Commands
-    if (q === 'help') {
-      return "AVAILABLE COMMANDS:\n- projects: View all 4 system architecture projects\n- sentinel / bodd / green / decode: Inspect specific project\n- cgpa / education: View IIIT Kottayam & school marks\n- experience / internship: View Decodelabs & Trendles roles\n- skills / tech: View core competencies\n- hire: Why hire Shubhomoy\n- clear: Reset terminal screen";
-    }
-    if (q === 'clear') {
-      setMessages([{ role: 'system', text: 'INIT // SCREEN CLEARED' }, { role: 'ai', text: 'Terminal reset. How may I assist your evaluation?' }]);
-      return null;
-    }
-
-    // Technical Definitions & Glossary
-    if (q.includes("dag") || q.includes("acyclic")) { response = knowledgeBase.def_dag; }
-    else if (q.includes("kahn") || q.includes("topological")) { response = knowledgeBase.def_kahns; }
-    else if (q.includes("sse") || q.includes("server-sent")) { response = knowledgeBase.def_sse; }
-    else if (q.includes("yolo") || q.includes("yolo11")) { response = knowledgeBase.def_yolo; }
-    else if (q.includes("byte") || q.includes("tracking")) { response = knowledgeBase.def_byatrack; }
-    else if (q.includes("qwen") || q.includes("vision")) { response = knowledgeBase.def_qwen; }
-    else if (q.includes("celonis") || q.includes("process mining")) { response = knowledgeBase.def_celonis; }
-    else if (q.includes("fiber") || q.includes("react fiber")) { response = knowledgeBase.def_fiber; }
-    else if (q.includes("hypertrophy")) { response = knowledgeBase.def_hypertrophy; }
-    else if (q.includes("acid") || q.includes("dbms")) { response = knowledgeBase.def_acid; }
-    else if (q.includes("tcp") || q.includes("network")) { response = knowledgeBase.def_tcpip; }
-    else if (q.includes("ooad") || q.includes("architecture")) { response = knowledgeBase.def_ooad; }
-
-    // Contextual Memory Resolvers ("what tech did he use for it?")
-    if (!response && (q.includes("it") || q.includes("that") || q.includes("tech stack") || q.includes("built") || q.includes("used"))) {
-      if (activeContext === 'boddai') { response = knowledgeBase.boddai; }
-      else if (activeContext === 'sentinel') { response = knowledgeBase.sentinel; }
-      else if (activeContext === 'greentravel') { response = knowledgeBase.greentravel; }
-      else if (activeContext === 'decodelabs') { response = knowledgeBase.decodelabs_suite; }
+    // Command Handlers
+    if (q.startsWith('/')) {
+      const cmd = q.slice(1);
+      if (cmd === 'help' || cmd === 'commands') {
+        return {
+          resp: "AVAILABLE COMMANDS:\n• /projects - Inspect all 4 engineering architectures\n• /eval - Recruiter quick evaluation summary\n• /stack - Technical competencies & core CS\n• /experience - Decodelabs & Trendles records\n• /contact - Get Shubhomoy's contact info\n• /clear - Reset terminal screen",
+          chips: ["/projects", "/eval", "/stack", "/contact"]
+        };
+      }
+      if (cmd === 'projects') return { resp: knowledgeGraph.all_projects, chips: ["SentinelAI", "Bodd AI", "GreenTravel", "Decodelabs"] };
+      if (cmd === 'eval' || cmd === 'hire') return { resp: knowledgeGraph.hire, chips: ["/projects", "/stack", "/contact"] };
+      if (cmd === 'stack') return { resp: knowledgeGraph.skills, chips: ["Explain Kahn's Algo", "Explain DAG", "/projects"] };
+      if (cmd === 'contact') return { resp: knowledgeGraph.contact, chips: ["/eval", "/projects"] };
+      if (cmd === 'clear') {
+        setMessages([{ role: 'system', text: 'INIT // SCREEN CLEARED' }, { role: 'ai', text: 'Terminal reset. How may I assist your evaluation?' }]);
+        return { resp: null, chips: ["/eval", "What are his projects?", "Help"] };
+      }
     }
 
-    // Projects Routing
-    if (!response && (q.includes("project") || q.includes("projects") || q.includes("built") || q.includes("made") || q.includes("work") || q.includes("portfolio") || q.includes("system") || q.includes("creations"))) {
-      if (q.includes("sentinel") || q.includes("esp32") || q.includes("camera")) { response = knowledgeBase.sentinel; detectedContext = 'sentinel'; }
-      else if (q.includes("bodd") || q.includes("dag") || q.includes("workspace")) { response = knowledgeBase.boddai; detectedContext = 'boddai'; }
-      else if (q.includes("green") || q.includes("travel") || q.includes("carbon")) { response = knowledgeBase.greentravel; detectedContext = 'greentravel'; }
-      else if (q.includes("decode") && (q.includes("suite") || q.includes("tasks"))) { response = knowledgeBase.decodelabs_suite; detectedContext = 'decodelabs'; }
-      else { response = knowledgeBase.all_projects; }
+    // Direct Engineering Terms & Glossary
+    if (q.includes("dag") || q.includes("directed acyclic")) { response = knowledgeGraph.def_dag; nextChips = ["Explain Kahn's Algo", "Bodd AI", "Explain SSE"]; }
+    else if (q.includes("kahn") || q.includes("topological")) { response = knowledgeGraph.def_kahns; nextChips = ["Explain DAG", "Bodd AI", "Projects"]; }
+    else if (q.includes("sse") || q.includes("server sent") || q.includes("server-sent")) { response = knowledgeGraph.def_sse; nextChips = ["Bodd AI", "Explain DAG"]; }
+    else if (q.includes("yolo") || q.includes("yolo11")) { response = knowledgeGraph.def_yolo; nextChips = ["SentinelAI", "Explain ByteTrack"]; }
+    else if (q.includes("byte") || q.includes("bytetrack")) { response = knowledgeGraph.def_byatrack; nextChips = ["SentinelAI", "Explain Qwen"]; }
+    else if (q.includes("qwen") || q.includes("vlm") || q.includes("vision language")) { response = knowledgeGraph.def_qwen; nextChips = ["SentinelAI", "Explain YOLO11n"]; }
+    else if (q.includes("celonis") || q.includes("process mining")) { response = knowledgeGraph.def_celonis; nextChips = ["GreenTravel API", "/projects"]; }
+    else if (q.includes("fiber") || q.includes("react fiber")) { response = knowledgeGraph.def_fiber; nextChips = ["GenAI Auditor", "Telemetry"]; }
+    else if (q.includes("hypertrophy") || q.includes("gym") || q.includes("overload")) { response = knowledgeGraph.def_hypertrophy; nextChips = ["Bio-Metrics", "/eval"]; }
+
+    // Memory Resolver for Relative Pronouns ("What tech did he use for it?", "Tell me about that project")
+    if (!response && (q.includes("it") || q.includes("that") || q.includes("this project") || q.includes("tech stack") || q.includes("how does it work"))) {
+      if (activeContext === 'boddai') { response = knowledgeGraph.boddai; nextChips = ["Explain Kahn's Algo", "Explain DAG"]; }
+      else if (activeContext === 'sentinel') { response = knowledgeGraph.sentinel; nextChips = ["Explain YOLO11n", "Explain ByteTrack"]; }
+      else if (activeContext === 'greentravel') { response = knowledgeGraph.greentravel; nextChips = ["Explain Celonis", "Projects"]; }
+      else if (activeContext === 'decodelabs') { response = knowledgeGraph.decodelabs_suite; nextChips = ["Decodelabs Intern", "/eval"]; }
     }
 
-    // Background, Education, Experience & Personal
+    // Project Query Router
+    if (!response && (q.includes("project") || q.includes("built") || q.includes("made") || q.includes("system") || q.includes("work") || q.includes("architecture"))) {
+      if (q.includes("sentinel") || q.includes("esp32") || q.includes("camera") || q.includes("edge")) { response = knowledgeGraph.sentinel; detectedContext = 'sentinel'; nextChips = ["Explain YOLO11n", "Explain ByteTrack", "Other Projects"]; }
+      else if (q.includes("bodd") || q.includes("workspace") || q.includes("graph")) { response = knowledgeGraph.boddai; detectedContext = 'boddai'; nextChips = ["Explain Kahn's Algo", "Explain DAG", "Other Projects"]; }
+      else if (q.includes("green") || q.includes("travel") || q.includes("carbon") || q.includes("co2")) { response = knowledgeGraph.greentravel; detectedContext = 'greentravel'; nextChips = ["Explain Celonis", "Other Projects"]; }
+      else if (q.includes("decode") && (q.includes("suite") || q.includes("agent"))) { response = knowledgeGraph.decodelabs_suite; detectedContext = 'decodelabs'; nextChips = ["Decodelabs Intern", "Other Projects"]; }
+      else { response = knowledgeGraph.all_projects; nextChips = ["SentinelAI", "Bodd AI", "GreenTravel API", "Decodelabs Suite"]; }
+    }
+
+    // General Background, Education, Experience & Credentials
     if (!response) {
-      if (q.includes("hire") || q.includes("why") || q.includes("value") || q.includes("good candidate")) { response = knowledgeBase.hire; }
-      else if (q.includes("startup") || q.includes("biology") || q.includes("maharashtra") || q.includes("curriculum")) { response = knowledgeBase.startup; }
-      else if (q.includes("decode") || q.includes("intern") || q.includes("internship")) { response = knowledgeBase.decodelabs_intern; detectedContext = 'decodelabs'; }
-      else if (q.includes("trendles") || q.includes("e-cell") || q.includes("pr") || q.includes("lead")) { response = knowledgeBase.trendles; }
-      else if (q.includes("iiit") || q.includes("cgpa") || q.includes("college") || q.includes("degree") || q.includes("education") || q.includes("university") || q.includes("semester")) { response = knowledgeBase.education; }
-      else if (q.includes("school") || q.includes("modern academy") || q.includes("marks") || q.includes("isc") || q.includes("icse") || q.includes("10th") || q.includes("12th")) { response = knowledgeBase.education; }
-      else if (q.includes("gym") || q.includes("fitness") || q.includes("physical") || q.includes("discipline") || q.includes("load") || q.includes("trained")) { response = knowledgeBase.gym_vs_code; }
-      else if (q.includes("skill") || q.includes("skills") || q.includes("stack") || q.includes("languages") || q.includes("arsenal") || q.includes("competenc")) { response = knowledgeBase.skills; }
-      else if (q.includes("achieve") || q.includes("hackathon") || q.includes("certif") || q.includes("aws") || q.includes("anthropic") || q.includes("record")) { response = knowledgeBase.achievements; }
-      else if (q.includes("telemetry") || q.includes("github") || q.includes("wakatime") || q.includes("spotify") || q.includes("auditor") || q.includes("song") || q.includes("weeknd")) { response = knowledgeBase.telemetry; }
-      else if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach")) { response = knowledgeBase.contact; }
-      else if (q.includes("who") || q.includes("shubhomoy") || q.includes("about") || q.includes("manifesto") || q.includes("background")) { response = knowledgeBase.overview; }
+      if (q.includes("hire") || q.includes("why") || q.includes("evaluation") || q.includes("good candidate")) { response = knowledgeGraph.hire; nextChips = ["/projects", "/stack", "/contact"]; }
+      else if (q.includes("startup") || q.includes("biology") || q.includes("maharashtra") || q.includes("edtech")) { response = knowledgeGraph.startup; nextChips = ["/projects", "/eval"]; }
+      else if (q.includes("decode") || q.includes("intern") || q.includes("internship")) { response = knowledgeGraph.decodelabs_intern; detectedContext = 'decodelabs'; nextChips = ["Decodelabs Suite", "/eval"]; }
+      else if (q.includes("trendles") || q.includes("e-cell") || q.includes("pr")) { response = knowledgeGraph.trendles; nextChips = ["Decodelabs Intern", "Education"]; }
+      else if (q.includes("iiit") || q.includes("cgpa") || q.includes("marks") || q.includes("education") || q.includes("school") || q.includes("college")) { response = knowledgeGraph.education; nextChips = ["/eval", "/projects", "/stack"]; }
+      else if (q.includes("skill") || q.includes("stack") || q.includes("competenc") || q.includes("languages")) { response = knowledgeGraph.skills; nextChips = ["Explain Kahn's Algo", "/projects", "/eval"]; }
+      else if (q.includes("achieve") || q.includes("hackathon") || q.includes("certif") || q.includes("aws") || q.includes("anthropic") || q.includes("sih")) { response = knowledgeGraph.achievements; nextChips = ["/eval", "/projects"]; }
+      else if (q.includes("telemetry") || q.includes("auditor") || q.includes("spotify") || q.includes("github")) { response = knowledgeGraph.telemetry; nextChips = ["/projects", "Explain React Fiber"]; }
+      else if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach")) { response = knowledgeGraph.contact; nextChips = ["/eval", "/projects"]; }
+      else if (q.includes("who") || q.includes("shubhomoy") || q.includes("about") || q.includes("manifesto")) { response = knowledgeGraph.overview; nextChips = ["/eval", "/projects", "/stack"]; }
       else {
-        response = "Command not explicitly indexed. Try asking about his projects ('What are his projects?'), academics ('What is his CGPA?'), technical terms ('What is Kahn's algorithm?'), or type 'help' for options.";
+        response = "Command or intent not explicitly mapped. Try asking about his projects ('SentinelAI', 'Bodd AI'), CS concepts ('Explain Kahn's Algo', 'Explain DAG'), academic record ('CGPA'), or enter '/help' for commands.";
+        nextChips = ["/projects", "/eval", "/help", "CGPA & Marks"];
       }
     }
 
     if (detectedContext) setActiveContext(detectedContext);
-    return response;
+    return { resp: response, chips: nextChips };
   };
 
-  const simulateStreaming = (fullText) => {
+  const simulateStreaming = (fullText, chips) => {
     setIsThinking(false);
     setIsTyping(true);
     let currentText = "";
@@ -197,17 +226,15 @@ const DigitalTwin = () => {
       if (i >= fullText.length) {
         clearInterval(streamInterval);
         setIsTyping(false);
+        setSuggestedChips(chips);
       }
-    }, 4); // Blazing fast enterprise token generation
+    }, 3); // High-speed streaming engine
   };
 
-  const handleSend = (e) => {
-    e.preventDefault();
-    if (!input.trim() || isTyping || isThinking) return;
+  const handleSend = (overrideQuery = null) => {
+    const userQuery = (overrideQuery || input).trim();
+    if (!userQuery || isTyping || isThinking) return;
     
-    const userQuery = input.trim();
-    
-    // Update Command History
     setCommandHistory(prev => [userQuery, ...prev]);
     setHistoryIndex(-1);
 
@@ -217,10 +244,10 @@ const DigitalTwin = () => {
     setThoughtLogs([]);
 
     const thoughtProcess = [
-      `[SYS] Deconstructing query intent & semantic tokens...`,
-      `[MEM] Synchronizing context buffer (Active Context: ${activeContext || 'GLOBAL'})...`,
-      `[OMNI-MATRIX] Traversing weighted knowledge graph & portfolio vectors...`,
-      `[GEN] Initializing high-throughput token stream...`
+      `[SYS_DECODE] Parsing intent vector & tokenizing input: "${userQuery}"...`,
+      `[MEM_SYNC] Synchronizing conversation context buffer (Active: ${activeContext || 'GLOBAL'})...`,
+      `[NEURAL_GRAPH] Traversing 20+ portfolio schemas & deep engineering dictionary...`,
+      `[STREAM_INIT] Generating optimal candidate answer tokens...`
     ];
 
     let step = 0;
@@ -230,20 +257,18 @@ const DigitalTwin = () => {
         step++;
       } else {
         clearInterval(thoughtInterval);
-        const finalResponse = processQuery(userQuery);
-        if (finalResponse !== null) {
-          simulateStreaming(finalResponse);
+        const { resp, chips } = processQuery(userQuery);
+        if (resp !== null) {
+          simulateStreaming(resp, chips);
         } else {
           setIsThinking(false);
         }
       }
-    }, 180);
+    }, 120);
   };
 
-  // Keyboard Navigation for Command History (Up/Down Arrow keys)
   const handleKeyDown = (e) => {
     if (commandHistory.length === 0) return;
-
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       const nextIndex = Math.min(historyIndex + 1, commandHistory.length - 1);
@@ -264,11 +289,11 @@ const DigitalTwin = () => {
 
   return (
     <>
-      {/* Floating Action Button */}
+      {/* Floating Launcher Button */}
       <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-100">
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className={`relative group flex items-center justify-center w-16 h-16 rounded-full bg-[#070b14] border ${isOpen ? 'border-sky-500' : 'border-slate-700'} hover:border-sky-400 transition-all duration-300 shadow-[0_0_40px_rgba(0,0,0,0.8)] overflow-hidden`}
+          className={`relative group flex items-center justify-center w-16 h-16 rounded-full bg-[#070b14] border ${isOpen ? 'border-sky-500 shadow-[0_0_30px_rgba(56,189,248,0.5)]' : 'border-slate-700 shadow-[0_0_30px_rgba(0,0,0,0.8)]'} hover:border-sky-400 transition-all duration-300 overflow-hidden`}
         >
           <div className={`absolute inset-0 bg-sky-500/10 ${isOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100 transition-opacity`}></div>
           <svg className={`w-6 h-6 text-sky-400 transition-transform duration-500 ${isOpen ? 'rotate-90 scale-0' : 'rotate-0 scale-100'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -277,8 +302,8 @@ const DigitalTwin = () => {
         </button>
       </div>
 
-      {/* Terminal Container */}
-      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] ${isMaximized ? 'md:w-200 h-[80vh]' : 'md:w-120 h-155 max-h-[82vh]'} bg-[#030508]/95 backdrop-blur-3xl border border-slate-700 rounded-2xl shadow-[0_30px_80px_-15px_rgba(0,0,0,0.9)] z-100 flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
+      {/* Main Terminal Window */}
+      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] ${isMaximized ? 'md:w-212.5 h-[82vh]' : 'md:w-125 h-160 max-h-[82vh]'} bg-[#030508]/95 backdrop-blur-3xl border border-slate-700 rounded-2xl shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] z-100 flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
         
         {/* Terminal Header */}
         <div className="bg-[#070b14] px-5 py-4 border-b border-slate-800 flex justify-between items-center relative overflow-hidden select-none">
@@ -289,44 +314,42 @@ const DigitalTwin = () => {
                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
             <div>
-              <h3 className="text-white font-bold text-xs tracking-widest font-mono uppercase">Shubh-AI // Enterprise v10.0</h3>
+              <h3 className="text-white font-bold text-xs tracking-widest font-mono uppercase">Shubh-AI // Neural Engine v11.0</h3>
               <p className="text-sky-500 text-[9px] tracking-widest font-mono uppercase flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span> Fully Indexed (20+ Schemas)
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span> Context Buffer: {activeContext ? activeContext.toUpperCase() : 'GLOBAL'}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 relative z-10">
             <button 
               onClick={() => setIsMaximized(!isMaximized)}
               className="text-slate-400 hover:text-white p-1 transition-colors text-xs font-mono"
-              title={isMaximized ? "Minimize" : "Expand"}
             >
               {isMaximized ? "🗗" : "🗖"}
             </button>
             <button 
               onClick={() => setIsOpen(false)}
               className="text-slate-400 hover:text-red-400 p-1 transition-colors text-xs font-mono"
-              title="Close"
             >
               ✕
             </button>
           </div>
         </div>
 
-        {/* Message Log Area */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed">
+        {/* Message Conversation Area */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-fixed">
           {messages.map((msg, i) => (
             <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-              <span className={`text-[9px] font-mono tracking-widest uppercase mb-1 flex items-center gap-1 ${msg.role === 'user' ? 'text-amber-500' : msg.role === 'system' ? 'text-slate-500' : 'text-sky-400'}`}>
-                {msg.role === 'user' ? 'GUEST' : msg.role === 'system' ? 'SYS_KERNEL' : 'SHUBH_AI'}
+              <span className={`text-[9px] font-mono tracking-widest uppercase mb-1 flex items-center gap-1 ${msg.role === 'user' ? 'text-amber-400' : msg.role === 'system' ? 'text-slate-500' : 'text-sky-400'}`}>
+                {msg.role === 'user' ? 'GUEST_OPERATOR' : msg.role === 'system' ? 'SYS_KERNEL' : 'SHUBH_AI'}
               </span>
-              <div className={`px-4 py-3 max-w-[90%] font-mono text-[11px] leading-relaxed tracking-wide whitespace-pre-line ${
+              <div className={`px-4 py-3 max-w-[92%] font-mono text-[11px] leading-relaxed tracking-wide whitespace-pre-line ${
                 msg.role === 'user' 
                   ? 'bg-amber-500/10 border border-amber-500/30 text-amber-200 rounded-2xl rounded-tr-sm' 
                   : msg.role === 'system'
-                  ? 'bg-transparent border border-slate-800 text-slate-500 w-full rounded-sm'
-                  : 'bg-slate-900/80 border border-slate-700 text-slate-300 rounded-2xl rounded-tl-sm shadow-[0_0_15px_rgba(56,189,248,0.05)]'
+                  ? 'bg-transparent border border-slate-800 text-slate-500 w-full rounded-sm text-[10px]'
+                  : 'bg-slate-900/80 border border-slate-700/80 text-slate-200 rounded-2xl rounded-tl-sm shadow-[0_0_20px_rgba(56,189,248,0.05)]'
               }`}>
                 {msg.text}
                 {isTyping && i === messages.length - 1 && msg.role === 'ai' && (
@@ -336,24 +359,33 @@ const DigitalTwin = () => {
             </div>
           ))}
           
+          {/* Chain-of-Thought (CoT) Visualizer */}
           {isThinking && (
-            <div className="flex flex-col items-start w-full border border-slate-800/80 rounded-lg p-3 bg-slate-950/50 font-mono text-[9px] text-slate-500 space-y-2">
+            <div className="flex flex-col items-start w-full border border-slate-800 rounded-xl p-3 bg-slate-950/80 font-mono text-[9px] text-slate-400 space-y-1.5 shadow-inner">
+               <span className="text-sky-400 font-bold mb-1">[CHAIN-OF-THOUGHT REASONING]</span>
                {thoughtLogs.map((log, index) => (
-                 <span key={index} className="animate-fade-in text-sky-500/70">{log}</span>
+                 <span key={index} className="animate-fade-in text-sky-500/80 flex items-center gap-1">
+                   <span className="text-slate-600">›</span> {log}
+                 </span>
                ))}
-               <span className="animate-pulse">_</span>
+               <span className="animate-pulse text-sky-400">_</span>
             </div>
           )}
           <div ref={chatEndRef} />
         </div>
 
-        {/* Quick Action Chips */}
-        {!isTyping && !isThinking && (
-          <div className="px-5 pb-3 flex flex-wrap gap-2 border-b border-slate-800/50 bg-[#070b14]">
-            <button onClick={() => {setInput("Why should we hire him?"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Why Hire?</button>
-            <button onClick={() => {setInput("What are his projects?"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">Projects?</button>
-            <button onClick={() => {setInput("What is his CGPA?"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 border border-slate-700 px-2 py-1 rounded hover:text-white hover:border-slate-500 transition-colors">CGPA?</button>
-            <button onClick={() => {setInput("help"); handleSend();}} className="text-[9px] font-mono uppercase tracking-wider text-sky-400 bg-sky-500/10 border border-sky-500/30 px-2 py-1 rounded hover:bg-sky-500/20 transition-colors">Help</button>
+        {/* Dynamic Context Chips */}
+        {!isTyping && !isThinking && suggestedChips.length > 0 && (
+          <div className="px-5 pb-3 flex flex-wrap gap-2 border-b border-slate-800/60 bg-[#070b14]">
+            {suggestedChips.map((chip, idx) => (
+              <button 
+                key={idx}
+                onClick={() => handleSend(chip)} 
+                className="text-[9px] font-mono uppercase tracking-wider text-slate-300 bg-slate-900/90 border border-slate-700 px-2.5 py-1 rounded-lg hover:text-white hover:border-sky-400 hover:bg-sky-500/10 transition-all"
+              >
+                {chip}
+              </button>
+            ))}
           </div>
         )}
 
@@ -368,7 +400,7 @@ const DigitalTwin = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               disabled={isTyping || isThinking}
-              placeholder={isThinking || isTyping ? "AWAITING ENGINE..." : "Type command or query (e.g. 'help')..."}
+              placeholder={isThinking || isTyping ? "AWAITING ENGINE PROCESSING..." : "Ask query or type command (e.g. '/help')..."}
               className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3.5 pl-9 pr-12 text-xs font-mono text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all disabled:opacity-50"
             />
             <button 
@@ -384,6 +416,8 @@ const DigitalTwin = () => {
     </>
   );
 };
+
+export default DigitalTwin;
 
 const App = () => {
   const trajectory = [
