@@ -912,7 +912,7 @@ const App = () => {
       <CustomCursor mousePos={mousePos} />
 
       {/* Adding cursor-none to hide the default browser pointer */}
-      <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
+      <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
         
         {/* --- 3D WEBGL BACKGROUND --- */}
         <div className="fixed inset-0 z-0 pointer-events-none bg-[#030508]">
