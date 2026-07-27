@@ -824,14 +824,20 @@ const App = () => {
  return (
     <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
 
-      {/* --- EXACT AMBIENT BACKGROUND GLOWS (FIXED) --- */}
+      {/* --- EXACT AMBIENT BACKGROUND GLOWS (BULLETPROOF INLINE STYLES) --- */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Intense Amber glow on the left */}
-        <div className="absolute top-[5%] left-[-15%] w-[600px] h-[600px] rounded-full bg-amber-500/15 blur-[120px]"></div>
+        <div 
+          className="absolute top-[5%] left-[-15%] rounded-full"
+          style={{ width: '600px', height: '600px', backgroundColor: 'rgba(245, 158, 11, 0.15)', filter: 'blur(120px)' }}
+        ></div>
+        
         {/* Deep Indigo/Purple glow on the right */}
-        <div className="absolute top-[25%] right-[-15%] w-[600px] h-[600px] rounded-full bg-indigo-500/15 blur-[120px]"></div>
+        <div 
+          className="absolute top-[25%] right-[-15%] rounded-full"
+          style={{ width: '600px', height: '600px', backgroundColor: 'rgba(99, 102, 241, 0.15)', filter: 'blur(120px)' }}
+        ></div>
       </div>
-
       {/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
       <div 
         className="pointer-events-none fixed inset-0 z-50 transition duration-300 hidden lg:block" 
@@ -1546,7 +1552,10 @@ const App = () => {
 
       {/* --- 7. HALL OF RECORDS (ACHIEVEMENTS) --- */}
       <section id="achievements" className="relative z-10 border-t border-slate-900 bg-[#030508] py-24 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+        <div 
+  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+  style={{ width: '600px', height: '300px', backgroundColor: 'rgba(245, 158, 11, 0.05)', filter: 'blur(120px)' }}
+></div>
 
         <RevealSection>
           <div className="max-w-6xl mx-auto px-6">
