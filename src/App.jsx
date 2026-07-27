@@ -643,26 +643,119 @@ const App = () => {
     }
   ];
 
-  // --- OPERATOR TELEMETRY DATA ---
+  // --- OPERATOR TELEMETRY DATA (LIVE GITHUB INTEGRATION) ---
+  const GITHUB_USERNAME = "Shubhomoy919";
+
   const [activeCommit, setActiveCommit] = useState(null);
+  const [isGithubLoading, setIsGithubLoading] = useState(true);
 
-  const heatmapData = useMemo(() => {
-    const today = new Date();
-    return Array.from({ length: 112 }).map((_, i) => {
-      const date = new Date(today);
-      date.setDate(date.getDate() - (111 - i));
-      
-      const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-      const rand = Math.random();
-      let commits = 0;
-      
-      if (isWeekend) {
-        if (rand > 0.8) commits = Math.floor(Math.random() * 3) + 1;
-      } else {
-        if (rand > 0.4) commits = Math.floor(Math.random() * 6) + 1;
-        if (rand > 0.85) commits = Math.floor(Math.random() * 12) + 5;
+  // Live Language State (Replaces static wakatimeData)
+  const [languageTelemetry, setLanguageTelemetry] = useState([
+    { lang: "Python", percent: 55, color: "bg-blue-500" },
+    { lang: "JavaScript", percent: 25, color: "bg-amber-400" },
+    { lang: "TypeScript", percent: 15, color: "bg-sky-400" },
+    { lang: "Jupyter", percent: 5, color: "bg-orange-500" }
+  ]);
+
+  // Live Commits State
+  const [currentMonthCommits, setCurrentMonthCommits] = useState({});
+
+  const now = new Date();
+  const currentMonthName = now.toLocaleString('en-US', { month: 'short' });
+  const currentYear = now.getFullYear();
+  const daysInCurrentMonth = new Date(currentYear, now.getMonth() + 1, 0).getDate();
+
+  useEffect(() => {
+    const fetchGitHubData = async () => {
+      try {
+        setIsGithubLoading(true);
+
+        // 1. Fetch Repositories to calculate exact real-time language percentages
+        const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`);
+        if (reposRes.ok) {
+          const repos = await reposRes.json();
+          const langBytes = {};
+          let totalBytes = 0;
+
+          const colorMap = {
+            Python: "bg-blue-500",
+            JavaScript: "bg-amber-400",
+            TypeScript: "bg-sky-400",
+            "Jupyter Notebook": "bg-orange-500",
+            "C++": "bg-indigo-500",
+            C: "bg-slate-400",
+            HTML: "bg-red-500",
+            CSS: "bg-fuchsia-500"
+          };
+
+          // Fetch individual language stats for each repo
+          await Promise.all(
+            repos.map(async (repo) => {
+              if (repo.fork) return; // Ignore forks for accurate personal telemetry
+              try {
+                const langRes = await fetch(repo.languages_url);
+                if (langRes.ok) {
+                  const languages = await langRes.json();
+                  Object.entries(languages).forEach(([lang, bytes]) => {
+                    langBytes[lang] = (langBytes[lang] || 0) + bytes;
+                    totalBytes += bytes;
+                  });
+                }
+              } catch (e) {
+                console.error("Language fetch error:", e);
+              }
+            })
+          );
+
+          if (totalBytes > 0) {
+            const formattedLangs = Object.entries(langBytes)
+              .map(([lang, bytes]) => ({
+                lang: lang === "Jupyter Notebook" ? "Jupyter" : lang,
+                percent: Math.round((bytes / totalBytes) * 100),
+                color: colorMap[lang] || "bg-emerald-400"
+              }))
+              .filter(item => item.percent > 0)
+              .sort((a, b) => b.percent - a.percent)
+              .slice(0, 4); // Keep top 4 languages
+
+            if (formattedLangs.length > 0) setLanguageTelemetry(formattedLangs);
+          }
+        }
+
+        // 2. Fetch User Events to count exact daily commits for the Current Month
+        const eventsRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100`);
+        if (eventsRes.ok) {
+          const events = await eventsRes.json();
+          const commitCounts = {};
+
+          events.forEach(event => {
+            if (event.type === "PushEvent") {
+              const eventDate = new Date(event.created_at);
+              if (eventDate.getMonth() === now.getMonth() && eventDate.getFullYear() === currentYear) {
+                const day = eventDate.getDate();
+                const commitSize = event.payload?.commits?.length || 1;
+                commitCounts[day] = (commitCounts[day] || 0) + commitSize;
+              }
+            }
+          });
+          setCurrentMonthCommits(commitCounts);
+        }
+      } catch (err) {
+        console.error("GitHub API Error:", err);
+      } finally {
+        setIsGithubLoading(false);
       }
+    };
 
+    fetchGitHubData();
+  }, []);
+
+  // Replaces the old random heatmapData logic with the live GitHub payload
+  const heatmapData = useMemo(() => {
+    return Array.from({ length: daysInCurrentMonth }).map((_, idx) => {
+      const dayNum = idx + 1;
+      const commits = currentMonthCommits[dayNum] || 0;
+      
       let level = 0;
       if (commits > 0 && commits <= 2) level = 1;
       else if (commits > 2 && commits <= 5) level = 2;
@@ -670,31 +763,27 @@ const App = () => {
       else if (commits > 9) level = 4;
 
       return { 
-        id: i, 
-        date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }), 
+        id: dayNum, 
+        day: dayNum,
+        date: `${currentMonthName} ${dayNum}, ${currentYear}`, 
         commits, 
         level 
       };
     });
-  }, []);
+  }, [currentMonthCommits, daysInCurrentMonth, currentMonthName, currentYear]);
 
+  // --- STATIC DIAGNOSTIC LOGS & METRICS ---
   const auditorLogs = [
     { module: "DOM Tree", status: "Scanned", msg: "React Fiber tree optimized. No wasteful re-renders." },
     { module: "CSS Engine", status: "Verified", msg: "Tailwind v4 canonical classes applied." },
     { module: "A11y", status: "Passed", msg: "Contrast ratios > 4.5:1. ARIA labels mapped." }
   ];
-  const wakatimeData = [
-    { lang: "Python", percent: 62, color: "bg-blue-500" },
-    { lang: "React / TS", percent: 28, color: "bg-sky-400" },
-    { lang: "C / C++", percent: 10, color: "bg-indigo-500" }
-  ];
 
   const spotifyData = {
     song: "The Morning",
     artist: "The Weeknd",
-    // Direct link to the official Trilogy album art
     albumArtUrl: "https://i1.sndcdn.com/artworks-LUIwi9mJIYG1-0-t500x500.jpg", 
-    colorGlow: "rgba(220,38,38,0.3)" // Moody red glow to match the Weeknd vibe
+    colorGlow: "rgba(220,38,38,0.3)" 
   };
 
   const bioMetrics = {
@@ -995,23 +1084,30 @@ const App = () => {
         </RevealSection>
       </section>
 
-      {/* --- 5. OPERATOR TELEMETRY (ADVANCED) --- */}
+     {/* --- 5. OPERATOR TELEMETRY (LIVE API ADVANCED) --- */}
       <section id="telemetry" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900 overflow-hidden">
+        {/* Advanced Ambient Background Grid */}
         <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[48px_48px]"></div>
 
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             
+            {/* Section Header */}
             <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
                   <span className="text-emerald-500 font-light">/</span> Operator Telemetry
                 </h2>
                 <p className="text-slate-400 font-mono text-sm tracking-widest uppercase pl-8 border-l border-slate-800">
-                  Live Analytics & Activity Patterns
+                  Live API Analytics & Activity Patterns
                 </p>
               </div>
-              <div className="hidden md:flex items-center gap-3 bg-slate-900/50 backdrop-blur-md border border-slate-800 px-5 py-2.5 rounded-xl hover:border-slate-700 transition-colors cursor-pointer group" onClick={() => window.open('https://github.com/Shubhomoy919', '_blank')}>
+              
+              {/* GitHub Link Chip */}
+              <div 
+                className="hidden md:flex items-center gap-3 bg-slate-900/50 backdrop-blur-md border border-slate-800 px-5 py-2.5 rounded-xl hover:border-slate-700 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all cursor-pointer group" 
+                onClick={() => window.open('https://github.com/Shubhomoy919', '_blank')}
+              >
                 <svg className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
                 <div className="flex flex-col">
                   <span className="text-slate-500 font-mono text-[9px] uppercase tracking-widest leading-none">GitHub Profile</span>
@@ -1020,49 +1116,51 @@ const App = () => {
               </div>
             </div>
 
-            {/* BENTO GRID: ROW 1 (Heatmap) */}
+            {/* BENTO GRID: ROW 1 (Live Current Month Heatmap) */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-              <div className="lg:col-span-3 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 shadow-xl overflow-hidden group">
+              <div className="lg:col-span-3 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 shadow-2xl overflow-hidden group">
                 <div className="flex justify-between items-start md:items-center mb-8 flex-col md:flex-row gap-4">
                   <div>
                     <p className="text-slate-500 font-mono text-xs tracking-widest uppercase flex items-center gap-2 mb-1">
                       <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                      Contribution Graph
+                      {currentMonthName} {currentYear} Contribution Matrix
                     </p>
-                    <p className="text-slate-400 text-xs">Live temporal analysis of code pushes to main branches.</p>
+                    <p className="text-slate-400 text-xs">Live API temporal analysis of push events to main branches.</p>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                  <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/30">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-ping"></span>
-                    <span className="text-[9px] font-mono tracking-widest text-emerald-400 uppercase">Synced to Today</span>
+                    <span className="text-[9px] font-mono tracking-widest text-emerald-400 uppercase font-bold">
+                      {isGithubLoading ? "Fetching API..." : "Live Connection"}
+                    </span>
                   </div>
                 </div>
 
+                {/* Dynamic Month Mapping */}
                 <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
-                  <div className="min-w-175 flex gap-1.5 justify-between relative z-10">
-                    {Array.from({ length: 16 }).map((_, colIndex) => (
-                      <div key={colIndex} className="flex flex-col gap-1.5">
-                        {heatmapData.slice(colIndex * 7, (colIndex + 1) * 7).map((data) => (
-                          <div 
-                            key={data.id} 
-                            onMouseEnter={() => setActiveCommit(data)}
-                            onMouseLeave={() => setActiveCommit(null)}
-                            className={`relative w-4 h-4 rounded-sm transition-all duration-300 hover:scale-125 hover:z-20 cursor-crosshair ${
-                              data.level === 0 ? 'bg-slate-800/40 hover:bg-slate-700' :
-                              data.level === 1 ? 'bg-emerald-950 border border-emerald-900/50 hover:border-emerald-500' :
-                              data.level === 2 ? 'bg-emerald-800' :
-                              data.level === 3 ? 'bg-emerald-600 shadow-[0_0_6px_#059669]' :
-                              'bg-emerald-400 shadow-[0_0_12px_#34d399]'
-                            }`}
-                          >
-                            {activeCommit?.id === data.id && (
-                              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-[10px] whitespace-nowrap z-50 flex flex-col items-center pointer-events-none shadow-xl">
-                                <span className="text-emerald-400 font-bold">{data.commits} contributions</span>
-                                <span className="text-slate-400">{data.date}</span>
-                                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-[5px] border-transparent border-t-slate-700"></div>
-                              </div>
-                            )}
+                  <div className="flex flex-wrap gap-2.5 items-center relative z-10 min-w-max">
+                    {currentMonthHeatmap.map((data) => (
+                      <div 
+                        key={data.day} 
+                        onMouseEnter={() => setActiveCommit(data)}
+                        onMouseLeave={() => setActiveCommit(null)}
+                        className={`relative w-7 h-7 md:w-8 md:h-8 rounded-md flex items-center justify-center font-mono text-[10px] transition-all duration-300 hover:scale-110 hover:z-20 cursor-crosshair border ${
+                          data.level === 0 ? 'bg-slate-900/60 border-slate-800 text-slate-600 hover:border-slate-700' :
+                          data.level === 1 ? 'bg-emerald-950/80 border-emerald-800 text-emerald-300 hover:border-emerald-600' :
+                          data.level === 2 ? 'bg-emerald-800/90 border-emerald-600 text-emerald-100' :
+                          data.level === 3 ? 'bg-emerald-600 border-emerald-400 text-white shadow-[0_0_10px_#059669]' :
+                          'bg-emerald-400 border-emerald-200 text-slate-950 font-bold shadow-[0_0_15px_#34d399]'
+                        }`}
+                      >
+                        {data.day}
+                        
+                        {/* Interactive Tooltip */}
+                        {activeCommit?.day === data.day && (
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-[10px] whitespace-nowrap z-50 flex flex-col items-center pointer-events-none shadow-2xl">
+                            <span className="text-emerald-400 font-bold">{data.commits} contributions</span>
+                            <span className="text-slate-400">{data.date}</span>
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-[5px] border-transparent border-t-slate-700"></div>
                           </div>
-                        ))}
+                        )}
                       </div>
                     ))}
                   </div>
@@ -1070,7 +1168,7 @@ const App = () => {
               </div>
             </div>
 
-            {/* BENTO GRID: ROW 2 (Auditor & WakaTime) */}
+            {/* BENTO GRID: ROW 2 (Auditor & Live Language Telemetry) */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
               
               {/* Portfolio Auditor */}
@@ -1109,7 +1207,7 @@ const App = () => {
                 </div>
               </div>
 
-              {/* WakaTime Integration */}
+              {/* Live GitHub Language Telemetry */}
               <div className="lg:col-span-1 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-700"></div>
                 
@@ -1117,23 +1215,36 @@ const App = () => {
                   <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                   Language Telemetry
                 </p>
-                <p className="text-[10px] text-slate-400 font-mono mb-4 uppercase tracking-widest">Active Coding Hours (7 Days)</p>
+                <p className="text-[10px] text-slate-400 font-mono mb-4 uppercase tracking-widest">
+                  {isGithubLoading ? "Scanning GitHub API..." : "Live Repository Distribution"}
+                </p>
                 
                 <div className="mt-auto space-y-5 relative z-10">
-                  {wakatimeData.map((data, i) => (
-                    <div key={i} className="flex flex-col gap-2">
-                      <div className="flex justify-between items-center text-xs">
-                        <span className="text-white font-bold">{data.lang}</span>
-                        <span className="font-mono text-slate-400">{data.percent}%</span>
+                  {isGithubLoading ? (
+                    // Loading Skeleton
+                    Array.from({ length: 4 }).map((_, i) => (
+                      <div key={i} className="flex flex-col gap-2">
+                        <div className="h-3 w-1/3 bg-slate-800 rounded animate-pulse"></div>
+                        <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden"></div>
                       </div>
-                      <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full ${data.color} rounded-full transition-all duration-1000 ease-out`} 
-                          style={{ width: `${data.percent}%` }}
-                        ></div>
+                    ))
+                  ) : (
+                    // Live Fetched Data
+                    languageTelemetry.map((data, i) => (
+                      <div key={i} className="flex flex-col gap-2">
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-white font-bold">{data.lang}</span>
+                          <span className="font-mono text-slate-400">{data.percent}%</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full ${data.color} rounded-full transition-all duration-1000 ease-out`} 
+                            style={{ width: `${data.percent}%` }}
+                          ></div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </div>
             </div>
@@ -1148,7 +1259,7 @@ const App = () => {
                 <div className="flex justify-between items-center mb-6 relative z-10">
                   <p className="text-slate-500 font-mono text-[10px] tracking-widest uppercase flex items-center gap-2">
                     <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-                    Currently Playing
+                    Current Favourite Song
                   </p>
                   
                   {/* Animated Sound Wave */}
@@ -1161,23 +1272,17 @@ const App = () => {
                 </div>
                 
                 <div className="mt-auto flex items-center gap-4 relative z-10">
-                  
                   {/* ADVANCED VINYL RECORD COMPONENT */}
                   <div 
                     className="relative w-14 h-14 rounded-full animate-[spin_4s_linear_infinite] shrink-0 border border-slate-800 transition-shadow duration-500 group-hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]"
                     style={{ boxShadow: `0 0 15px ${spotifyData.colorGlow}` }}
                   >
-                    {/* The Album Cover Image */}
                     <img 
                       src={spotifyData.albumArtUrl} 
                       alt="Album Art" 
                       className="absolute inset-0 w-full h-full object-cover rounded-full"
                     />
-                    
-                    {/* Vinyl Grooves & Edge Shadow (Makes it look like a physical record) */}
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)] rounded-full pointer-events-none"></div>
-                    
-                    {/* The Center Spindle Hole */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[#070b14] rounded-full border border-slate-700/80 shadow-inner z-10"></div>
                   </div>
 
@@ -1232,7 +1337,6 @@ const App = () => {
           </div>
         </RevealSection>
       </section>
-
       {/* --- COMMAND CENTER MODAL --- */}
       {activeProject && (
         <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6">
