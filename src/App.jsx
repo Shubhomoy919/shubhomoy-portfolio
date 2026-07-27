@@ -821,18 +821,18 @@ const App = () => {
     physical: { label: "Physical Load (Gym)", hours: 8, max: 12, color: "bg-amber-500" }
   };
 
-  return (
+ return (
     <div className="min-h-screen bg-[#030508] text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
 
-      {/* --- EXACT AMBIENT BACKGROUND GLOWS (FROM SCREENSHOT) --- */}
+      {/* --- EXACT AMBIENT BACKGROUND GLOWS (FIXED) --- */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Intense Amber glow on the left */}
-        <div className="absolute top-[5%] left-[-15%] w-150 h-150 rounded-full bg-amber-500/15 blur-[120px]"></div>
+        <div className="absolute top-[5%] left-[-15%] w-[600px] h-[600px] rounded-full bg-amber-500/15 blur-[120px]"></div>
         {/* Deep Indigo/Purple glow on the right */}
-        <div className="absolute top-[25%] right-[-15%] w-150 h-150 rounded-full bg-indigo-500/15 blur-[120px]"></div>
+        <div className="absolute top-[25%] right-[-15%] w-[600px] h-[600px] rounded-full bg-indigo-500/15 blur-[120px]"></div>
       </div>
 
-{/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
+      {/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
       <div 
         className="pointer-events-none fixed inset-0 z-50 transition duration-300 hidden lg:block" 
         style={{ background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.05), transparent 80%)` }}
