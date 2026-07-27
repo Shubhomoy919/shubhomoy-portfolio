@@ -1627,7 +1627,7 @@ const App = () => {
             </h2>
             
             <p className="text-lg md:text-xl text-slate-400 mb-12 font-normal max-w-2xl mx-auto leading-relaxed">
-              Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. Let's build something massive.
+              Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. Let&apos;s build something massive.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center items-stretch gap-6 mb-16">
