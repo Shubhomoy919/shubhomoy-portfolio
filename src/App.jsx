@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, Float } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ReactLenis } from '@studio-freight/react-lenis';
 
 // --- 1. BOOT SEQUENCE COMPONENT ---
 const BootSequence = ({ onComplete }) => {
@@ -15,7 +14,7 @@ const BootSequence = ({ onComplete }) => {
     const t3 = setTimeout(() => setStep(3), 1800);
     const t4 = setTimeout(() => onComplete(), 2800);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
-  }, [onComplete]);
+  },[]);
 
   return (
     <motion.div 
@@ -33,8 +32,16 @@ const BootSequence = ({ onComplete }) => {
   );
 };
 
-// --- 2. CUSTOM PHYSICS CURSOR ---
-const CustomCursor = ({ mousePos }) => {
+// --- 2. CUSTOM PHYSICS CURSOR & BACKGROUND SPOTLIGHT ---
+const CustomCursor = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <>
       <motion.div
@@ -47,6 +54,11 @@ const CustomCursor = ({ mousePos }) => {
         animate={{ x: mousePos.x - 4, y: mousePos.y - 4 }}
         transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.1 }}
       />
+      {/* INTERACTIVE MOUSE SPOTLIGHT BACKGROUND */}
+      <div 
+        className="pointer-events-none fixed inset-0 z-1 transition duration-300 hidden lg:block" 
+        style={{ background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.05), transparent 80%)` }}
+      ></div>
     </>
   );
 };
@@ -80,7 +92,6 @@ const NeuralScene = () => {
     </group>
   );
 };
-
 // --- CUSTOM HOOK: SCROLL ANIMATIONS ---
 const useScrollReveal = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -903,13 +914,15 @@ const App = () => {
     physical: { label: "Physical Load (Gym)", hours: 8, max: 12, color: "bg-amber-500" }
   };
 
- return (
-    <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
+return (
+    <>
       <AnimatePresence>
         {!booted && <BootSequence onComplete={() => setBooted(true)} />}
       </AnimatePresence>
       
-      <CustomCursor mousePos={mousePos} />
+      <CustomCursor />
+
+      <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none"></div>
 
       {/* Adding cursor-none to hide the default browser pointer */}
       <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
@@ -1751,7 +1764,7 @@ const App = () => {
 <DigitalTwin />
 
     </div>
-    </ReactLenis>
+    </>
   );
 };
 
