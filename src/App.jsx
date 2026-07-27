@@ -37,8 +37,6 @@ const RevealSection = ({ children, className = "", delay = "0ms" }) => {
   );
 };
 
-import React, { useState, useEffect, useRef } from 'react';
-
 // --- AI DIGITAL TWIN COMPONENT (OMNI-INDEXED COGNITIVE ENGINE v10.0) ---
 const DigitalTwin = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -387,7 +385,6 @@ const DigitalTwin = () => {
   );
 };
 
-export default DigitalTwin;
 const App = () => {
   const trajectory = [
     {
