@@ -78,17 +78,19 @@ const NeuralScene = () => {
     <group ref={groupRef}>
       <Stars radius={50} depth={50} count={3000} factor={4} saturation={0} fade speed={1.5} />
       <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
-        <mesh position={[-8, 2, -10]}>
-          <torusKnotGeometry args={[7, 0.15, 200, 32]} />
-          <meshStandardMaterial color="#38bdf8" wireframe opacity={0.15} transparent />
-        </mesh>
-      </Float>
-      <Float speed={3} rotationIntensity={2} floatIntensity={1.5}>
-        <mesh position={[10, -4, -15]}>
-          <icosahedronGeometry args={[5, 1]} />
-          <meshStandardMaterial color="#f59e0b" wireframe opacity={0.15} transparent />
-        </mesh>
-      </Float>
+  <mesh position={[-8, 2, -10]}>
+    <torusKnotGeometry args={[7, 0.15, 200, 32]} />
+    {/* Increased opacity from 0.15 to 0.4 so it is visible */}
+    <meshStandardMaterial color="#38bdf8" wireframe opacity={0.4} transparent />
+  </mesh>
+</Float>
+
+<Float speed={3} rotationIntensity={2} floatIntensity={1.5}>
+  <mesh position={[10, -4, -15]}>
+    <icosahedronGeometry args={[5, 1]} />
+    <meshStandardMaterial color="#f59e0b" wireframe opacity={0.4} transparent />
+  </mesh>
+</Float>
     </group>
   );
 };
@@ -922,19 +924,17 @@ return (
       
       <CustomCursor />
 
-      <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none"></div>
-
-      {/* Adding cursor-none to hide the default browser pointer */}
+      {/* SINGLE CLEAN ROOT WRAPPER */}
       <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
         
-        {/* --- 3D WEBGL BACKGROUND --- */}
+        {/* --- 3D WEBL BACKGROUND --- */}
         <div className="fixed inset-0 z-0 pointer-events-none bg-[#030508]">
           <Canvas camera={{ position: [0, 0, 20], fov: 60 }}>
-            <ambientLight intensity={0.2} />
-            <pointLight position={[10, 10, 10]} color="#f59e0b" intensity={2} />
-            <pointLight position={[-10, -10, -10]} color="#38bdf8" intensity={2} />
-            <NeuralScene />
-          </Canvas>
+  <ambientLight intensity={0.8} />
+  <pointLight position={[10, 10, 10]} color="#f59e0b" intensity={3} />
+  <pointLight position={[-10, -10, -10]} color="#38bdf8" intensity={3} />
+  <NeuralScene />
+</Canvas>
         </div>
 
         {/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
