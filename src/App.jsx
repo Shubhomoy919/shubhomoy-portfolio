@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Float } from '@react-three/drei';
+import { Stars, Float, Sparkles } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- 1. BOOT SEQUENCE COMPONENT ---
@@ -63,34 +63,64 @@ const CustomCursor = () => {
   );
 };
 
-// --- 3. REACT THREE FIBER NEURAL ENVIRONMENT ---
+// --- 3. ADVANCED REACT THREE FIBER NEURAL ENVIRONMENT ---
 const NeuralScene = () => {
   const groupRef = useRef();
+  const torusRef = useRef();
 
   useFrame((state) => {
+    const scrollY = window.scrollY; // Track global scroll
+    const t = state.clock.getElapsedTime();
+
     if (groupRef.current) {
-      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, state.pointer.x * 0.3, 0.05);
-      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, -state.pointer.y * 0.3, 0.05);
+      // COMBINED PARALLAX: Mouse movement + Scroll position!
+      // As you scroll down, the entire 3D world rotates around you.
+      const targetRotationY = (state.pointer.x * 0.3) + (scrollY * 0.001);
+      const targetRotationX = (-state.pointer.y * 0.3) + (scrollY * 0.0005);
+
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotationY, 0.05);
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotationX, 0.05);
+    }
+
+    // Autonomous continuous rotation for the Torus Knot
+    if (torusRef.current) {
+      torusRef.current.rotation.z = t * 0.2;
+      torusRef.current.rotation.x = t * 0.1;
     }
   });
 
   return (
     <group ref={groupRef}>
-      <Stars radius={50} depth={50} count={3000} factor={4} saturation={0} fade speed={1.5} />
-      <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
-  <mesh position={[-8, 2, -10]}>
-    <torusKnotGeometry args={[7, 0.15, 200, 32]} />
-    {/* Increased opacity from 0.15 to 0.4 so it is visible */}
-    <meshStandardMaterial color="#38bdf8" wireframe opacity={0.4} transparent />
-  </mesh>
-</Float>
+      {/* Deep Space Starfield */}
+      <Stars radius={50} depth={50} count={4000} factor={4} saturation={0} fade speed={1.5} />
 
-<Float speed={3} rotationIntensity={2} floatIntensity={1.5}>
-  <mesh position={[10, -4, -15]}>
-    <icosahedronGeometry args={[5, 1]} />
-    <meshStandardMaterial color="#f59e0b" wireframe opacity={0.4} transparent />
-  </mesh>
-</Float>
+      {/* Neural Data Dust (Floating Particles throughout the viewport) */}
+      <Sparkles count={400} scale={35} size={2} speed={0.4} opacity={0.4} color="#38bdf8" />
+      <Sparkles count={300} scale={35} size={3} speed={0.2} opacity={0.3} color="#f59e0b" />
+
+      {/* Massive Deep Background Sphere (Creates global depth) */}
+      <Float speed={1} rotationIntensity={0.5} floatIntensity={1}>
+        <mesh position={[0, 0, -30]}>
+          <sphereGeometry args={[22, 32, 32]} />
+          <meshStandardMaterial color="#1e293b" wireframe opacity={0.2} transparent />
+        </mesh>
+      </Float>
+
+      {/* Core Torus Knot (Left) */}
+      <Float speed={2} rotationIntensity={2} floatIntensity={2}>
+        <mesh ref={torusRef} position={[-8, 2, -10]}>
+          <torusKnotGeometry args={[7, 0.15, 200, 32]} />
+          <meshStandardMaterial color="#38bdf8" wireframe opacity={0.5} transparent />
+        </mesh>
+      </Float>
+
+      {/* Icosahedron (Right) */}
+      <Float speed={3} rotationIntensity={2} floatIntensity={1.5}>
+        <mesh position={[10, -4, -15]}>
+          <icosahedronGeometry args={[5, 1]} />
+          <meshStandardMaterial color="#f59e0b" wireframe opacity={0.5} transparent />
+        </mesh>
+      </Float>
     </group>
   );
 };
