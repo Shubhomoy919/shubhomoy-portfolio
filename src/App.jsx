@@ -566,20 +566,13 @@ const App = () => {
     }
   ];
 
-  // --- MOUSE SPOTLIGHT ENGINE ---
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  // --- SCROLL TRACKER ---
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    
-    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const achievements = [
@@ -937,11 +930,6 @@ return (
 </Canvas>
         </div>
 
-        {/* --- INTERACTIVE MOUSE SPOTLIGHT BACKGROUND --- */}
-        <div 
-          className="pointer-events-none fixed inset-0 z-1 transition duration-300 hidden lg:block" 
-          style={{ background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.05), transparent 80%)` }}
-        ></div>
       {/* --- GLOBAL NAVIGATION BAR --- */}
       <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-[#030508]/80 backdrop-blur-md border-b border-slate-800/80 py-4 shadow-xl' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -1067,7 +1055,7 @@ return (
       </section>
 
       {/* --- 3. EDUCATION & EXPERIENCE --- */}
-      <section id="experience" className="relative z-10 border-t border-slate-900 bg-[#030508] py-24">
+      <section id="experience" className="relative z-10 border-t border-slate-900 bg-[#030508]/40 backdrop-blur-sm py-24">
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-16 tracking-tight text-white flex items-center gap-4">
@@ -1144,7 +1132,7 @@ return (
       </section>
 
       {/* --- 4. SYSTEM ARCHITECTURE (PROJECTS) --- */}
-      <section id="projects" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900">
+      <section id="projects" className="relative z-10 py-32 bg-[#030508]/40 backdrop-blur-sm border-t border-slate-900">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -1219,7 +1207,7 @@ return (
       </section>
 
      {/* --- 5. OPERATOR TELEMETRY (LIVE API ADVANCED) --- */}
-      <section id="telemetry" className="relative z-10 py-32 bg-[#030508] border-t border-slate-900 overflow-hidden">
+     <section id="telemetry" className="relative z-10 py-32 bg-[#030508]/40 backdrop-blur-sm border-t border-slate-900 overflow-hidden">
         {/* Advanced Ambient Background Grid */}
         <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[48px_48px]"></div>
 
@@ -1649,7 +1637,7 @@ return (
       </section>
 
       {/* --- 7. HALL OF RECORDS (ACHIEVEMENTS) --- */}
-      <section id="achievements" className="relative z-10 border-t border-slate-900 bg-[#030508] py-24 overflow-hidden">
+      <section id="achievements" className="relative z-10 border-t border-slate-900 bg-[#030508]/40 backdrop-blur-sm py-24 overflow-hidden">
         <div 
   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
   style={{ width: '600px', height: '300px', backgroundColor: 'rgba(245, 158, 11, 0.05)', filter: 'blur(120px)' }}
@@ -1725,7 +1713,7 @@ return (
       </section>
 
       {/* --- 8. CONTACT SECTION --- */}
-      <section id="contact" className="relative z-10 border-t border-slate-900 bg-[#030508] py-32">
+      <section id="contact" className="relative z-10 border-t border-slate-900 bg-[#030508]/40 backdrop-blur-sm py-32">
         <RevealSection>
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-white">
