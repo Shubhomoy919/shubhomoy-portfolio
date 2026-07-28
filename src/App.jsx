@@ -123,6 +123,7 @@ const OmniCore = () => {
     if (leviathanRef.current) {
       leviathanRef.current.rotation.x = t * 0.05;
       leviathanRef.current.rotation.y = t * 0.08;
+      // Adjusted coordinates to keep the smaller model visible on screen
       leviathanRef.current.position.y = -10 + (scrollY * 0.002);
       leviathanRef.current.position.x = -24 + (scrollY * 0.0015);
     }
@@ -179,24 +180,25 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
-      {/* --- RIGHT ORBITING SATELLITE (High-Definition Yellow Torus Knot with Inner Blacks) --- */}
+  {/* RIGHT ORBITING SATELLITE (Matching Yellow Leviathan Knot with Inner Blacks) */}
       <Float speed={2} rotationIntensity={2} floatIntensity={2}>
         <mesh position={[16, -6, -15]}>
+          {/* Uses the exact same geometry arguments as the green Leviathan knot on the left */}
           <torusKnotGeometry args={[5.5, 1.5, 256, 32]} />
           <meshStandardMaterial 
-            color="#facc15"           
-            emissive="#ca8a04"        
-            emissiveIntensity={0.12}   
+            color="#facc15"           // Vibrant yellow base color
+            emissive="#ca8a04"        // Deep golden emissive depth
+            emissiveIntensity={0.12}   // Low glow to preserve negative space and inner blacks
             wireframe 
             transparent 
-            opacity={0.18}            
+            opacity={0.18}            // Balanced transparency for sharp, see-through grid lines
           />
         </mesh>
       </Float>
-
-      {/* --- THE LEVIATHAN (Left Background Wireframe) --- */}
+      {/* --- THE LEVIATHAN (Smaller, Darker, More Transparent) --- */}
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
         <mesh ref={leviathanRef} position={[-24, -10, -15]}>
+          {/* Reduced radius from 7 to 5.5, and tube thickness from 1.5 to 1.2 */}
           <torusKnotGeometry args={[5.5, 1.2, 256, 32]} />
           <meshStandardMaterial 
             color="#0f766e" 
@@ -793,15 +795,6 @@ const App = () => {
   const [activeProject, setActiveProject] = useState(null);
   const [modalTab, setModalTab] = useState("architecture");
 
-  const [currentTheme, setCurrentTheme] = useState('cyan');
-
-  const themes = {
-    cyan: { name: 'Cyberpunk Cyan', primary: '#0ea5e9', secondary: '#38bdf8', ring: '#38bdf8' },
-    orange: { name: 'Solar Flare Orange', primary: '#f97316', secondary: '#fb923c', ring: '#fb923c' },
-    emerald: { name: 'Matrix Emerald', primary: '#10b981', secondary: '#34d399', ring: '#34d399' },
-    violet: { name: 'Hyper Neon Violet', primary: '#a855f7', secondary: '#c084fc', ring: '#c084fc' }
-  };
-
   const [editableCode, setEditableCode] = useState('');
   const [consoleOutput, setConsoleOutput] = useState([]);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -1201,7 +1194,7 @@ return (
       {/* SINGLE CLEAN ROOT WRAPPER */}
       <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
         
-      {/* --- 3D WEBGL BACKGROUND (CINEMATIC UPGRADE) --- */}
+       {/* --- 3D WEBGL BACKGROUND (CINEMATIC UPGRADE) --- */}
         <div className="fixed inset-0 z-0 pointer-events-none bg-[#030508]">
           <Canvas camera={{ position: [0, 0, 20], fov: 60 }} gl={{ antialias: false }}>
             {/* Intense Multi-Directional Lighting */}
@@ -1234,8 +1227,8 @@ return (
             Shubhomoy<span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#38bdf8,#a855f7)] font-bold">Sarkar</span>
           </a>
           
-          {/* DESKTOP NAV (LARGER FONT + MAGNETIC UNDERLINES + THEME PICKER) */}
-          <div className="hidden md:flex items-center gap-10 text-sm font-mono tracking-[0.15em] uppercase text-slate-300">
+          {/* DESKTOP NAV (LARGER FONT + MAGNETIC UNDERLINES) */}
+          <div className="hidden md:flex items-center gap-12 text-sm font-mono tracking-[0.15em] uppercase text-slate-300">
             <a href="#experience" className="relative group overflow-hidden px-2 py-1">
               <span className="group-hover:text-white transition-colors duration-300 drop-shadow-[0_0_10px_rgba(56,189,248,0)] group-hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">Experience</span>
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 group-hover:w-full transition-all duration-300 ease-out"></span>
@@ -1256,21 +1249,6 @@ return (
               <span className="group-hover:text-white transition-colors duration-300 drop-shadow-[0_0_10px_rgba(56,189,248,0)] group-hover:drop-shadow-[0_0_10px_rgba(236,72,153,0.8)]">Contact</span>
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-pink-400 group-hover:w-full transition-all duration-300 ease-out"></span>
             </a>
-
-            {/* --- CYBERPUNK THEME PICKER WIDGET --- */}
-            <div className="flex items-center gap-2 bg-slate-900/80 border border-slate-800 p-1.5 rounded-full backdrop-blur-md ml-2">
-              {Object.entries(themes).map(([key, t]) => (
-                <button
-                  key={key}
-                  onClick={() => setCurrentTheme(key)}
-                  title={t.name}
-                  className={`w-4 h-4 rounded-full transition-all ${
-                    currentTheme === key ? 'scale-125 ring-2 ring-white shadow-lg' : 'opacity-60 hover:opacity-100'
-                  }`}
-                  style={{ backgroundColor: t.primary }}
-                />
-              ))}
-            </div>
           </div>
 
           {/* MOBILE CONNECT BUTTON */}
@@ -1279,6 +1257,7 @@ return (
           </a>
         </div>
       </nav>
+
       {/* --- 1. THE HERO ENGINE (ULTIMATE POLISH) --- */}
       <header className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 z-10 pt-28 pb-12">
         
@@ -2131,7 +2110,7 @@ return (
           </div>
         </div>
       )}
-
+      
       {/* --- 6. ARSENAL (SKILLS) --- */}
       <section id="skills" className="relative z-10 py-32 border-t border-slate-900 bg-[#05070a]/90">
         <div className="max-w-7xl mx-auto px-6">
