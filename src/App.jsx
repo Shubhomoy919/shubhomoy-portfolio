@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, Float, Sparkles } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EffectComposer, Bloom, ChromaticAberration, Noise, Vignette } from '@react-three/postprocessing';
+import { BlendFunction } from 'postprocessing';
 
 // --- 1. BOOT SEQUENCE COMPONENT ---
 const BootSequence = ({ onComplete }) => {
@@ -1017,15 +1019,35 @@ return (
       {/* SINGLE CLEAN ROOT WRAPPER */}
       <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
         
-       {/* --- 3D WEBGL BACKGROUND --- */}
+       {/* --- 3D WEBGL BACKGROUND (CINEMATIC UPGRADE) --- */}
         <div className="fixed inset-0 z-0 pointer-events-none bg-[#030508]">
-          <Canvas camera={{ position: [0, 0, 20], fov: 60 }}>
-            {/* Added intense multi-directional lighting to ignite the emissive materials */}
+          <Canvas camera={{ position: [0, 0, 20], fov: 60 }} gl={{ antialias: false }}>
+            {/* Intense Multi-Directional Lighting */}
             <ambientLight intensity={1.2} />
             <pointLight position={[10, 10, 10]} color="#f59e0b" intensity={5} />
             <pointLight position={[-10, -10, -10]} color="#38bdf8" intensity={5} />
             <pointLight position={[0, 0, 10]} color="#a855f7" intensity={4} />
+            
             <OmniCore />
+
+            {/* THE CINEMATIC POST-PROCESSING PIPELINE */}
+            <EffectComposer disableNormalPass>
+              {/* 1. Bloom: Makes the emissive materials physically bleed light into the dark space */}
+              <Bloom luminanceThreshold={0.2} mipmapBlur intensity={2.0} />
+              
+              {/* 2. Chromatic Aberration: Splits RGB channels on the edges for a futuristic/glitch camera effect */}
+              <ChromaticAberration 
+                offset={[0.0015, 0.0015]} 
+                blendFunction={BlendFunction.NORMAL} 
+              />
+              
+              {/* 3. Noise: Adds a cinematic film grain to prevent banding in the dark gradients */}
+              <Noise opacity={0.03} />
+              
+              {/* 4. Vignette: Darkens the absolute corners of the screen to focus the eye on the center */}
+              <Vignette eskil={false} offset={0.1} darkness={1.1} />
+            </EffectComposer>
+
           </Canvas>
         </div>
 
