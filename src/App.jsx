@@ -1098,16 +1098,16 @@ return (
           </div>
         </RevealSection>
 
-        {/* Clean Two-Line Syne Header (Advanced Contrast) */}
+        {/* Clean Two-Line Syne Header with Solar Flare Gradient */}
         <RevealSection delay="200ms">
-          <h1 className="text-5xl md:text-7xl lg:text-[7rem] font-display tracking-tight mb-8 leading-[1.05] relative">
-  <span className="block text-white mb-2 font-bold drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
-    Shubhomoy <span className="text-sky-400 font-black">Sarkar</span>
-  </span>
-            {/* The Ultimate Cyber Gradient */}
-            <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#38bdf8_0%,#818cf8_50%,#c084fc_100%)] drop-shadow-[0_0_30px_rgba(56,189,248,0.3)] font-black pb-4 block">
-  Full Stack & AI Engineer
-</span>
+          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-display tracking-tight mb-6 leading-[1.05]">
+            <span className="block text-slate-100 mb-2 font-bold drop-shadow-2xl">
+              Shubhomoy <span className="text-sky-400 font-extrabold">Sarkar</span>
+            </span>
+            {/* Solar Flare Gradient: Yellow -> Orange -> Red */}
+            <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#facc15_0%,#f97316_50%,#ef4444_100%)] animate-bg-shift drop-shadow-[0_0_35px_rgba(249,115,22,0.4)] font-extrabold pb-2 block">
+              Full Stack & AI Engineer
+            </span>
           </h1>
         </RevealSection>
         
