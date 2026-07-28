@@ -1173,6 +1173,68 @@ return (
           </div>
         </RevealSection>
       </header>
+
+      {/* --- OPERATOR IDENTITY CARD COMPONENT --- */}
+      <section className="relative z-10 py-16 flex justify-center items-center px-6">
+        <RevealSection>
+          <div className="relative bg-[#070b14]/90 border border-slate-800 p-8 md:p-10 rounded-3xl backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] max-w-md w-full overflow-hidden group hover:border-sky-500/40 transition-all duration-500">
+            
+            {/* Cyber Corner Decors */}
+            <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-sky-500/50 rounded-tr-3xl pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-purple-500/50 rounded-bl-3xl pointer-events-none"></div>
+
+            {/* Top Location Badge */}
+            <div className="absolute top-6 left-6 z-20 bg-[#030508]/80 border border-sky-500/30 px-3.5 py-1 rounded-md backdrop-blur-md">
+              <span className="text-sky-400 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">
+                LOC: KOLKATA, IN
+              </span>
+            </div>
+
+            {/* Circular Avatar Container */}
+            <div className="relative w-48 h-48 mx-auto mt-6 mb-8 rounded-full p-1.5 bg-gradient-to-tr from-sky-500 via-purple-500 to-amber-400 shadow-[0_0_30px_rgba(56,189,248,0.2)] group-hover:shadow-[0_0_50px_rgba(168,85,247,0.4)] transition-all duration-500">
+              <div className="w-full h-full rounded-full overflow-hidden bg-[#030508] relative">
+                {/* REPLACE '/shubhomoysarkar.jpg' WITH YOUR ACTUAL FILENAME IN THE PUBLIC FOLDER */}
+                <img 
+                  src="/shubhomoy-portfolio/public/WhatsApp Image 2026-07-28 at 15.49.35.jpeg" 
+                  alt="Shubhomoy Sarkar" 
+                  className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                />
+              </div>
+            </div>
+
+            {/* Divider Line */}
+            <div className="w-full h-px bg-slate-800 my-6"></div>
+
+            {/* Dossier Data Fields */}
+            <div className="space-y-4 font-mono text-xs md:text-sm">
+              <div className="flex justify-between items-center border-b border-slate-800/60 pb-3">
+                <span className="text-slate-500 tracking-widest uppercase">NAME:</span>
+                <span className="text-white font-bold tracking-wider">SHUBHOMOY SARKAR</span>
+              </div>
+
+              <div className="flex justify-between items-center border-b border-slate-800/60 pb-3">
+                <span className="text-slate-500 tracking-widest uppercase">DEGREE:</span>
+                <div className="text-right">
+                  <span className="text-sky-400 font-bold block">B.TECH CSE (2024-2028)</span>
+                  <span className="text-[10px] text-slate-500 tracking-wider">AT IIIT KOTTAYAM</span>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center border-b border-slate-800/60 pb-3">
+                <span className="text-slate-500 tracking-widest uppercase">DOMAIN:</span>
+                <span className="text-amber-400 font-bold tracking-wider">FULL-STACK & GEN-AI</span>
+              </div>
+
+              <div className="flex justify-between items-center pb-1">
+                <span className="text-slate-500 tracking-widest uppercase">CONTACT:</span>
+                <span className="text-slate-300 font-mono tracking-wider">+91 9163406409</span>
+              </div>
+            </div>
+
+          </div>
+        </RevealSection>
+      </section>
+
  {/* --- 2. ENGINEERING MANIFESTO --- */}
       <section id="manifesto" className="relative z-10 px-6 py-32">
         <RevealSection>
