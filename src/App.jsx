@@ -39,25 +39,23 @@ const CustomCursor = () => {
   const rawX = useMotionValue(-100);
   const rawY = useMotionValue(-100);
 
-  // High-precision smooth physics (Zero-lag hardware acceleration)
-  const cursorX = useSpring(rawX, { damping: 30, stiffness: 400, mass: 0.2 });
-  const cursorY = useSpring(rawY, { damping: 30, stiffness: 400, mass: 0.2 });
-
-  const ringX = useSpring(rawX, { damping: 25, stiffness: 180, mass: 0.6 });
-  const ringY = useSpring(rawY, { damping: 25, stiffness: 180, mass: 0.6 });
+  // Apply smooth physics ONLY to the outer trailing ring
+  const ringX = useSpring(rawX, { stiffness: 500, damping: 30, mass: 0.1 });
+  const ringY = useSpring(rawY, { stiffness: 500, damping: 30, mass: 0.1 });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       rawX.set(e.clientX);
       rawY.set(e.clientY);
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    // passive: true tells the browser we won't block scrolling/rendering, boosting performance
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [rawX, rawY]);
 
   return (
     <>
-      {/* Outer Smooth Trailing Ring */}
+      {/* Outer Smooth Trailing Ring (Has Physics) */}
       <motion.div
         className="fixed top-0 left-0 w-10 h-10 rounded-full border border-sky-400/40 pointer-events-none z-[9999] hidden lg:block"
         style={{
@@ -67,12 +65,13 @@ const CustomCursor = () => {
           translateY: "-50%"
         }}
       />
-      {/* Inner Precision Dot */}
+      
+      {/* Inner Precision Dot (NO PHYSICS = INSTANT 1:1 TRACKING) */}
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-sky-400 rounded-full pointer-events-none z-[9999] hidden lg:block shadow-[0_0_12px_#38bdf8]"
         style={{
-          x: cursorX,
-          y: cursorY,
+          x: rawX,
+          y: rawY,
           translateX: "-50%",
           translateY: "-50%"
         }}
