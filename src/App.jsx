@@ -637,20 +637,35 @@ const DigitalTwin = () => {
 
 const App = () => {
   const [booted, setBooted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  // --- CONTACT FORM STATE & HANDLER ---
+  const [formStatus, setFormStatus] = useState({ submitted: false, submitting: false, error: null });
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate network request
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setSubmitStatus(null), 4000);
-    }, 1500);
+    setFormStatus({ submitted: false, submitting: true, error: null });
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xwvgyaln", {
+        method: "POST",
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setFormStatus({ submitted: true, submitting: false, error: null });
+        form.reset();
+      } else {
+        const errorData = await response.json();
+        setFormStatus({ submitted: false, submitting: false, error: errorData.error || "Submission failed." });
+      }
+    } catch (error) {
+      setFormStatus({ submitted: false, submitting: false, error: "Network error. Please try again." });
+    }
   };
   const trajectory = [
     {
@@ -2248,82 +2263,56 @@ return (
               {/* Subtle hover reveal gradient on the form border */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
-              <form onSubmit={handleContactSubmit} className="relative z-10 space-y-6">
-                
-                {/* Name Input */}
-                <div>
-                  <label htmlFor="name" className="block text-slate-300 font-sans text-sm font-medium mb-2">
-                    Name <span className="text-pink-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    required
-                    placeholder="Your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
-                  />
-                </div>
+              <form onSubmit={handleContactSubmit} className="flex flex-col gap-6">
+  <div>
+    <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Name *</label>
+    <input 
+      type="text" 
+      name="name" 
+      required 
+      placeholder="Your full name" 
+      className="w-full bg-[#030508] border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-500 transition-colors text-sm"
+    />
+  </div>
 
-                {/* Email Input */}
-                <div>
-                  <label htmlFor="email" className="block text-slate-300 font-sans text-sm font-medium mb-2">
-                    Email <span className="text-pink-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    placeholder="your.email@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
-                  />
-                </div>
+  <div>
+    <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Email *</label>
+    <input 
+      type="email" 
+      name="email" 
+      required 
+      placeholder="your.email@example.com" 
+      className="w-full bg-[#030508] border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-500 transition-colors text-sm"
+    />
+  </div>
 
-                {/* Message Textarea */}
-                <div>
-                  <label htmlFor="message" className="block text-slate-300 font-sans text-sm font-medium mb-2">
-                    Message <span className="text-pink-500">*</span>
-                  </label>
-                  <textarea
-                    id="message"
-                    required
-                    rows="5"
-                    maxLength={1000}
-                    placeholder="Tell me about your project or how I can help you..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner resize-none custom-scrollbar"
-                  ></textarea>
-                  
-                  {/* Dynamic Character Counter */}
-                  <div className="flex justify-end mt-2">
-                    <span className={`text-xs font-mono ${formData.message.length >= 950 ? 'text-pink-500' : 'text-slate-500'}`}>
-                      {formData.message.length}/1000
-                    </span>
-                  </div>
-                </div>
+  <div>
+    <label className="block text-xs font-mono uppercase text-slate-400 mb-2">Message *</label>
+    <textarea 
+      name="message" 
+      required 
+      rows={4} 
+      placeholder="Tell me about your project or how I can help you..." 
+      className="w-full bg-[#030508] border border-slate-800 rounded-xl p-4 text-white focus:outline-none focus:border-sky-500 transition-colors text-sm resize-none"
+    ></textarea>
+  </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="relative w-full inline-flex h-14 items-center justify-center px-8 py-0 bg-[#a855f7] hover:bg-[#9333ea] rounded-full font-bold text-white transition-all duration-300 hover:scale-[1.02] shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.7)] overflow-hidden font-sans tracking-[0.1em] uppercase text-sm disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
-                      Transmitting...
-                    </span>
-                  ) : submitStatus === 'success' ? (
-                    <span className="text-white">Message Secured ✓</span>
-                  ) : (
-                    <span>Send Message</span>
-                  )}
-                </button>
-              </form>
+  <button
+    type="submit"
+    disabled={formStatus.submitting}
+    className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold tracking-widest text-xs uppercase hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(168,85,247,0.4)] disabled:opacity-50"
+  >
+    {formStatus.submitting ? "Securing & Transmitting..." : "Send Message"}
+  </button>
+
+  {formStatus.submitted && (
+    <p className="text-emerald-400 font-mono text-xs text-center mt-2">✓ Message secured & delivered successfully to inbox!</p>
+  )}
+
+  {formStatus.error && (
+    <p className="text-red-400 font-mono text-xs text-center mt-2">✕ {formStatus.error}</p>
+  )}
+</form>
             </div>
 
             {/* Direct Contact Links */}
