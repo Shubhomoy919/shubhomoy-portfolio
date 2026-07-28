@@ -180,18 +180,18 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
-    {/* RIGHT ORBITING SATELLITE (Larger, Sharper Ghostly Yellow Wireframe) */}
+    {/* RIGHT ORBITING SATELLITE (Prominent, Razor-Sharp Yellow Wireframe) */}
       <Float speed={2} rotationIntensity={2} floatIntensity={2}>
         <mesh position={[16, -6, -15]}>
-          {/* Increased radius to 2.8 (bigger) and decreased tube to 0.15 (razor-sharp) */}
-          <torusKnotGeometry args={[3.8, 1.2, 256, 32]} />
+          {/* Kept radius large (3.8) but shrunk tube to 0.4 for razor-sharp grid lines. Boosted tubular segments to 300 for HD density. */}
+          <torusKnotGeometry args={[3.8, 0.4, 300, 32]} />
           <meshStandardMaterial 
-            color="#eab308"           
-            emissive="#ca8a04"        
-            emissiveIntensity={0.2}   
+            color="#facc15"           // Brighter base yellow
+            emissive="#eab308"        // Brighter glowing yellow 
+            emissiveIntensity={0.6}   // Bumped up slightly so it pops
             wireframe 
             transparent 
-            opacity={0.15}            
+            opacity={0.35}            // Increased opacity from 0.15 to 0.35 to make it prominent
           />
         </mesh>
       </Float>
