@@ -1015,94 +1015,97 @@ return (
         </div>
 
       {/* --- GLOBAL NAVIGATION BAR --- */}
-      <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-[#030508]/80 backdrop-blur-md border-b border-slate-800/80 py-4 shadow-xl' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 w-full z-40 transition-all duration-500 ${scrolled ? 'bg-[#030508]/60 backdrop-blur-xl border-b border-slate-800/50 py-4 shadow-2xl' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           
-          {/* LEFT SIDE: Your Full Name */}
-          <a href="#" className="text-xl md:text-2xl font-black tracking-tighter text-white hover:opacity-80 transition-opacity flex items-center gap-1.5">
-            Shubhomoy<span className="text-amber-500">Sarkar</span>
+          {/* BRAND LOGO */}
+          <a href="#" className="text-xl md:text-2xl font-display font-black tracking-tight text-white hover:opacity-80 transition-opacity flex items-center gap-1.5">
+            Shubhomoy<span className="text-sky-500 font-light">Sarkar</span>
           </a>
           
-          {/* RIGHT SIDE: Navigation Links */}
-          <div className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest uppercase text-slate-400">
-            <a href="#experience" className="hover:text-amber-400 transition-colors">Experience</a>
-            <a href="#projects" className="hover:text-amber-400 transition-colors">Architecture</a>
-            <a href="#telemetry" className="hover:text-amber-400 transition-colors">Telemetry</a>
-            <a href="#skills" className="hover:text-amber-400 transition-colors">Arsenal</a>
-            <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
+          {/* DESKTOP NAV */}
+          <div className="hidden md:flex items-center gap-10 text-[10px] font-mono tracking-[0.2em] uppercase text-slate-400">
+            <a href="#experience" className="hover:text-sky-400 transition-colors">Experience</a>
+            <a href="#projects" className="hover:text-sky-400 transition-colors">Architecture</a>
+            <a href="#telemetry" className="hover:text-sky-400 transition-colors">Telemetry</a>
+            <a href="#skills" className="hover:text-sky-400 transition-colors">Arsenal</a>
+            <a href="#contact" className="hover:text-sky-400 transition-colors">Contact</a>
           </div>
 
-          {/* MOBILE ONLY: Connect Button */}
-          <a href="#contact" className="md:hidden text-amber-500 font-mono text-[10px] uppercase tracking-widest border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 rounded-md hover:bg-amber-500/20 transition-colors">
+          {/* MOBILE CONNECT BUTTON */}
+          <a href="#contact" className="md:hidden text-sky-400 font-mono text-[10px] uppercase tracking-widest border border-sky-500/30 bg-sky-500/10 px-4 py-2 rounded-full hover:bg-sky-500/20 transition-colors">
             Connect
           </a>
-          
         </div>
       </nav>
-      {/* --- 1. THE HERO ENGINE (3-LINE PROFESSIONAL BIO) --- */}
+
+      {/* --- 1. THE HERO ENGINE (PREMIUM BESPOKE REDESIGN) --- */}
       <header className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 z-10 pt-20">
+        
+        {/* Sleek Internship Badge */}
         <RevealSection delay="0ms">
-          <div className="inline-flex items-center gap-3 mb-8 px-6 py-2.5 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md shadow-[0_0_30px_rgba(245,158,11,0.15)] group hover:border-amber-400/60 transition-all duration-500">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+          <div className="inline-flex items-center gap-3 mb-10 px-5 py-2 rounded-full border border-sky-500/20 bg-[#030508]/50 backdrop-blur-md shadow-[0_0_20px_rgba(56,189,248,0.1)] group hover:border-sky-400/40 transition-all duration-500">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
             </span>
-            <span className="text-amber-300 font-mono text-xs md:text-sm tracking-[0.2em] uppercase font-bold group-hover:text-amber-100 transition-colors">
+            <span className="text-sky-200 font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase font-semibold group-hover:text-white transition-colors">
               Available for Internships
             </span>
           </div>
         </RevealSection>
 
+        {/* Massive Syne Typography Header */}
         <RevealSection delay="200ms">
-          <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter mb-6 leading-[1.05]">
-            <span className="block text-white mb-2 drop-shadow-2xl">Shubhomoy Sarkar</span>
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-400 via-orange-400 to-indigo-400 animate-bg-shift drop-shadow-[0_0_50px_rgba(245,158,11,0.3)]">
+          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-display tracking-tight mb-8 leading-[1.05]">
+            <span className="block text-slate-200 mb-2 font-medium drop-shadow-xl">
+              Shubhomoy <span className="font-extrabold text-white">Sarkar</span>
+            </span>
+            <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#ffffff_10%,#38bdf8_50%,#a855f7_90%)] animate-bg-shift drop-shadow-[0_0_30px_rgba(56,189,248,0.2)] font-extrabold pb-2 block">
               Full Stack & AI Engineer
             </span>
           </h1>
         </RevealSection>
         
+        {/* Styled Typography Paragraph with Code Tags */}
         <RevealSection delay="400ms">
-          <p className="text-xl md:text-2xl text-slate-300 max-w-3xl leading-relaxed mb-10 font-light">
-            Computer Science engineering student in the 5th semester at IIIT Kottayam, specializing in full-stack architecture, generative AI, and agentic workflows. Experienced in building production-ready applications with strong foundations in data structures, algorithms, and machine learning pipelines.
+          <p className="text-base md:text-xl text-slate-400 max-w-3xl leading-relaxed mb-12 font-sans font-light bg-[#030508]/30 backdrop-blur-sm p-6 rounded-3xl border border-white/5 shadow-2xl">
+            Computer Science engineering student in the 5th semester at IIIT Kottayam, specializing in <span className="text-white font-medium">full-stack architecture</span>, <span className="text-sky-400 font-mono text-sm px-2 py-0.5 bg-sky-500/10 rounded-md border border-sky-500/20 shadow-inner">generative AI</span>, and <span className="text-purple-400 font-mono text-sm px-2 py-0.5 bg-purple-500/10 rounded-md border border-purple-500/20 shadow-inner">agentic workflows</span>. Experienced in building production-ready applications with strong foundations in data structures, algorithms, and machine learning pipelines.
           </p>
         </RevealSection>
 
         <RevealSection delay="600ms">
           <div className="flex flex-col items-center justify-center w-full">
-            {/* Top Centered: Download CV */}
-            <div className="mb-6">
+            
+            {/* Top Centered: Sleek Download CV */}
+            <div className="mb-8">
               <a 
                 href="/Shubhomoy_Sarkar_Resume.pdf" 
                 target="_blank" 
                 rel="noreferrer"
-                className="group relative px-8 py-4 bg-amber-500/10 border border-amber-500/50 hover:border-amber-400 rounded-2xl transition-all duration-300 overflow-hidden flex items-center justify-center gap-3 text-center"
+                className="group relative px-6 py-2.5 hover:bg-white/5 border border-white/10 hover:border-white/30 rounded-full transition-all duration-300 overflow-hidden flex items-center justify-center gap-3 text-center backdrop-blur-md"
               >
-                <div className="absolute inset-0 bg-linear-to-r from-amber-500/10 to-orange-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-                <span className="relative text-amber-400 font-mono tracking-widest text-sm uppercase group-hover:text-amber-300 font-bold">
+                <span className="relative text-slate-300 font-mono tracking-widest text-[10px] uppercase group-hover:text-white font-semibold transition-colors">
                   Download CV
                 </span>
-                <svg className="w-4 h-4 relative text-amber-400 group-hover:text-amber-300 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 relative text-slate-400 group-hover:text-white group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
               </a>
             </div>
 
-            {/* Bottom Row: Inspect Projects & Contact Me */}
-            <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto items-center justify-center">
+            {/* Bottom Row: Minimalist Glowing Buttons */}
+            <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto items-center justify-center">
               <a 
                 href="#projects" 
-                className="relative group px-12 py-5 bg-amber-500 rounded-2xl font-black text-slate-950 transition-all duration-500 hover:scale-[1.02] shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:shadow-[0_0_60px_rgba(245,158,11,0.5)] overflow-hidden text-center w-full sm:w-auto"
+                className="relative group px-10 py-4 bg-white rounded-full font-bold text-slate-950 transition-all duration-500 hover:scale-[1.02] shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_50px_rgba(255,255,255,0.4)] overflow-hidden text-center w-full sm:w-auto font-sans tracking-widest uppercase text-xs"
               >
-                <div className="absolute inset-0 bg-linear-to-r from-amber-400 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <span className="relative z-10 text-slate-950 group-hover:text-slate-950 transition-colors text-lg tracking-wider uppercase font-extrabold">
-                  Inspect Projects
-                </span>
+                <span className="relative z-10">Inspect Projects</span>
               </a>
 
               <a 
                 href="#contact" 
-                className="px-12 py-5 bg-slate-900/60 backdrop-blur-md rounded-2xl font-bold transition-all duration-300 border border-slate-700 hover:text-amber-400 hover:border-amber-500/50 text-lg tracking-wider uppercase flex items-center justify-center gap-3 w-full sm:w-auto"
+                className="px-10 py-4 bg-[#030508]/50 backdrop-blur-xl rounded-full font-bold transition-all duration-300 border border-slate-700/50 hover:text-sky-400 hover:border-sky-500/50 hover:bg-sky-500/5 text-xs tracking-widest uppercase flex items-center justify-center gap-3 w-full sm:w-auto font-sans text-slate-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
               >
                 Contact Me
               </a>
@@ -1110,7 +1113,6 @@ return (
           </div>
         </RevealSection>
       </header>
-
       {/* --- 2. ENGINEERING MANIFESTO --- */}
       <section id="manifesto" className="relative z-10 px-6 py-32">
         <RevealSection>
