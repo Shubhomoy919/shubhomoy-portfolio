@@ -130,27 +130,34 @@ const OmniCore = () => {
 
   return (
     <group>
-      {/* INFINITE NEURAL DUST (4 Layers of Parallax Particles) */}
-      <group ref={particlesRef}>
-        <Sparkles count={800} scale={50} size={1.5} speed={0.8} opacity={0.5} color="#38bdf8" />
-        <Sparkles count={400} scale={40} size={3} speed={0.4} opacity={0.4} color="#f59e0b" />
-        <Sparkles count={200} scale={30} size={5} speed={1.2} opacity={0.8} color="#a855f7" />
-        <Sparkles count={100} scale={60} size={8} speed={0.2} opacity={0.2} color="#ec4899" />
-      </group>
-
-      <Stars radius={150} depth={50} count={6000} factor={6} saturation={1} fade speed={2} />
+      {/* CLEAN DEEP-SPACE STARFIELD (NO HEAVY SPARKLES) */}
+      <Stars radius={150} depth={60} count={7000} factor={5} saturation={0.5} fade speed={1.5} />
 
       {/* THE QUANTUM CORE */}
       <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
         <group position={[0, 0, -5]}>
           
-          {/* Inner Glowing Brain */}
+          {/* Inner Quantum Glass Brain */}
           <mesh ref={coreRef}>
             <icosahedronGeometry args={[3.5, 2]} />
-            <meshStandardMaterial color="#0ea5e9" wireframe emissive="#0ea5e9" emissiveIntensity={2} transparent opacity={0.6} />
+            <MeshTransmissionMaterial
+              backside
+              backsideThickness={1}
+              thickness={2}
+              roughness={0.1}
+              transmission={1}
+              ior={1.2}
+              chromaticAberration={0.05}
+              anisotropy={0.1}
+              distortion={0.5}
+              distortionScale={0.5}
+              temporalDistortion={0.2}
+              clearcoat={1}
+              color="#0ea5e9"
+            />
           </mesh>
 
-         {/* Gyro Ring 1 (Cyan) */}
+          {/* Gyro Ring 1 (Cyan) */}
           <mesh ref={ring1Ref}>
             <torusGeometry args={[5.5, 0.08, 16, 100]} />
             <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1.2} wireframe transparent opacity={0.3} />
@@ -167,6 +174,7 @@ const OmniCore = () => {
             <torusGeometry args={[9.5, 0.02, 16, 100]} />
             <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1.0} wireframe transparent opacity={0.3} />
           </mesh>
+
         </group>
       </Float>
 
@@ -185,14 +193,13 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
-      {/* ABYSS GRID (Massive Sphere encapsulating the entire scene for deep depth) */}
+      {/* ABYSS GRID */}
       <mesh position={[0, 0, -60]}>
         <sphereGeometry args={[80, 32, 32]} />
         <meshBasicMaterial color="#020617" wireframe opacity={0.08} transparent />
       </mesh>
     </group>
   );
-};
 // --- CUSTOM HOOK: SCROLL ANIMATIONS ---
 const useScrollReveal = () => {
   const [isVisible, setIsVisible] = useState(false);
