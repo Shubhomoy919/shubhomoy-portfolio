@@ -1174,90 +1174,98 @@ return (
         </RevealSection>
       </header>
 
-      {/* --- OPERATOR IDENTITY CARD COMPONENT --- */}
-      <section className="relative z-10 py-16 flex justify-center items-center px-6">
+     {/* --- 2. ENGINEERING MANIFESTO (STRICTLY PARALLEL SIDE-BY-SIDE) --- */}
+      <section id="manifesto" className="relative z-10 px-6 py-32">
         <RevealSection>
-          <div className="relative bg-[#070b14]/90 border border-slate-800 p-8 md:p-10 rounded-3xl backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] max-w-md w-full overflow-hidden group hover:border-sky-500/40 transition-all duration-500">
+          <div className="max-w-7xl mx-auto flex flex-col xl:flex-row items-center xl:items-stretch gap-8">
             
-            {/* Cyber Corner Decors */}
-            <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-sky-500/50 rounded-tr-3xl pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-purple-500/50 rounded-bl-3xl pointer-events-none"></div>
+            {/* LEFT SIDE: CYBER OPERATOR DOSSIER CARD (Fixed Width & Non-Collapsing) */}
+            <div className="w-full xl:w-[380px] shrink-0 relative bg-[#070b14]/95 border border-slate-800 p-8 rounded-3xl backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.8)] overflow-hidden group hover:border-sky-500/40 transition-all duration-500 flex flex-col justify-between">
+              
+              {/* Cyber Corner Decors */}
+              <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-sky-500/50 rounded-tr-3xl pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-purple-500/50 rounded-bl-3xl pointer-events-none"></div>
 
-            {/* Top Location Badge */}
-            <div className="absolute top-6 left-6 z-20 bg-[#030508]/80 border border-sky-500/30 px-3.5 py-1 rounded-md backdrop-blur-md">
-              <span className="text-sky-400 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">
-                LOC: KOLKATA, IN
-              </span>
-            </div>
-
-            {/* Circular Avatar Container */}
-            <div className="relative w-48 h-48 mx-auto mt-6 mb-8 rounded-full p-1.5 bg-gradient-to-tr from-sky-500 via-purple-500 to-amber-400 shadow-[0_0_30px_rgba(56,189,248,0.2)] group-hover:shadow-[0_0_50px_rgba(168,85,247,0.4)] transition-all duration-500">
-              <div className="w-full h-full rounded-full overflow-hidden bg-[#030508] relative">
-                {/* REPLACE '/shubhomoysarkar.jpg' WITH YOUR ACTUAL FILENAME IN THE PUBLIC FOLDER */}
-                <img 
-                  src="/shubhomoy-portfolio/public/WhatsApp Image 2026-07-28 at 15.49.35.jpeg" 
-                  alt="Shubhomoy Sarkar" 
-                  className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-                />
-              </div>
-            </div>
-
-            {/* Divider Line */}
-            <div className="w-full h-px bg-slate-800 my-6"></div>
-
-            {/* Dossier Data Fields */}
-            <div className="space-y-4 font-mono text-xs md:text-sm">
-              <div className="flex justify-between items-center border-b border-slate-800/60 pb-3">
-                <span className="text-slate-500 tracking-widest uppercase">NAME:</span>
-                <span className="text-white font-bold tracking-wider">SHUBHOMOY SARKAR</span>
+              {/* Top Location Badge */}
+              <div className="absolute top-6 left-6 z-20 bg-[#030508]/80 border border-sky-500/30 px-3.5 py-1 rounded-md backdrop-blur-md">
+                <span className="text-sky-400 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">
+                  LOC: KOLKATA, IN
+                </span>
               </div>
 
-              <div className="flex justify-between items-center border-b border-slate-800/60 pb-3">
-                <span className="text-slate-500 tracking-widest uppercase">DEGREE:</span>
-                <div className="text-right">
-                  <span className="text-sky-400 font-bold block">B.TECH CSE (2024-2028)</span>
-                  <span className="text-[10px] text-slate-500 tracking-wider">AT IIIT KOTTAYAM</span>
+              {/* Circular Avatar Container */}
+              <div className="relative w-40 h-40 mx-auto mt-6 mb-6 rounded-full p-1.5 bg-gradient-to-tr from-sky-500 via-purple-500 to-amber-400 shadow-[0_0_30px_rgba(56,189,248,0.2)] group-hover:shadow-[0_0_50px_rgba(168,85,247,0.4)] transition-all duration-500 shrink-0">
+                <div className="w-full h-full rounded-full overflow-hidden bg-[#030508] relative flex items-center justify-center">
+                  
+                  {/* ⚠️ IMPORTANT: MAKE SURE YOUR IMAGE IS IN THE 'public' FOLDER AND MATCHES THIS FILENAME */}
+                  <img 
+                    src="public/shubh.jpg" 
+                    alt="Shubhomoy Sarkar" 
+                    className="w-full h-full object-cover filter contrast-125 group-hover:scale-105 transition-all duration-700"
+                    onError={(e) => {
+                      // Fallback text if image file is missing from public folder
+                      e.target.style.display = 'none';
+                      e.target.parentNode.innerHTML = '<span class="text-xs font-mono text-sky-400 text-center p-2">ADD PHOTO TO PUBLIC FOLDER</span>';
+                    }}
+                  />
+
                 </div>
               </div>
 
-              <div className="flex justify-between items-center border-b border-slate-800/60 pb-3">
-                <span className="text-slate-500 tracking-widest uppercase">DOMAIN:</span>
-                <span className="text-amber-400 font-bold tracking-wider">FULL-STACK & GEN-AI</span>
+              {/* Divider Line */}
+              <div className="w-full h-px bg-slate-800 my-4"></div>
+
+              {/* Dossier Data Fields */}
+              <div className="space-y-3.5 font-mono text-xs">
+                <div className="flex justify-between items-center border-b border-slate-800/60 pb-2.5">
+                  <span className="text-slate-500 tracking-widest uppercase">NAME:</span>
+                  <span className="text-white font-bold tracking-wider">SHUBHOMOY SARKAR</span>
+                </div>
+
+                <div className="flex justify-between items-center border-b border-slate-800/60 pb-2.5">
+                  <span className="text-slate-500 tracking-widest uppercase">DEGREE:</span>
+                  <div className="text-right">
+                    <span className="text-sky-400 font-bold block">B.TECH CSE (2024-2028)</span>
+                    <span className="text-[9px] text-slate-500 tracking-wider">AT IIIT KOTTAYAM</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center border-b border-slate-800/60 pb-2.5">
+                  <span className="text-slate-500 tracking-widest uppercase">DOMAIN:</span>
+                  <span className="text-amber-400 font-bold tracking-wider">FULL-STACK & GEN-AI</span>
+                </div>
+
+                <div className="flex justify-between items-center pb-1">
+                  <span className="text-slate-500 tracking-widest uppercase">CONTACT:</span>
+                  <span className="text-slate-300 font-mono tracking-wider">+91 9163406409</span>
+                </div>
               </div>
 
-              <div className="flex justify-between items-center pb-1">
-                <span className="text-slate-500 tracking-widest uppercase">CONTACT:</span>
-                <span className="text-slate-300 font-mono tracking-wider">+91 9163406409</span>
+            </div>
+
+            {/* RIGHT SIDE: ENGINEERING MANIFESTO CONTENT */}
+            <div className="grow bg-slate-900/30 border border-slate-800 rounded-[3rem] p-8 md:p-14 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] relative overflow-hidden group hover:border-amber-500/30 transition-colors duration-1000 flex flex-col justify-center">
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 via-indigo-500 to-emerald-400 opacity-60 group-hover:opacity-100 transition-opacity duration-1000"></div>
+              
+              <h2 className="text-4xl md:text-5xl font-black mb-8 text-white flex items-center gap-6 tracking-tight">
+                <span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-400 to-amber-700">/</span> Engineering Manifesto
+              </h2>
+              
+              <div className="space-y-6 text-lg md:text-xl text-slate-300 leading-relaxed font-light">
+                <p>
+                  I build at the cross-section of <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span> and <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
+                </p>
+
+                <p>
+                  Whether that’s deploying real-time edge AI surveillance, architecting decarbonization models, or engineering production-grade GenAI workflows, my focus is taking intelligent systems out of Jupyter notebooks and into live, high-throughput environments.
+                </p>
+
+                <p className="text-sm md:text-base text-amber-500 font-mono tracking-widest uppercase mt-4 border-l-2 border-amber-500 pl-4 bg-amber-500/5 py-2 inline-block pr-6 rounded-r-lg">
+                  Fast execution, solid logic, zero fluff.
+                </p>
               </div>
             </div>
 
-          </div>
-        </RevealSection>
-      </section>
-
- {/* --- 2. ENGINEERING MANIFESTO --- */}
-      <section id="manifesto" className="relative z-10 px-6 py-32">
-        <RevealSection>
-          <div className="max-w-5xl mx-auto bg-slate-900/30 border border-slate-800 rounded-[3rem] p-10 md:p-24 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] relative overflow-hidden group hover:border-amber-500/30 transition-colors duration-1000">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 via-indigo-500 to-emerald-400 opacity-60 group-hover:opacity-100 transition-opacity duration-1000"></div>
-            
-            <h2 className="text-4xl md:text-6xl font-black mb-12 text-white flex items-center gap-6 tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-400 to-amber-700">/</span> Engineering Manifesto
-            </h2>
-            
-            <div className="space-y-8 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
-              <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-                I build at the cross-section of <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span> and <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
-              </p>
-
-              <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-                Whether that’s deploying real-time edge AI surveillance, architecting decarbonization models, or engineering production-grade GenAI workflows, my focus is taking intelligent systems out of Jupyter notebooks and into live, high-throughput environments.
-              </p>
-
-              <p className="text-base md:text-lg text-amber-500 font-mono tracking-widest uppercase mt-8 border-l-2 border-amber-500 pl-4 bg-amber-500/5 py-2 inline-block pr-6 rounded-r-lg">
-                Fast execution, solid logic, zero fluff.
-              </p>
-            </div>
           </div>
         </RevealSection>
       </section>
