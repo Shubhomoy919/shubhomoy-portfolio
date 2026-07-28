@@ -180,18 +180,18 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
-    {/* RIGHT ORBITING SATELLITE (Prominent, Razor-Sharp Yellow Wireframe) */}
+   {/* RIGHT ORBITING SATELLITE (Ghostly, High-Definition Yellow Grid) */}
       <Float speed={2} rotationIntensity={2} floatIntensity={2}>
         <mesh position={[16, -6, -15]}>
-          {/* Kept radius large (3.8) but shrunk tube to 0.4 for razor-sharp grid lines. Boosted tubular segments to 300 for HD density. */}
-          <torusKnotGeometry args={[3.8, 0.4, 300, 32]} />
+          {/* Matched the exact geometric proportions of the green Leviathan (radius 3.8, tube 0.8) */}
+          <torusKnotGeometry args={[3.8, 0.8, 256, 32]} />
           <meshStandardMaterial 
-            color="#facc15"           // Brighter base yellow
-            emissive="#eab308"        // Brighter glowing yellow 
-            emissiveIntensity={0.6}   // Bumped up slightly so it pops
+            color="#ca8a04"           // Darker gold base
+            emissive="#ca8a04"        // Darker gold glow
+            emissiveIntensity={0.1}   // Drastically lowered so the glow doesn't fill the black gaps
             wireframe 
             transparent 
-            opacity={0.35}            // Increased opacity from 0.15 to 0.35 to make it prominent
+            opacity={0.15}            // Lowered opacity for that deep, see-through hologram effect
           />
         </mesh>
       </Float>
