@@ -63,64 +63,117 @@ const CustomCursor = () => {
   );
 };
 
-// --- 3. ADVANCED REACT THREE FIBER NEURAL ENVIRONMENT ---
-const NeuralScene = () => {
-  const groupRef = useRef();
-  const torusRef = useRef();
+// --- 3. THE OMNI-CORE WEBGL ENGINE (ULTIMATE 3D SCENE) ---
+const OmniCore = () => {
+  const coreRef = useRef();
+  const ring1Ref = useRef();
+  const ring2Ref = useRef();
+  const particlesRef = useRef();
 
   useFrame((state) => {
-    const scrollY = window.scrollY; // Track global scroll
     const t = state.clock.getElapsedTime();
+    const scrollY = window.scrollY;
+    
+    // 1. DYNAMIC CAMERA FLY-THROUGH (SCROLL MAGIC)
+    // As the user scrolls down, the camera physically flies deep inside the 3D core!
+    const targetZ = Math.max(2, 20 - (scrollY * 0.008)); 
+    state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05);
+    
+    // 2. EXTREME MOUSE PARALLAX
+    // The entire camera rig swings wildly based on mouse position
+    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, state.pointer.x * 8, 0.05);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, state.pointer.y * 8, 0.05);
+    state.camera.lookAt(0, 0, 0);
 
-    if (groupRef.current) {
-      // COMBINED PARALLAX: Mouse movement + Scroll position!
-      // As you scroll down, the entire 3D world rotates around you.
-      const targetRotationY = (state.pointer.x * 0.3) + (scrollY * 0.001);
-      const targetRotationX = (-state.pointer.y * 0.3) + (scrollY * 0.0005);
-
-      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotationY, 0.05);
-      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotationX, 0.05);
+    // 3. CORE ROTATION & BREATHING PULSE
+    if (coreRef.current) {
+      coreRef.current.rotation.y = t * 0.3 + (scrollY * 0.002);
+      coreRef.current.rotation.x = t * 0.2;
+      // Math.sin scales it up and down like a beating digital heart
+      const pulse = 1 + Math.sin(t * 3) * 0.08; 
+      coreRef.current.scale.set(pulse, pulse, pulse);
     }
 
-    // Autonomous continuous rotation for the Torus Knot
-    if (torusRef.current) {
-      torusRef.current.rotation.z = t * 0.2;
-      torusRef.current.rotation.x = t * 0.1;
+    // 4. GYROSCOPIC MAGNETIC RINGS
+    if (ring1Ref.current) {
+      ring1Ref.current.rotation.x = t * 0.5 + (scrollY * 0.003);
+      ring1Ref.current.rotation.y = t * 0.4;
+    }
+    if (ring2Ref.current) {
+      ring2Ref.current.rotation.y = -t * 0.4 - (scrollY * 0.002);
+      ring2Ref.current.rotation.z = t * 0.6;
+    }
+
+    // 5. GALAXY SWIRL PARTICLES
+    if (particlesRef.current) {
+      particlesRef.current.rotation.y = t * 0.05 + (scrollY * 0.001);
+      particlesRef.current.rotation.z = -t * 0.02;
     }
   });
 
   return (
-    <group ref={groupRef}>
-      {/* Deep Space Starfield */}
-      <Stars radius={50} depth={50} count={4000} factor={4} saturation={0} fade speed={1.5} />
+    <group>
+      {/* INFINITE NEURAL DUST (4 Layers of Parallax Particles) */}
+      <group ref={particlesRef}>
+        <Sparkles count={800} scale={50} size={1.5} speed={0.8} opacity={0.5} color="#38bdf8" />
+        <Sparkles count={400} scale={40} size={3} speed={0.4} opacity={0.4} color="#f59e0b" />
+        <Sparkles count={200} scale={30} size={5} speed={1.2} opacity={0.8} color="#a855f7" />
+        <Sparkles count={100} scale={60} size={8} speed={0.2} opacity={0.2} color="#ec4899" />
+      </group>
 
-      {/* Neural Data Dust (Floating Particles throughout the viewport) */}
-      <Sparkles count={400} scale={35} size={2} speed={0.4} opacity={0.4} color="#38bdf8" />
-      <Sparkles count={300} scale={35} size={3} speed={0.2} opacity={0.3} color="#f59e0b" />
+      <Stars radius={150} depth={50} count={6000} factor={6} saturation={1} fade speed={2} />
 
-      {/* Massive Deep Background Sphere (Creates global depth) */}
-      <Float speed={1} rotationIntensity={0.5} floatIntensity={1}>
-        <mesh position={[0, 0, -30]}>
-          <sphereGeometry args={[22, 32, 32]} />
-          <meshStandardMaterial color="#1e293b" wireframe opacity={0.2} transparent />
+      {/* THE QUANTUM CORE */}
+      <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
+        <group position={[0, 0, -5]}>
+          
+          {/* Inner Glowing Brain */}
+          <mesh ref={coreRef}>
+            <icosahedronGeometry args={[3.5, 2]} />
+            <meshStandardMaterial color="#0ea5e9" wireframe emissive="#0ea5e9" emissiveIntensity={2} transparent opacity={0.6} />
+          </mesh>
+
+          {/* Gyro Ring 1 */}
+          <mesh ref={ring1Ref}>
+            <torusGeometry args={[5.5, 0.08, 16, 100]} />
+            <meshStandardMaterial color="#f59e0b" emissive="#f59e0b" emissiveIntensity={3} wireframe />
+          </mesh>
+
+          {/* Gyro Ring 2 */}
+          <mesh ref={ring2Ref}>
+            <torusGeometry args={[7.5, 0.05, 16, 100]} />
+            <meshStandardMaterial color="#a855f7" emissive="#a855f7" emissiveIntensity={4} wireframe />
+          </mesh>
+          
+          {/* Gyro Ring 3 (Outer) */}
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[9.5, 0.02, 16, 100]} />
+            <meshStandardMaterial color="#ec4899" emissive="#ec4899" emissiveIntensity={2} wireframe />
+          </mesh>
+
+        </group>
+      </Float>
+
+      {/* ORBITING SATELLITES */}
+      <Float speed={4} rotationIntensity={4} floatIntensity={5}>
+        <mesh position={[-14, 8, -12]}>
+          <octahedronGeometry args={[2.5, 0]} />
+          <meshStandardMaterial color="#f43f5e" wireframe emissive="#f43f5e" emissiveIntensity={2} opacity={0.8} transparent />
         </mesh>
       </Float>
 
-      {/* Core Torus Knot (Left) */}
-      <Float speed={2} rotationIntensity={2} floatIntensity={2}>
-        <mesh ref={torusRef} position={[-8, 2, -10]}>
-          <torusKnotGeometry args={[7, 0.15, 200, 32]} />
-          <meshStandardMaterial color="#38bdf8" wireframe opacity={0.5} transparent />
+      <Float speed={2.5} rotationIntensity={3} floatIntensity={4}>
+        <mesh position={[16, -6, -15]}>
+          <torusKnotGeometry args={[2.5, 0.3, 128, 16]} />
+          <meshStandardMaterial color="#10b981" wireframe emissive="#10b981" emissiveIntensity={2} opacity={0.8} transparent />
         </mesh>
       </Float>
 
-      {/* Icosahedron (Right) */}
-      <Float speed={3} rotationIntensity={2} floatIntensity={1.5}>
-        <mesh position={[10, -4, -15]}>
-          <icosahedronGeometry args={[5, 1]} />
-          <meshStandardMaterial color="#f59e0b" wireframe opacity={0.5} transparent />
-        </mesh>
-      </Float>
+      {/* ABYSS GRID (Massive Sphere encapsulating the entire scene for deep depth) */}
+      <mesh position={[0, 0, -60]}>
+        <sphereGeometry args={[80, 32, 32]} />
+        <meshBasicMaterial color="#020617" wireframe opacity={0.08} transparent />
+      </mesh>
     </group>
   );
 };
@@ -949,14 +1002,16 @@ return (
       {/* SINGLE CLEAN ROOT WRAPPER */}
       <div className="min-h-screen bg-transparent text-slate-100 font-sans selection:bg-amber-500 selection:text-black relative overflow-x-hidden cursor-none">
         
-        {/* --- 3D WEBL BACKGROUND --- */}
+       {/* --- 3D WEBGL BACKGROUND --- */}
         <div className="fixed inset-0 z-0 pointer-events-none bg-[#030508]">
           <Canvas camera={{ position: [0, 0, 20], fov: 60 }}>
-  <ambientLight intensity={0.8} />
-  <pointLight position={[10, 10, 10]} color="#f59e0b" intensity={3} />
-  <pointLight position={[-10, -10, -10]} color="#38bdf8" intensity={3} />
-  <NeuralScene />
-</Canvas>
+            {/* Added intense multi-directional lighting to ignite the emissive materials */}
+            <ambientLight intensity={1.2} />
+            <pointLight position={[10, 10, 10]} color="#f59e0b" intensity={5} />
+            <pointLight position={[-10, -10, -10]} color="#38bdf8" intensity={5} />
+            <pointLight position={[0, 0, 10]} color="#a855f7" intensity={4} />
+            <OmniCore />
+          </Canvas>
         </div>
 
       {/* --- GLOBAL NAVIGATION BAR --- */}
