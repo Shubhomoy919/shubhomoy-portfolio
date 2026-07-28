@@ -180,10 +180,11 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
-    {/* RIGHT ORBITING SATELLITE (Ghostly Yellow Wireframe, Slow Drift) */}
+    {/* RIGHT ORBITING SATELLITE (Larger, Sharper Ghostly Yellow Wireframe) */}
       <Float speed={2} rotationIntensity={2} floatIntensity={2}>
         <mesh position={[16, -6, -15]}>
-          <torusKnotGeometry args={[2.0, 0.4, 256, 32]} />
+          {/* Increased radius to 2.8 (bigger) and decreased tube to 0.15 (razor-sharp) */}
+          <torusKnotGeometry args={[2.8, 0.15, 256, 32]} />
           <meshStandardMaterial 
             color="#eab308"           
             emissive="#ca8a04"        
@@ -194,7 +195,6 @@ const OmniCore = () => {
           />
         </mesh>
       </Float>
-
       {/* --- THE LEVIATHAN (Smaller, Darker, More Transparent) --- */}
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
         <mesh ref={leviathanRef} position={[-24, -10, -15]}>
