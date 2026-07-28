@@ -184,7 +184,7 @@ const OmniCore = () => {
       <Float speed={2} rotationIntensity={2} floatIntensity={2}>
         <mesh position={[16, -6, -15]}>
           {/* Increased radius to 2.8 (bigger) and decreased tube to 0.15 (razor-sharp) */}
-          <torusKnotGeometry args={[2.8, 0.5, 256, 32]} />
+          <torusKnotGeometry args={[3.2, 0.7, 256, 32]} />
           <meshStandardMaterial 
             color="#eab308"           
             emissive="#ca8a04"        
