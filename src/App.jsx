@@ -200,6 +200,7 @@ const OmniCore = () => {
       </mesh>
     </group>
   );
+  };
 // --- CUSTOM HOOK: SCROLL ANIMATIONS ---
 const useScrollReveal = () => {
   const [isVisible, setIsVisible] = useState(false);
