@@ -1174,26 +1174,26 @@ return (
           </div>
         </RevealSection>
       </header>
-  {/* --- 2. ENGINEERING MANIFESTO --- */}
+ {/* --- 2. ENGINEERING MANIFESTO --- */}
       <section id="manifesto" className="relative z-10 px-6 py-32">
         <RevealSection>
           <div className="max-w-5xl mx-auto bg-slate-900/30 border border-slate-800 rounded-[3rem] p-10 md:p-24 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] relative overflow-hidden group hover:border-amber-500/30 transition-colors duration-1000">
             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 via-indigo-500 to-emerald-400 opacity-60 group-hover:opacity-100 transition-opacity duration-1000"></div>
             
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white flex items-center gap-6 tracking-tight">
+            <h2 className="text-4xl md:text-6xl font-black mb-12 text-white flex items-center gap-6 tracking-tight">
               <span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-400 to-amber-700">/</span> Engineering Manifesto
             </h2>
             
-            <div className="space-y-10 text-2xl md:text-3xl text-slate-300 leading-relaxed font-light">
-              <p className="text-2xl md:text-3xl text-slate-300 font-light leading-relaxed">
+            <div className="space-y-8 text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
+              <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
                 I build at the cross-section of <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400 font-medium">full-stack engineering</span> and <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400 font-medium">applied AI</span>. Beyond just making code compile, I focus on systems efficiency, reliable architecture, and predictive ML pipelines that solve real problems.
               </p>
 
-              <p className="text-2xl md:text-3xl text-slate-300 font-light leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
                 Whether that’s deploying real-time edge AI surveillance, architecting decarbonization models, or engineering production-grade GenAI workflows, my focus is taking intelligent systems out of Jupyter notebooks and into live, high-throughput environments.
               </p>
 
-              <p className="text-xl md:text-2xl text-amber-500 font-mono tracking-widest uppercase mt-10 border-l-4 border-amber-500 pl-6 bg-amber-500/5 py-4 inline-block pr-10 rounded-r-xl">
+              <p className="text-base md:text-lg text-amber-500 font-mono tracking-widest uppercase mt-8 border-l-2 border-amber-500 pl-4 bg-amber-500/5 py-2 inline-block pr-6 rounded-r-lg">
                 Fast execution, solid logic, zero fluff.
               </p>
             </div>
@@ -1209,8 +1209,8 @@ return (
 
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6 relative z-10">
-            <h2 className="text-5xl md:text-6xl font-extrabold mb-24 tracking-tight text-white flex items-center gap-5 drop-shadow-xl">
-              <span className="w-12 h-1.5 bg-gradient-to-r from-sky-500 to-purple-500 rounded-full"></span>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-20 tracking-tight text-white flex items-center gap-4 drop-shadow-xl">
+              <span className="w-10 h-1 bg-gradient-to-r from-sky-500 to-purple-500 rounded-full"></span>
               Education & Experience
             </h2>
             
@@ -1218,16 +1218,15 @@ return (
               {/* The Glowing Vertical Laser Line */}
               <div className="absolute top-2 left-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-500 via-purple-500/50 to-transparent shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
 
-              <div className="space-y-24">
+              <div className="space-y-20">
                 {trajectory.map((item, index) => (
-                  <div key={index} className="relative pl-12 md:pl-16 group">
+                  <div key={index} className="relative pl-10 md:pl-14 group">
                     
                     {/* Interactive Timeline Nodes */}
                     <div className="absolute -left-[11px] top-2">
                       <div className={`relative flex items-center justify-center w-6 h-6 rounded-full bg-[#030508] border-2 ${
                         index === 0 ? 'border-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.8)]' : 'border-slate-600 group-hover:border-purple-500 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.6)]'
                       } transition-all duration-500 z-10`}>
-                        {/* Inner glowing core */}
                         <div className={`w-2 h-2 rounded-full ${
                           index === 0 ? 'bg-sky-400 animate-pulse' : 'bg-purple-500 opacity-0 group-hover:opacity-100'
                         } transition-opacity duration-500`}></div>
@@ -1235,32 +1234,32 @@ return (
                     </div>
                     
                     {/* Header Row (Role & Date) */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-6 mb-3">
-                      <h3 className="text-3xl md:text-4xl font-bold text-slate-100 tracking-tight group-hover:text-white transition-colors drop-shadow-md">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-6 mb-2">
+                      <h3 className="text-2xl md:text-3xl font-bold text-slate-100 tracking-tight group-hover:text-white transition-colors drop-shadow-md">
                         {item.role}
                       </h3>
-                      <span className="text-slate-500 font-mono text-sm md:text-base tracking-[0.2em] uppercase shrink-0">
+                      <span className="text-slate-500 font-mono text-xs md:text-sm tracking-[0.2em] uppercase shrink-0">
                         {item.timeline}
                       </span>
                     </div>
                     
                     {/* Entity & Type Tags */}
-                    <h4 className={`text-xl md:text-2xl font-medium mb-8 ${index === 0 ? 'text-sky-400' : 'text-purple-400 group-hover:text-purple-300 transition-colors'}`}>
+                    <h4 className={`text-lg md:text-xl font-medium mb-6 ${index === 0 ? 'text-sky-400' : 'text-purple-400 group-hover:text-purple-300 transition-colors'}`}>
                       {item.entity} 
-                      <span className="text-slate-600 ml-4 text-sm md:text-base uppercase tracking-[0.2em] font-mono">[{item.type}]</span>
+                      <span className="text-slate-600 ml-3 text-xs md:text-sm uppercase tracking-[0.2em] font-mono">[{item.type}]</span>
                     </h4>
                     
                     {/* Description Paragraph */}
-                    <p className="text-slate-300 text-lg md:text-xl font-light leading-relaxed max-w-3xl mb-8 group-hover:text-slate-200 transition-colors">
+                    <p className="text-slate-300 text-base md:text-lg font-light leading-relaxed max-w-3xl mb-6 group-hover:text-slate-200 transition-colors">
                       {item.desc}
                     </p>
 
                     {/* Bullet Points with Animated Arrows */}
-                    <div className="space-y-4 max-w-3xl mb-10">
+                    <div className="space-y-3 max-w-3xl mb-8">
                       {item.highlights.map((point, hIndex) => (
-                        <div key={hIndex} className="flex items-start gap-4 group/point">
-                          <span className="text-amber-500 mt-1.5 text-lg group-hover/point:translate-x-1.5 transition-transform duration-300 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]">▹</span>
-                          <p className="text-slate-400 text-lg font-light leading-relaxed group-hover/point:text-slate-300 transition-colors duration-300">
+                        <div key={hIndex} className="flex items-start gap-3 group/point">
+                          <span className="text-amber-500 mt-1 text-base group-hover/point:translate-x-1.5 transition-transform duration-300 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]">▹</span>
+                          <p className="text-slate-400 text-base font-light leading-relaxed group-hover/point:text-slate-300 transition-colors duration-300">
                             {point}
                           </p>
                         </div>
@@ -1269,16 +1268,16 @@ return (
 
                     {/* Credentials & Links (Glassmorphism Buttons) */}
                     {(item.certLink || item.lorLink) && (
-                      <div className="flex flex-wrap items-center gap-5 pt-4">
+                      <div className="flex flex-wrap items-center gap-4 pt-2">
                         {item.certLink && (
                           <a 
                             href={item.certLink} 
                             target="_blank" 
                             rel="noreferrer"
-                            className="group/cert relative inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-mono font-medium text-sky-300 bg-sky-950/30 border border-sky-500/20 hover:border-sky-400 hover:bg-sky-500/10 hover:text-white transition-all duration-300 hover:shadow-[0_0_25px_rgba(56,189,248,0.25)] hover:-translate-y-1 active:scale-95 overflow-hidden backdrop-blur-sm"
+                            className="group/cert relative inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs font-mono font-medium text-sky-300 bg-sky-950/30 border border-sky-500/20 hover:border-sky-400 hover:bg-sky-500/10 hover:text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:-translate-y-0.5 active:scale-95 overflow-hidden backdrop-blur-sm"
                           >
                             <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover/cert:translate-x-[300%] transition-transform duration-1000 ease-in-out"></span>
-                            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse shadow-[0_0_8px_#38bdf8]"></span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse shadow-[0_0_8px_#38bdf8]"></span>
                             <span className="tracking-widest uppercase">Certificate</span>
                             <span className="inline-block transition-transform duration-300 group-hover/cert:translate-x-1 group-hover/cert:-translate-y-1">↗</span>
                           </a>
@@ -1289,10 +1288,10 @@ return (
                             href={item.lorLink} 
                             target="_blank" 
                             rel="noreferrer"
-                            className="group/lor relative inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-mono font-medium text-purple-300 bg-purple-950/30 border border-purple-500/20 hover:border-purple-400 hover:bg-purple-500/10 hover:text-white transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.25)] hover:-translate-y-1 active:scale-95 overflow-hidden backdrop-blur-sm"
+                            className="group/lor relative inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs font-mono font-medium text-purple-300 bg-purple-950/30 border border-purple-500/20 hover:border-purple-400 hover:bg-purple-500/10 hover:text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.25)] hover:-translate-y-0.5 active:scale-95 overflow-hidden backdrop-blur-sm"
                           >
                             <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover/lor:translate-x-[300%] transition-transform duration-1000 ease-in-out"></span>
-                            <span className="text-purple-400 font-bold text-lg drop-shadow-[0_0_8px_#a855f7]">★</span>
+                            <span className="text-purple-400 font-bold text-base drop-shadow-[0_0_8px_#a855f7]">★</span>
                             <span className="tracking-widest uppercase">Recommendation</span>
                             <span className="inline-block transition-transform duration-300 group-hover/lor:translate-x-1 group-hover/lor:-translate-y-1">↗</span>
                           </a>
@@ -1313,29 +1312,29 @@ return (
           <div className="max-w-7xl mx-auto px-6">
             <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div>
-                <h2 className="text-6xl md:text-7xl font-black text-white flex items-center gap-5 mb-5 tracking-tight">
+                <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
                   <span className="text-amber-500 font-light">/</span> System Architecture
                 </h2>
-                <p className="text-slate-400 font-mono text-lg tracking-widest uppercase pl-10 border-l-2 border-slate-800">
+                <p className="text-slate-400 font-mono text-sm tracking-widest uppercase pl-8 border-l border-slate-800">
                   Production Workloads & Prototypes
                 </p>
               </div>
-              <div className="hidden md:flex items-center gap-3 bg-slate-900/50 px-6 py-3 rounded-lg border border-slate-800">
-                <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="font-mono text-base text-slate-400 tracking-widest uppercase">All Systems Nominal</span>
+              <div className="hidden md:flex items-center gap-3 bg-slate-900/50 px-5 py-2.5 rounded-lg border border-slate-800">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="font-mono text-sm text-slate-400 tracking-widest uppercase">All Systems Nominal</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
               {architectureProjects.map((project) => (
                 <div 
                   key={project.id}
                   onClick={() => { setActiveProject(project); setModalTab("architecture"); }}
-                  className="group relative rounded-3xl bg-[#070b14] border border-slate-800/80 hover:border-slate-500/50 transition-all duration-500 cursor-pointer overflow-hidden hover:-translate-y-2 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)] flex flex-col min-h-[460px]"
+                  className="group relative rounded-3xl bg-[#070b14] border border-slate-800/80 hover:border-slate-500/50 transition-all duration-500 cursor-pointer overflow-hidden hover:-translate-y-2 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)] flex flex-col min-h-[420px]"
                 >
                   <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scan_2s_ease-in-out_infinite] blur-[1px] z-20"></div>
 
-                  <div className="px-6 py-5 border-b border-slate-800/60 flex justify-between items-center bg-slate-950/40 relative z-10">
+                  <div className="px-5 py-4 border-b border-slate-800/60 flex justify-between items-center bg-slate-950/40 relative z-10">
                     <div className="flex items-center gap-3">
                       <span className={`w-2.5 h-2.5 rounded-full shadow-[0_0_10px_currentColor] animate-pulse ${
                         project.color === 'emerald' ? 'text-emerald-500 bg-emerald-500' : 
@@ -1347,22 +1346,22 @@ return (
                     </div>
                   </div>
 
-                  <div className="p-8 flex flex-col grow relative z-10">
-                    <h3 className="text-3xl font-bold text-white mb-2 tracking-tight group-hover:text-white transition-colors">{project.title}</h3>
-                    <p className={`font-mono text-sm tracking-widest uppercase mb-5 ${
+                  <div className="p-7 flex flex-col grow relative z-10">
+                    <h3 className="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-white transition-colors">{project.title}</h3>
+                    <p className={`font-mono text-xs tracking-widest uppercase mb-4 ${
                       project.color === 'emerald' ? 'text-emerald-400' : 
                       project.color === 'amber' ? 'text-amber-400' : 
                       project.color === 'sky' ? 'text-sky-400' :
                       'text-indigo-400'
                     }`}>{project.type}</p>
                     
-                    <p className="text-slate-400 text-lg leading-relaxed font-light mb-8 grow">
+                    <p className="text-slate-400 text-base leading-relaxed font-light mb-6 grow">
                       {project.desc}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mt-auto pt-8 border-t border-slate-800/50">
+                    <div className="flex flex-wrap gap-2 mt-auto pt-6 border-t border-slate-800/50">
                       {project.tech.map((tech, i) => (
-                        <span key={i} className="px-3 py-1.5 text-sm font-mono text-slate-300 bg-slate-900 rounded border border-slate-700/50 group-hover:border-slate-600 transition-colors">
+                        <span key={i} className="px-2.5 py-1 text-xs font-mono text-slate-300 bg-slate-900 rounded border border-slate-700/50 group-hover:border-slate-600 transition-colors">
                           {tech}
                         </span>
                       ))}
@@ -1384,56 +1383,52 @@ return (
 
       {/* --- 5. OPERATOR TELEMETRY (LIVE API ADVANCED) --- */}
       <section id="telemetry" className="relative z-10 py-32 bg-[#030508]/80 backdrop-blur-md border-t border-slate-900 overflow-hidden">
-        {/* Advanced Ambient Background Grid */}
         <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:48px_48px]"></div>
 
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             
-            {/* Section Header */}
             <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div>
-                <h2 className="text-6xl md:text-7xl font-black text-white flex items-center gap-5 mb-5 tracking-tight">
+                <h2 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4 mb-4 tracking-tight">
                   <span className="text-emerald-500 font-light">/</span> Operator Telemetry
                 </h2>
-                <p className="text-slate-400 font-mono text-lg tracking-widest uppercase pl-10 border-l-2 border-slate-800">
+                <p className="text-slate-400 font-mono text-sm tracking-widest uppercase pl-8 border-l border-slate-800">
                   Live API Analytics & Activity Patterns
                 </p>
               </div>
               
-              {/* GitHub Link Chip */}
               <div 
-                className="hidden md:flex items-center gap-4 bg-slate-900/50 backdrop-blur-md border border-slate-800 px-6 py-3 rounded-xl hover:border-slate-700 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all cursor-pointer group" 
+                className="hidden md:flex items-center gap-3 bg-slate-900/50 backdrop-blur-md border border-slate-800 px-5 py-2.5 rounded-xl hover:border-slate-700 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all cursor-pointer group" 
                 onClick={() => window.open('https://github.com/Shubhomoy919', '_blank')}
               >
-                <svg className="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
+                <svg className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
                 <div className="flex flex-col">
-                  <span className="text-slate-500 font-mono text-xs uppercase tracking-widest leading-none">GitHub Profile</span>
-                  <span className="text-white font-mono text-base font-bold tracking-widest leading-none mt-1.5">Shubhomoy919</span>
+                  <span className="text-slate-500 font-mono text-[10px] uppercase tracking-widest leading-none">GitHub Profile</span>
+                  <span className="text-white font-mono text-sm font-bold tracking-widest leading-none mt-1">Shubhomoy919</span>
                 </div>
               </div>
             </div>
 
-            {/* BENTO GRID: ROW 1 (Live Current Month Heatmap) */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-              <div className="lg:col-span-3 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-8 md:p-10 hover:border-slate-700 transition-all duration-300 shadow-2xl overflow-hidden group">
-                <div className="flex justify-between items-start md:items-center mb-10 flex-col md:flex-row gap-5">
+            {/* BENTO GRID: ROW 1 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+              <div className="lg:col-span-3 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 shadow-2xl overflow-hidden group">
+                <div className="flex justify-between items-start md:items-center mb-8 flex-col md:flex-row gap-4">
                   <div>
-                    <p className="text-slate-500 font-mono text-base tracking-widest uppercase flex items-center gap-3 mb-2">
-                      <svg className="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <p className="text-slate-500 font-mono text-sm tracking-widest uppercase flex items-center gap-2 mb-1">
+                      <svg className="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                       {currentMonthName} {currentYear} Contribution Matrix
                     </p>
-                    <p className="text-slate-400 text-base">Live API temporal analysis of push events to main branches.</p>
+                    <p className="text-slate-400 text-sm">Live API temporal analysis of push events to main branches.</p>
                   </div>
-                  <div className="flex items-center gap-3 px-4 py-2 bg-emerald-500/10 rounded-full border border-emerald-500/30">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-ping"></span>
+                  <div className="flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full border border-emerald-500/30">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-ping"></span>
                     <span className="text-xs font-mono tracking-widest text-emerald-400 uppercase font-bold">
                       {isGithubLoading ? "Fetching API..." : "Live Connection"}
                     </span>
                   </div>
                 </div>
 
-                {/* Dynamic Month Mapping */}
                 <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
                   <div className="flex flex-wrap gap-3 items-center relative z-10 min-w-max">
                     {heatmapData.map((data) => (
@@ -1441,7 +1436,7 @@ return (
                         key={data.day} 
                         onMouseEnter={() => setActiveCommit(data)}
                         onMouseLeave={() => setActiveCommit(null)}
-                        className={`relative w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center font-mono text-sm transition-all duration-300 hover:scale-110 hover:z-20 cursor-crosshair border ${
+                        className={`relative w-8 h-8 md:w-10 md:h-10 rounded-md flex items-center justify-center font-mono text-xs transition-all duration-300 hover:scale-110 hover:z-20 cursor-crosshair border ${
                           data.level === 0 ? 'bg-slate-900/60 border-slate-800 text-slate-600 hover:border-slate-700' :
                           data.level === 1 ? 'bg-emerald-950/80 border-emerald-800 text-emerald-300 hover:border-emerald-600' :
                           data.level === 2 ? 'bg-emerald-800/90 border-emerald-600 text-emerald-100' :
@@ -1451,12 +1446,11 @@ return (
                       >
                         {data.day}
                         
-                        {/* Interactive Tooltip */}
                         {activeCommit?.day === data.day && (
-                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white font-mono text-sm whitespace-nowrap z-50 flex flex-col items-center pointer-events-none shadow-2xl">
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-xs whitespace-nowrap z-50 flex flex-col items-center pointer-events-none shadow-2xl">
                             <span className="text-emerald-400 font-bold">{data.commits} contributions</span>
-                            <span className="text-slate-400 mt-1">{data.date}</span>
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-[8px] border-transparent border-t-slate-700"></div>
+                            <span className="text-slate-400">{data.date}</span>
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-[6px] border-transparent border-t-slate-700"></div>
                           </div>
                         )}
                       </div>
@@ -1466,75 +1460,70 @@ return (
               </div>
             </div>
 
-            {/* BENTO GRID: ROW 2 (Auditor & Live Language Telemetry) */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-              
-              {/* Portfolio Auditor */}
-              <div className="lg:col-span-2 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-8 md:p-10 hover:border-slate-700 transition-all duration-300 flex flex-col group relative overflow-hidden shadow-xl">
+            {/* BENTO GRID: ROW 2 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+              <div className="lg:col-span-2 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col group relative overflow-hidden shadow-xl">
                 <div className="absolute inset-0 bg-gradient-to-b from-sky-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                 
-                <div className="flex justify-between items-center mb-8 relative z-10">
-                  <p className="text-slate-500 font-mono text-base tracking-widest uppercase flex items-center gap-3">
-                    <svg className="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                <div className="flex justify-between items-center mb-6 relative z-10">
+                  <p className="text-slate-500 font-mono text-sm tracking-widest uppercase flex items-center gap-2">
+                    <svg className="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                     GenAI Portfolio Auditor
                   </p>
-                  <span className="text-xs font-mono text-sky-400 border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 rounded-full">RUNNING LOCAL</span>
+                  <span className="text-[10px] font-mono text-sky-400 border border-sky-500/30 bg-sky-500/10 px-2.5 py-1 rounded-full">RUNNING LOCAL</span>
                 </div>
 
-                <div className="space-y-5 grow relative z-10 flex flex-col justify-end">
-                  <p className="text-slate-400 text-lg mb-3">Simulated agent analyzing the active React instance of this portfolio.</p>
+                <div className="space-y-4 grow relative z-10 flex flex-col justify-end">
+                  <p className="text-slate-400 text-base mb-2">Simulated agent analyzing the active React instance of this portfolio.</p>
                   
                   {auditorLogs.map((log, i) => (
-                    <div key={i} className={`flex flex-col gap-2 pb-4 ${i !== auditorLogs.length - 1 ? 'border-b border-slate-800/50' : ''}`}>
+                    <div key={i} className={`flex flex-col gap-1 pb-3 ${i !== auditorLogs.length - 1 ? 'border-b border-slate-800/50' : ''}`}>
                       <div className="flex justify-between items-center">
-                        <span className="text-base font-bold text-white">Target: {log.module}</span>
-                        <span className="text-sm font-mono text-sky-400 flex items-center gap-2">
+                        <span className="text-sm font-bold text-white">Target: {log.module}</span>
+                        <span className="text-xs font-mono text-sky-400 flex items-center gap-1">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                           {log.status}
                         </span>
                       </div>
-                      <p className="text-base text-slate-400 leading-snug">{log.msg}</p>
+                      <p className="text-sm text-slate-400 leading-snug">{log.msg}</p>
                     </div>
                   ))}
                   
-                  <div className="pt-3">
-                    <p className="text-sm font-mono text-slate-500 flex items-center gap-3">
-                      <span className="w-2.5 h-5 bg-sky-500 animate-pulse block"></span> Awaiting next interaction block...
+                  <div className="pt-2">
+                    <p className="text-xs font-mono text-slate-500 flex items-center gap-2">
+                      <span className="w-2 h-4 bg-sky-500 animate-pulse block"></span> Awaiting next interaction block...
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Live GitHub Language Telemetry */}
-              <div className="lg:col-span-1 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-8 md:p-10 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-700"></div>
+              <div className="lg:col-span-1 bg-[#070b14]/80 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-700"></div>
                 
-                <p className="text-slate-500 font-mono text-base tracking-widest uppercase mb-8 flex items-center gap-3 relative z-10">
-                  <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                <p className="text-slate-500 font-mono text-sm tracking-widest uppercase mb-6 flex items-center gap-2 relative z-10">
+                  <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                   Language Telemetry
                 </p>
-                <p className="text-sm text-slate-400 font-mono mb-6 uppercase tracking-widest">
+                <p className="text-xs text-slate-400 font-mono mb-4 uppercase tracking-widest">
                   {isGithubLoading ? "Scanning GitHub API..." : "Live Repository Distribution"}
                 </p>
                 
-                <div className="mt-auto space-y-6 relative z-10">
+                <div className="mt-auto space-y-5 relative z-10">
                   {isGithubLoading ? (
-                    // Loading Skeleton
                     Array.from({ length: 4 }).map((_, i) => (
-                      <div key={i} className="flex flex-col gap-3">
-                        <div className="h-5 w-1/3 bg-slate-800 rounded animate-pulse"></div>
-                        <div className="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden"></div>
+                      <div key={i} className="flex flex-col gap-2">
+                        <div className="h-4 w-1/3 bg-slate-800 rounded animate-pulse"></div>
+                        <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden"></div>
                       </div>
                     ))
                   ) : (
-                    // Live Fetched Data
                     languageTelemetry.map((data, i) => (
-                      <div key={i} className="flex flex-col gap-3">
-                        <div className="flex justify-between items-center text-base">
+                      <div key={i} className="flex flex-col gap-2">
+                        <div className="flex justify-between items-center text-sm">
                           <span className="text-white font-bold">{data.lang}</span>
                           <span className="font-mono text-slate-400">{data.percent}%</span>
                         </div>
-                        <div className="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden">
+                        <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
                           <div 
                             className={`h-full ${data.color} rounded-full transition-all duration-1000 ease-out`} 
                             style={{ width: `${data.percent}%` }}
@@ -1547,33 +1536,29 @@ return (
               </div>
             </div>
 
-            {/* BENTO GRID: ROW 3 (Spotify & Bio-Metrics) */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              
-              {/* Spotify Currently Playing */}
-              <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-10 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-fuchsia-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-fuchsia-500/10 transition-colors duration-700"></div>
+            {/* BENTO GRID: ROW 3 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-fuchsia-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-fuchsia-500/10 transition-colors duration-700"></div>
                 
-                <div className="flex justify-between items-center mb-8 relative z-10">
-                  <p className="text-slate-500 font-mono text-sm tracking-widest uppercase flex items-center gap-3">
-                    <svg className="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                <div className="flex justify-between items-center mb-6 relative z-10">
+                  <p className="text-slate-500 font-mono text-xs tracking-widest uppercase flex items-center gap-2">
+                    <svg className="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
                     Current Favourite Song
                   </p>
                   
-                  {/* Animated Sound Wave */}
-                  <div className="flex items-end gap-1.5 h-5">
-                    <div className="w-1.5 bg-emerald-500 animate-[pulse_1s_ease-in-out_infinite] h-full"></div>
-                    <div className="w-1.5 bg-emerald-500 animate-[pulse_1.5s_ease-in-out_infinite] h-2/3"></div>
-                    <div className="w-1.5 bg-emerald-500 animate-[pulse_0.8s_ease-in-out_infinite] h-1/2"></div>
-                    <div className="w-1.5 bg-emerald-500 animate-[pulse_1.2s_ease-in-out_infinite] h-full"></div>
+                  <div className="flex items-end gap-1 h-4">
+                    <div className="w-1 bg-emerald-500 animate-[pulse_1s_ease-in-out_infinite] h-full"></div>
+                    <div className="w-1 bg-emerald-500 animate-[pulse_1.5s_ease-in-out_infinite] h-2/3"></div>
+                    <div className="w-1 bg-emerald-500 animate-[pulse_0.8s_ease-in-out_infinite] h-1/2"></div>
+                    <div className="w-1 bg-emerald-500 animate-[pulse_1.2s_ease-in-out_infinite] h-full"></div>
                   </div>
                 </div>
                 
-                <div className="mt-auto flex items-center gap-5 relative z-10">
-                  {/* ADVANCED VINYL RECORD COMPONENT */}
+                <div className="mt-auto flex items-center gap-4 relative z-10">
                   <div 
-                    className="relative w-20 h-20 rounded-full animate-[spin_4s_linear_infinite] shrink-0 border border-slate-800 transition-shadow duration-500 group-hover:shadow-[0_0_40px_rgba(220,38,38,0.5)]"
-                    style={{ boxShadow: `0 0 20px ${spotifyData.colorGlow}` }}
+                    className="relative w-16 h-16 rounded-full animate-[spin_4s_linear_infinite] shrink-0 border border-slate-800 transition-shadow duration-500 group-hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]"
+                    style={{ boxShadow: `0 0 15px ${spotifyData.colorGlow}` }}
                   >
                     <img 
                       src={spotifyData.albumArtUrl} 
@@ -1585,45 +1570,42 @@ return (
                   </div>
 
                   <div className="flex flex-col">
-                    <span className="text-white font-bold text-lg truncate">{spotifyData.song}</span>
-                    <span className="text-slate-400 text-base mt-1">{spotifyData.artist}</span>
+                    <span className="text-white font-bold text-base truncate">{spotifyData.song}</span>
+                    <span className="text-slate-400 text-sm">{spotifyData.artist}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Bio-Metrics (Gym vs Code) */}
-              <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-10 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-amber-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-amber-500/10 transition-colors duration-700"></div>
+              <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-slate-700 transition-all duration-300 flex flex-col relative overflow-hidden group shadow-xl">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl rounded-full pointer-events-none group-hover:bg-amber-500/10 transition-colors duration-700"></div>
                 
-                <p className="text-slate-500 font-mono text-base tracking-widest uppercase mb-8 flex items-center gap-3 relative z-10">
-                  <svg className="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <p className="text-slate-500 font-mono text-sm tracking-widest uppercase mb-6 flex items-center gap-2 relative z-10">
+                  <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                   Bio-Metrics // Discipline
                 </p>
                 
-                <div className="mt-auto space-y-8 relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-14">
-                  <p className="text-slate-300 text-lg leading-relaxed lg:w-1/3">
+                <div className="mt-auto space-y-6 relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
+                  <p className="text-slate-300 text-base leading-relaxed lg:w-1/3">
                     Reliable systems and physical fitness require identical principles: <span className="text-white font-bold">consistency & progressive overload.</span>
                   </p>
                   
-                  <div className="space-y-6 lg:w-2/3 flex flex-col justify-center">
-                    {/* Cognitive Load Bar */}
-                    <div className="flex flex-col gap-3">
+                  <div className="space-y-5 lg:w-2/3 flex flex-col justify-center">
+                    <div className="flex flex-col gap-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm font-mono text-slate-400 uppercase tracking-widest">{bioMetrics.cognitive.label}</span>
-                        <span className="text-sky-400 font-bold text-base">{bioMetrics.cognitive.hours} <span className="text-slate-500 font-light font-mono text-xs">HRS/WK</span></span>
+                        <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">{bioMetrics.cognitive.label}</span>
+                        <span className="text-sky-400 font-bold text-sm">{bioMetrics.cognitive.hours} <span className="text-slate-500 font-light font-mono text-[10px]">HRS/WK</span></span>
                       </div>
-                      <div className="w-full h-3 bg-slate-950 rounded-full border border-slate-800 overflow-hidden">
+                      <div className="w-full h-2.5 bg-slate-950 rounded-full border border-slate-800 overflow-hidden">
                         <div className={`h-full ${bioMetrics.cognitive.color} rounded-full`} style={{ width: `${(bioMetrics.cognitive.hours / bioMetrics.cognitive.max) * 100}%` }}></div>
                       </div>
                     </div>
 
-                    {/* Physical Load Bar */}
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm font-mono text-slate-400 uppercase tracking-widest">{bioMetrics.physical.label}</span>
-                        <span className="text-amber-500 font-bold text-base">{bioMetrics.physical.hours} <span className="text-slate-500 font-light font-mono text-xs">HRS/WK</span></span>
+                        <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">{bioMetrics.physical.label}</span>
+                        <span className="text-amber-500 font-bold text-sm">{bioMetrics.physical.hours} <span className="text-slate-500 font-light font-mono text-[10px]">HRS/WK</span></span>
                       </div>
-                      <div className="w-full h-3 bg-slate-950 rounded-full border border-slate-800 overflow-hidden">
+                      <div className="w-full h-2.5 bg-slate-950 rounded-full border border-slate-800 overflow-hidden">
                         <div className={`h-full ${bioMetrics.physical.color} rounded-full`} style={{ width: `${(bioMetrics.physical.hours / bioMetrics.physical.max) * 100}%` }}></div>
                       </div>
                     </div>
@@ -1636,15 +1618,154 @@ return (
         </RevealSection>
       </section>
 
+      {/* --- COMMAND CENTER MODAL --- */}
+      {activeProject && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-2xl transition-opacity"
+            onClick={() => setActiveProject(null)}
+          ></div>
+
+          <div className="relative w-full max-w-5xl bg-[#030508] border border-slate-700 rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/10">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center px-6 py-5 border-b border-slate-800 bg-[#070b14]">
+              <div className="flex items-center gap-4 mb-4 md:mb-0">
+                <span className="text-amber-500 font-mono text-sm tracking-widest uppercase border border-amber-500/30 bg-amber-500/10 px-3 py-1 rounded-md">
+                  {activeProject.id}.exe
+                </span>
+                <h3 className="text-white font-bold tracking-tight text-xl">{activeProject.title} // Command Center</h3>
+              </div>
+              
+              <div className="flex items-center gap-2 bg-slate-900 rounded-lg p-1.5 border border-slate-800">
+                <button 
+                  onClick={() => setModalTab("architecture")}
+                  className={`px-5 py-2.5 text-sm font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'architecture' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                >
+                  Architecture
+                </button>
+                <button 
+                  onClick={() => setModalTab("telemetry")}
+                  className={`px-5 py-2.5 text-sm font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'telemetry' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                >
+                  Telemetry
+                </button>
+                <div className="w-px h-6 bg-slate-700 mx-2"></div>
+                <button 
+                  onClick={() => setActiveProject(null)}
+                  className="px-5 py-2.5 text-sm font-mono tracking-widest uppercase text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 md:p-10 overflow-y-auto relative">
+              <div className="absolute inset-0 bg-[#030508]/95 z-0"></div>
+              
+              <div className="relative z-10 flex flex-col gap-8">
+                {modalTab === 'architecture' ? (
+                  <div className="w-full bg-[#070b14] border border-slate-800 rounded-2xl p-8 relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:30px_30px]"></div>
+                    
+                    <h4 className="text-slate-400 font-mono text-sm uppercase tracking-widest mb-10 relative z-10 flex items-center gap-3">
+                      <span className={`w-2.5 h-2.5 rounded-full animate-pulse ${
+                        activeProject.color === 'emerald' ? 'bg-emerald-500' : 
+                        activeProject.color === 'amber' ? 'bg-amber-500' : 
+                        activeProject.color === 'sky' ? 'bg-sky-500' : 'bg-indigo-500'
+                      }`}></span>
+                      Infrastructure Pipeline
+                    </h4>
+                    
+                    <div className="relative z-10 pl-4 md:pl-8 border-l-2 border-slate-800 space-y-10 py-2">
+                      {activeProject.blueprint.map((step, index) => (
+                        <div key={index} className="relative pl-6 md:pl-8">
+                          <div className={`absolute -left-1.5 md:-left-2.5 top-1.5 w-3 h-3 md:w-5 md:h-5 rounded-full bg-slate-950 border-2 ${
+                            activeProject.color === 'emerald' ? 'border-emerald-500' : 
+                            activeProject.color === 'amber' ? 'border-amber-500' : 
+                            activeProject.color === 'sky' ? 'border-sky-500' : 'border-indigo-500'
+                          }`}></div>
+                          
+                          {index !== activeProject.blueprint.length - 1 && (
+                            <div className="absolute -left-4 md:-left-5 top-12 text-slate-600 text-lg">↓</div>
+                          )}
+
+                          <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl p-5 hover:border-slate-600 transition-colors">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between mb-3 gap-2">
+                              <h5 className="text-white font-bold text-base md:text-lg">{step.node}</h5>
+                              <span className={`font-mono text-xs px-3 py-1.5 rounded bg-slate-950 border border-slate-800 ${
+                                activeProject.color === 'emerald' ? 'text-emerald-400' : 
+                                activeProject.color === 'amber' ? 'text-amber-400' : 
+                                activeProject.color === 'sky' ? 'text-sky-400' : 'text-indigo-400'
+                              }`}>
+                                {step.tech}
+                              </span>
+                            </div>
+                            <p className="text-slate-400 text-sm md:text-base">{step.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-2 gap-6">
+                      {Object.entries(activeProject.metrics).map(([key, value], i) => (
+                        <div key={i} className="bg-[#070b14] border border-slate-800 rounded-2xl p-6 hover:border-slate-600 transition-colors">
+                          <p className="text-slate-500 font-mono text-xs uppercase tracking-widest mb-3">{key}</p>
+                          <p className="text-white font-mono text-base md:text-xl">{value}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="bg-[#070b14] border border-slate-800 rounded-2xl p-8 font-mono text-sm h-full flex flex-col min-h-80">
+                      <div className="flex justify-between items-center border-b border-slate-800 pb-4 mb-5">
+                        <p className="text-slate-500 tracking-widest uppercase">Live Telemetry</p>
+                        <p className="text-emerald-500 animate-pulse text-xs">● REC</p>
+                      </div>
+                      
+                      <div className="grow space-y-4">
+                        {activeProject.logs.map((log, i) => (
+                          <div key={i} className="flex flex-col sm:flex-row sm:gap-4 opacity-90 hover:opacity-100 transition-opacity">
+                            <span className="text-slate-600 shrink-0">[{log.time}]</span>
+                            <div className="flex gap-3">
+                              <span className={`shrink-0 w-20 ${log.color}`}>[{log.level}]</span>
+                              <span className="text-slate-300">
+                                <span className="text-slate-500">[{log.module}]</span> {log.msg}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                        <p className="text-slate-500 mt-5">
+                          <span className="animate-pulse">_</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="pt-8 mt-4 border-t border-slate-800/80 flex flex-col sm:flex-row gap-5 justify-end">
+                  <a href={activeProject.github} target="_blank" rel="noreferrer" className="px-10 py-4 rounded-xl border border-slate-700 text-slate-300 font-mono text-sm tracking-widest uppercase hover:bg-slate-800 hover:text-white transition-all text-center flex items-center justify-center gap-3">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
+                    Source Code
+                  </a>
+                  <a href={activeProject.live} target="_blank" rel="noreferrer" className="px-10 py-4 rounded-xl bg-amber-500 text-slate-950 font-black tracking-widest text-sm uppercase hover:bg-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transition-all text-center flex items-center justify-center gap-2">
+                    Execute Live ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* --- 6. ARSENAL (SKILLS) --- */}
       <section id="skills" className="relative z-10 py-32 border-t border-slate-900 bg-[#05070a]/90">
         <div className="max-w-7xl mx-auto px-6">
           <RevealSection>
             <div className="flex flex-col items-center text-center mb-24">
-              <span className="text-emerald-400 font-mono tracking-widest text-lg uppercase mb-5 flex items-center gap-4">
+              <span className="text-emerald-400 font-mono tracking-widest text-base uppercase mb-4 flex items-center gap-4">
                 Technical Arsenal
               </span>
-              <h2 className="text-7xl md:text-8xl font-black text-white">Core Competencies</h2>
+              <h2 className="text-6xl md:text-8xl font-black text-white">Core Competencies</h2>
             </div>
           </RevealSection>
           
@@ -1655,15 +1776,15 @@ return (
                   <div className={`absolute inset-0 rounded-[3rem] bg-gradient-to-b ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none`}></div>
                   <div className={`absolute top-0 left-0 w-full h-2 rounded-t-[3rem] bg-gradient-to-r ${skill.color} opacity-70 group-hover:opacity-100 transition-opacity`}></div>
                   
-                  <h3 className="font-black text-5xl md:text-6xl mb-12 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-500 leading-tight">
+                  <h3 className="font-black text-4xl md:text-5xl mb-10 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-500 leading-tight">
                     {skill.category}
                   </h3>
                   
-                  <ul className="space-y-10">
+                  <ul className="space-y-8">
                     {skill.items.map((item, i) => (
                       <li key={i} className="flex items-start text-slate-300 group-hover:text-white transition-colors duration-500">
-                        <span className={`h-4 w-4 mt-2.5 shrink-0 rounded-full bg-gradient-to-r ${skill.color} mr-6 shadow-[0_0_12px_currentColor]`}></span>
-                        <span className="text-2xl md:text-3xl leading-relaxed font-light">{item}</span>
+                        <span className={`h-4 w-4 mt-2 shrink-0 rounded-full bg-gradient-to-r ${skill.color} mr-5 shadow-[0_0_12px_currentColor]`}></span>
+                        <span className="text-xl md:text-2xl leading-relaxed font-light">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -1683,13 +1804,13 @@ return (
 
         <RevealSection>
           <div className="max-w-6xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-5">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
               <div>
-                <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white flex items-center gap-5 mb-3">
-                  <span className="w-12 h-1.5 bg-gradient-to-r from-amber-500 to-amber-300"></span>
+                <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white flex items-center gap-4 mb-2">
+                  <span className="w-10 h-1 bg-gradient-to-r from-amber-500 to-amber-300"></span>
                   Hall Of Records
                 </h2>
-                <p className="text-slate-400 font-mono text-base tracking-widest uppercase pl-16">
+                <p className="text-slate-400 font-mono text-sm tracking-widest uppercase pl-14">
                   Verified Milestones & Cloud Credentials
                 </p>
               </div>
@@ -1699,28 +1820,28 @@ return (
               {achievements.map((item, index) => (
                 <div 
                   key={index} 
-                  className="relative p-10 bg-slate-950/60 backdrop-blur-xl border border-slate-800/80 hover:border-amber-500/40 rounded-3xl transition-all duration-500 flex flex-col justify-between group hover:-translate-y-2 hover:shadow-[0_15px_40px_-10px_rgba(245,158,11,0.15)]"
+                  className="relative p-8 bg-slate-950/60 backdrop-blur-xl border border-slate-800/80 hover:border-amber-500/40 rounded-3xl transition-all duration-500 flex flex-col justify-between group hover:-translate-y-2 hover:shadow-[0_15px_40px_-10px_rgba(245,158,11,0.15)]"
                 >
                   <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                   <div>
-                    <div className="flex justify-between items-center mb-8">
-                      <span className="text-sm font-mono tracking-wider uppercase text-amber-400 bg-amber-500/10 px-4 py-2 rounded-full border border-amber-500/20 shadow-inner">
+                    <div className="flex justify-between items-center mb-6">
+                      <span className="text-xs font-mono tracking-wider uppercase text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20 shadow-inner">
                         {item.category}
                       </span>
-                      <span className="text-slate-500 font-mono text-base font-light">{item.date}</span>
+                      <span className="text-slate-500 font-mono text-sm font-light">{item.date}</span>
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-slate-100 mb-5 tracking-tight group-hover:text-amber-400 transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-slate-100 mb-4 tracking-tight group-hover:text-amber-400 transition-colors duration-300">
                       {item.title}
                     </h3>
                     
-                    <p className="text-slate-400 font-light leading-relaxed text-lg mb-10">
+                    <p className="text-slate-400 font-light leading-relaxed text-base mb-8">
                       {item.desc}
                     </p>
                   </div>
                   
-                  <div className="pt-6 border-t border-slate-800/60 flex justify-between items-center">
+                  <div className="pt-5 border-t border-slate-800/60 flex justify-between items-center">
                     <span className="text-slate-500 font-mono text-xs tracking-wider uppercase">
                       Status
                     </span>
@@ -1731,14 +1852,14 @@ return (
                           href={item.link} 
                           target="_blank" 
                           rel="noreferrer"
-                          className="group/btn relative inline-flex items-center gap-2 px-4 py-2 rounded-lg text-base font-mono text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-500/20 hover:text-white transition-all duration-300 active:scale-95"
+                          className="group/btn relative inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-mono text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-500/20 hover:text-white transition-all duration-300 active:scale-95"
                         >
                           <span>Verify</span>
                           <span className="inline-block transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">↗</span>
                         </a>
                       )}
 
-                      <span className="text-emerald-400 font-mono text-xs tracking-widest uppercase bg-emerald-500/10 px-3.5 py-2 rounded-lg border border-emerald-500/20">
+                      <span className="text-emerald-400 font-mono text-xs tracking-widest uppercase bg-emerald-500/10 px-3 py-1.5 rounded-md border border-emerald-500/20">
                         {item.badge}
                       </span>
                     </div>
@@ -1758,26 +1879,26 @@ return (
 
         <RevealSection>
           <div className="max-w-3xl mx-auto px-6 relative z-10">
-            <div className="text-center mb-20">
-              <h2 className="text-7xl md:text-8xl font-display font-black tracking-tight text-white mb-8 drop-shadow-lg">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl md:text-6xl font-display font-black tracking-tight text-white mb-6 drop-shadow-lg">
                 Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Me</span>
               </h2>
-              <p className="text-2xl text-slate-400 font-sans font-light max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg text-slate-400 font-sans font-light max-w-xl mx-auto">
                 Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. Let's build something massive.
               </p>
             </div>
 
             {/* Advanced Glassmorphism Form */}
-            <div className="bg-[#070b14]/80 backdrop-blur-2xl border border-slate-800/80 p-10 md:p-14 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.6)] relative overflow-hidden group">
+            <div className="bg-[#070b14]/80 backdrop-blur-2xl border border-slate-800/80 p-8 md:p-12 rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,0,0,0.6)] relative overflow-hidden group">
               
               {/* Subtle hover reveal gradient on the form border */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
-              <form onSubmit={handleContactSubmit} className="relative z-10 space-y-8">
+              <form onSubmit={handleContactSubmit} className="relative z-10 space-y-6">
                 
                 {/* Name Input */}
                 <div>
-                  <label htmlFor="name" className="block text-slate-300 font-sans text-lg font-medium mb-3">
+                  <label htmlFor="name" className="block text-slate-300 font-sans text-sm font-medium mb-2">
                     Name <span className="text-pink-500">*</span>
                   </label>
                   <input
@@ -1787,13 +1908,13 @@ return (
                     placeholder="Your full name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-2xl px-6 py-5 text-white placeholder-slate-500 font-sans text-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
+                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
                   />
                 </div>
 
                 {/* Email Input */}
                 <div>
-                  <label htmlFor="email" className="block text-slate-300 font-sans text-lg font-medium mb-3">
+                  <label htmlFor="email" className="block text-slate-300 font-sans text-sm font-medium mb-2">
                     Email <span className="text-pink-500">*</span>
                   </label>
                   <input
@@ -1803,29 +1924,29 @@ return (
                     placeholder="your.email@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-2xl px-6 py-5 text-white placeholder-slate-500 font-sans text-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
+                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
                   />
                 </div>
 
                 {/* Message Textarea */}
                 <div>
-                  <label htmlFor="message" className="block text-slate-300 font-sans text-lg font-medium mb-3">
+                  <label htmlFor="message" className="block text-slate-300 font-sans text-sm font-medium mb-2">
                     Message <span className="text-pink-500">*</span>
                   </label>
                   <textarea
                     id="message"
                     required
-                    rows="6"
+                    rows="5"
                     maxLength={1000}
                     placeholder="Tell me about your project or how I can help you..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-2xl px-6 py-5 text-white placeholder-slate-500 font-sans text-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner resize-none custom-scrollbar"
+                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner resize-none custom-scrollbar"
                   ></textarea>
                   
                   {/* Dynamic Character Counter */}
-                  <div className="flex justify-end mt-3">
-                    <span className={`text-base font-mono ${formData.message.length >= 950 ? 'text-pink-500' : 'text-slate-500'}`}>
+                  <div className="flex justify-end mt-2">
+                    <span className={`text-xs font-mono ${formData.message.length >= 950 ? 'text-pink-500' : 'text-slate-500'}`}>
                       {formData.message.length}/1000
                     </span>
                   </div>
@@ -1835,11 +1956,11 @@ return (
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="relative w-full inline-flex h-16 items-center justify-center px-10 py-0 bg-[#a855f7] hover:bg-[#9333ea] rounded-full font-bold text-white transition-all duration-300 hover:scale-[1.02] shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.7)] overflow-hidden font-sans tracking-[0.1em] uppercase text-lg disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="relative w-full inline-flex h-14 items-center justify-center px-8 py-0 bg-[#a855f7] hover:bg-[#9333ea] rounded-full font-bold text-white transition-all duration-300 hover:scale-[1.02] shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.7)] overflow-hidden font-sans tracking-[0.1em] uppercase text-sm disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {isSubmitting ? (
-                    <span className="flex items-center gap-3">
-                      <span className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                    <span className="flex items-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
                       Transmitting...
                     </span>
                   ) : submitStatus === 'success' ? (
@@ -1852,16 +1973,16 @@ return (
             </div>
 
             {/* Direct Contact Links */}
-            <div className="flex flex-col sm:flex-row justify-center gap-10 mt-16 text-lg font-sans tracking-widest text-slate-400">
-              <a href="mailto:shubhomoysarkar00@gmail.com" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-3">
+            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-12 text-sm font-sans tracking-widest text-slate-400">
+              <a href="mailto:shubhomoysarkar00@gmail.com" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-2">
                 shubhomoysarkar00@gmail.com
               </a>
               <span className="hidden sm:block text-slate-700">|</span>
-              <a href="https://github.com/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-3">
+              <a href="https://github.com/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-2">
                 GitHub
               </a>
               <span className="hidden sm:block text-slate-700">|</span>
-              <a href="https://www.linkedin.com/in/shubhomoy-sarkar-2b2171320" target="_blank" rel="noreferrer" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-3">
+              <a href="https://www.linkedin.com/in/shubhomoy-sarkar-2b2171320" target="_blank" rel="noreferrer" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-2">
                 LinkedIn
               </a>
             </div>
