@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Float, Sparkles } from '@react-three/drei';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Stars, Float, } from '@react-three/drei';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { EffectComposer, Bloom, ChromaticAberration, Noise, Vignette } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';
 
@@ -34,37 +34,52 @@ const BootSequence = ({ onComplete }) => {
   );
 };
 
-// --- 2. CUSTOM PHYSICS CURSOR & BACKGROUND SPOTLIGHT ---
+// --- 2. ULTRA-SMOOTH GPU PHYSICS CURSOR ---
 const CustomCursor = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const rawX = useMotionValue(-100);
+  const rawY = useMotionValue(-100);
+
+  // High-precision smooth physics (Zero-lag hardware acceleration)
+  const cursorX = useSpring(rawX, { damping: 30, stiffness: 400, mass: 0.2 });
+  const cursorY = useSpring(rawY, { damping: 30, stiffness: 400, mass: 0.2 });
+
+  const ringX = useSpring(rawX, { damping: 25, stiffness: 180, mass: 0.6 });
+  const ringY = useSpring(rawY, { damping: 25, stiffness: 180, mass: 0.6 });
 
   useEffect(() => {
-    const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
+    const handleMouseMove = (e) => {
+      rawX.set(e.clientX);
+      rawY.set(e.clientY);
+    };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [rawX, rawY]);
 
   return (
     <>
+      {/* Outer Smooth Trailing Ring */}
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 rounded-full border border-amber-500/50 pointer-events-none z-9999 hidden lg:block mix-blend-screen"
-        animate={{ x: mousePos.x - 20, y: mousePos.y - 20 }}
-        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}
+        className="fixed top-0 left-0 w-10 h-10 rounded-full border border-sky-400/40 pointer-events-none z-[9999] hidden lg:block"
+        style={{
+          x: ringX,
+          y: ringY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
       />
+      {/* Inner Precision Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-sky-400 rounded-full pointer-events-none z-9999 hidden lg:block shadow-[0_0_10px_#38bdf8]"
-        animate={{ x: mousePos.x - 4, y: mousePos.y - 4 }}
-        transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.1 }}
+        className="fixed top-0 left-0 w-2 h-2 bg-sky-400 rounded-full pointer-events-none z-[9999] hidden lg:block shadow-[0_0_12px_#38bdf8]"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
       />
-      {/* INTERACTIVE MOUSE SPOTLIGHT BACKGROUND */}
-      <div 
-        className="pointer-events-none fixed inset-0 z-1 transition duration-300 hidden lg:block" 
-        style={{ background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.05), transparent 80%)` }}
-      ></div>
     </>
   );
 };
-
 // --- 3. THE OMNI-CORE WEBGL ENGINE (ULTIMATE 3D SCENE) ---
 const OmniCore = () => {
   const coreRef = useRef();
@@ -1104,8 +1119,8 @@ return (
             <span className="block text-slate-100 mb-2 font-bold drop-shadow-2xl">
               Shubhomoy <span className="text-sky-400 font-extrabold">Sarkar</span>
             </span>
-            {/* Fast Solar Flare Gradient (2s cycle) */}
-            <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#facc15_0%,#f97316_50%,#ef4444_100%)] animate-[bg-shift_2s_ease-in-out_infinite_alternate] drop-shadow-[0_0_35px_rgba(249,115,22,0.4)] font-extrabold pb-2 block">
+            {/* Perfected Fast Solar Flare Gradient (2s cycle) */}
+            <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#fef08a_0%,#fbbf24_33%,#ea580c_66%,#e11d48_100%)] animate-[bg-shift_2s_ease-in-out_infinite_alternate] drop-shadow-[0_0_40px_rgba(234,88,12,0.4)] font-extrabold pb-2 block">
               Full Stack & AI Engineer
             </span>
           </h1>
