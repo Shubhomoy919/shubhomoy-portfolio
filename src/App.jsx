@@ -85,32 +85,30 @@ const OmniCore = () => {
   const ring1Ref = useRef();
   const ring2Ref = useRef();
   const particlesRef = useRef();
+  
+  // New ref for the massive background wireframe
+  const leviathanRef = useRef();
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     const scrollY = window.scrollY;
     
-    // 1. DYNAMIC CAMERA FLY-THROUGH (SCROLL MAGIC)
-    // As the user scrolls down, the camera physically flies deep inside the 3D core!
+    // Dynamic Camera Zoom
     const targetZ = Math.max(2, 20 - (scrollY * 0.008)); 
     state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05);
     
-    // 2. EXTREME MOUSE PARALLAX
-    // The entire camera rig swings wildly based on mouse position
+    // Mouse Parallax
     state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, state.pointer.x * 8, 0.05);
     state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, state.pointer.y * 8, 0.05);
     state.camera.lookAt(0, 0, 0);
 
-    // 3. CORE ROTATION & BREATHING PULSE
     if (coreRef.current) {
       coreRef.current.rotation.y = t * 0.3 + (scrollY * 0.002);
       coreRef.current.rotation.x = t * 0.2;
-      // Math.sin scales it up and down like a beating digital heart
       const pulse = 1 + Math.sin(t * 3) * 0.08; 
       coreRef.current.scale.set(pulse, pulse, pulse);
     }
 
-    // 4. GYROSCOPIC MAGNETIC RINGS
     if (ring1Ref.current) {
       ring1Ref.current.rotation.x = t * 0.5 + (scrollY * 0.003);
       ring1Ref.current.rotation.y = t * 0.4;
@@ -120,23 +118,34 @@ const OmniCore = () => {
       ring2Ref.current.rotation.z = t * 0.6;
     }
 
-    // 5. GALAXY SWIRL PARTICLES
     if (particlesRef.current) {
       particlesRef.current.rotation.y = t * 0.05 + (scrollY * 0.001);
       particlesRef.current.rotation.z = -t * 0.02;
+    }
+
+    // --- NEW: Animate the massive left-side wireframe knot ---
+    if (leviathanRef.current) {
+      // Continuous slow, majestic rotation
+      leviathanRef.current.rotation.x = t * 0.05;
+      leviathanRef.current.rotation.y = t * 0.08;
+      
+      // Smart Scroll Tracking: Gently drift it upwards and towards the center 
+      // as you scroll down to perfectly counter the camera zoom, keeping it 
+      // locked in the bottom-left corner of your screen at all times.
+      leviathanRef.current.position.y = -12 + (scrollY * 0.002);
+      leviathanRef.current.position.x = -18 + (scrollY * 0.0015);
     }
   });
 
   return (
     <group>
-      {/* CLEAN DEEP-SPACE STARFIELD (NO HEAVY SPARKLES) */}
+      {/* CLEAN DEEP-SPACE STARFIELD */}
       <Stars radius={150} depth={60} count={7000} factor={5} saturation={0.5} fade speed={1.5} />
 
       {/* THE QUANTUM CORE */}
       <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
         <group position={[0, 0, -5]}>
           
-          {/* Inner Quantum Glass Brain */}
           <mesh ref={coreRef}>
             <icosahedronGeometry args={[3.5, 2]} />
             <MeshTransmissionMaterial
@@ -156,19 +165,19 @@ const OmniCore = () => {
             />
           </mesh>
 
-          {/* Gyro Ring 1 (Cyan) */}
+          {/* Gyro Ring 1 */}
           <mesh ref={ring1Ref}>
             <torusGeometry args={[5.5, 0.08, 16, 100]} />
             <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1.2} wireframe transparent opacity={0.3} />
           </mesh>
 
-          {/* Gyro Ring 2 (Soft Purple) */}
+          {/* Gyro Ring 2 */}
           <mesh ref={ring2Ref}>
             <torusGeometry args={[7.5, 0.05, 16, 100]} />
             <meshStandardMaterial color="#a855f7" emissive="#a855f7" emissiveIntensity={1.5} wireframe transparent opacity={0.3} />
           </mesh>
           
-          {/* Gyro Ring 3 (Outer - Cyan) */}
+          {/* Gyro Ring 3 */}
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[9.5, 0.02, 16, 100]} />
             <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1.0} wireframe transparent opacity={0.3} />
@@ -192,6 +201,22 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
+      {/* --- NEW: THE LEVIATHAN (Massive Ambient Bottom-Left Wireframe) --- */}
+      <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
+        <mesh ref={leviathanRef} position={[-18, -12, -15]}>
+          {/* Extremely high-density geometry args for that complex mesh look */}
+          <torusKnotGeometry args={[7, 1.5, 256, 32]} />
+          <meshStandardMaterial 
+            color="#14b8a6" 
+            emissive="#0d9488" 
+            emissiveIntensity={1.2} 
+            wireframe 
+            transparent 
+            opacity={0.25} 
+          />
+        </mesh>
+      </Float>
+
       {/* ABYSS GRID */}
       <mesh position={[0, 0, -60]}>
         <sphereGeometry args={[80, 32, 32]} />
@@ -199,7 +224,7 @@ const OmniCore = () => {
       </mesh>
     </group>
   );
-  };
+};
 // --- CUSTOM HOOK: SCROLL ANIMATIONS ---
 const useScrollReveal = () => {
   const [isVisible, setIsVisible] = useState(false);
