@@ -125,7 +125,7 @@ const OmniCore = () => {
       leviathanRef.current.rotation.y = t * 0.08;
       // Adjusted coordinates to keep the smaller model visible on screen
       leviathanRef.current.position.y = -10 + (scrollY * 0.002);
-      leviathanRef.current.position.x = -15 + (scrollY * 0.0015);
+      leviathanRef.current.position.x = -24 + (scrollY * 0.0015);
     }
   });
 
@@ -189,7 +189,7 @@ const OmniCore = () => {
 
       {/* --- THE LEVIATHAN (Smaller, Darker, More Transparent) --- */}
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
-        <mesh ref={leviathanRef} position={[-40, -10, -15]}>
+        <mesh ref={leviathanRef} position={[-24, -10, -15]}>
           {/* Reduced radius from 7 to 5.5, and tube thickness from 1.5 to 1.2 */}
           <torusKnotGeometry args={[5.5, 1.2, 256, 32]} />
           <meshStandardMaterial 
