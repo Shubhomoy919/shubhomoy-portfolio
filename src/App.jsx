@@ -1320,7 +1320,7 @@ return (
             {/* Top Centered: Sleek Download CV */}
             <div>
               <a 
-                href="/Shubhomoy_Sarkar_Resume.pdf" 
+                href="/shubhomoyresume.pdf" 
                 target="_blank" 
                 rel="noreferrer"
                 className="group relative inline-flex items-center justify-center gap-3 px-8 py-3 rounded-full overflow-hidden"
