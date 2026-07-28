@@ -1199,7 +1199,7 @@ return (
                   
                   {/* ⚠️ IMPORTANT: MAKE SURE YOUR IMAGE IS IN THE 'public' FOLDER AND MATCHES THIS FILENAME */}
                   <img 
-                    src="public/shubh.jpg" 
+                    src="/shubh.jpg" 
                     alt="Shubhomoy Sarkar" 
                     className="w-full h-full object-cover filter contrast-125 group-hover:scale-105 transition-all duration-700"
                     onError={(e) => {
