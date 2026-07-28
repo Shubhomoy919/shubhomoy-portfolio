@@ -1039,84 +1039,77 @@ return (
         </div>
       </nav>
 
-      {/* --- 1. THE HERO ENGINE (AWWWARDS-LEVEL REDESIGN) --- */}
-      <header className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 z-10 pt-28 pb-10">
+      {/* --- 1. THE HERO ENGINE (PREMIUM BESPOKE REDESIGN) --- */}
+      <header className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 z-10 pt-20">
         
         {/* Sleek Internship Badge */}
         <RevealSection delay="0ms">
-          <div className="inline-flex items-center gap-3 mb-10 px-5 py-2 rounded-full border border-sky-500/20 bg-[#030508]/30 backdrop-blur-xl shadow-[0_0_15px_rgba(56,189,248,0.1)] cursor-default">
-            <span className="relative flex h-1.5 w-1.5">
+          <div className="inline-flex items-center gap-3 mb-10 px-5 py-2 rounded-full border border-sky-500/20 bg-[#030508]/50 backdrop-blur-md shadow-[0_0_20px_rgba(56,189,248,0.1)] group hover:border-sky-400/40 transition-all duration-500">
+            <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-sky-500"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
             </span>
-            <span className="text-sky-300 font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-semibold">
+            <span className="text-sky-200 font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase font-semibold group-hover:text-white transition-colors">
               Available for Internships
             </span>
           </div>
         </RevealSection>
 
-        {/* Extreme Contrast Typography Header (Stacked) */}
+        {/* Massive Syne Typography Header */}
         <RevealSection delay="200ms">
-          <h1 className="font-display leading-[0.85] tracking-tighter mb-8 flex flex-col items-center">
-            <span className="text-6xl md:text-[6rem] lg:text-[8.5rem] font-bold text-white drop-shadow-2xl">
-              Shubhomoy
+          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-display tracking-tight mb-8 leading-[1.05]">
+            <span className="block text-slate-200 mb-2 font-medium drop-shadow-xl">
+              Shubhomoy <span className="font-extrabold text-white">Sarkar</span>
             </span>
-            {/* Pull the second line up slightly with a negative margin for a tight, editorial look */}
-            <span className="text-5xl md:text-[5.5rem] lg:text-[7.5rem] font-black text-transparent bg-clip-text bg-[linear-gradient(to_right,#ffffff_0%,#38bdf8_50%,#a855f7_100%)] drop-shadow-[0_0_40px_rgba(168,85,247,0.3)] mt-[-5px] md:mt-[-15px]">
-              Sarkar
+            <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#ffffff_10%,#38bdf8_50%,#a855f7_90%)] animate-bg-shift drop-shadow-[0_0_30px_rgba(56,189,248,0.2)] font-extrabold pb-2 block">
+              Full Stack & AI Engineer
             </span>
           </h1>
         </RevealSection>
-
-        {/* Elegant Tracked-Out Subtitle */}
-        <RevealSection delay="400ms">
-          <h2 className="text-[10px] md:text-sm font-sans tracking-[0.5em] uppercase text-slate-300 font-light mb-12">
-            Full Stack <span className="font-bold text-sky-400 mx-2">+</span> AI Engineer
-          </h2>
-        </RevealSection>
         
-        {/* Ultra-Glassmorphism Bio Box */}
-        <RevealSection delay="600ms">
-          <p className="text-sm md:text-lg text-slate-200 max-w-2xl leading-relaxed mb-12 font-sans font-light bg-white/5 backdrop-blur-2xl px-6 py-8 md:p-8 rounded-3xl border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
-            Computer Science engineering student in the 5th semester at IIIT Kottayam, specializing in <span className="text-white font-medium">full-stack architecture</span>, <span className="text-sky-300 font-mono text-[10px] md:text-[11px] tracking-wide px-2 py-1 bg-sky-500/10 rounded-md border border-sky-500/20">generative AI</span>, and <span className="text-purple-300 font-mono text-[10px] md:text-[11px] tracking-wide px-2 py-1 bg-purple-500/10 rounded-md border border-purple-500/20">agentic workflows</span>. Experienced in building production-ready applications with strong foundations in data structures.
+        {/* Styled Typography Paragraph with Code Tags */}
+        <RevealSection delay="400ms">
+          <p className="text-base md:text-xl text-slate-400 max-w-3xl leading-relaxed mb-12 font-sans font-light bg-[#030508]/30 backdrop-blur-sm p-6 rounded-3xl border border-white/5 shadow-2xl">
+            Computer Science engineering student in the 5th semester at IIIT Kottayam, specializing in <span className="text-white font-medium">full-stack architecture</span>, <span className="text-sky-400 font-mono text-sm px-2 py-0.5 bg-sky-500/10 rounded-md border border-sky-500/20 shadow-inner">generative AI</span>, and <span className="text-purple-400 font-mono text-sm px-2 py-0.5 bg-purple-500/10 rounded-md border border-purple-500/20 shadow-inner">agentic workflows</span>. Experienced in building production-ready applications with strong foundations in data structures, algorithms, and machine learning pipelines.
           </p>
         </RevealSection>
 
-        <RevealSection delay="800ms">
-          <div className="flex flex-col items-center justify-center w-full gap-8">
+        <RevealSection delay="600ms">
+          <div className="flex flex-col items-center justify-center w-full">
             
-            {/* Action Buttons (Side by Side) */}
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center justify-center">
+            {/* Top Centered: Sleek Download CV */}
+            <div className="mb-8">
+              <a 
+                href="/Shubhomoy_Sarkar_Resume.pdf" 
+                target="_blank" 
+                rel="noreferrer"
+                className="group relative px-6 py-2.5 hover:bg-white/5 border border-white/10 hover:border-white/30 rounded-full transition-all duration-300 overflow-hidden flex items-center justify-center gap-3 text-center backdrop-blur-md"
+              >
+                <span className="relative text-slate-300 font-mono tracking-widest text-[10px] uppercase group-hover:text-white font-semibold transition-colors">
+                  Download CV
+                </span>
+                <svg className="w-3 h-3 relative text-slate-400 group-hover:text-white group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+              </a>
+            </div>
+
+            {/* Bottom Row: Minimalist Glowing Buttons */}
+            <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto items-center justify-center">
               <a 
                 href="#projects" 
-                className="px-8 py-4 bg-white rounded-full font-bold text-slate-950 transition-all duration-500 hover:scale-[1.05] shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_50px_rgba(255,255,255,0.4)] text-[10px] tracking-[0.2em] uppercase font-mono w-full sm:w-auto"
+                className="relative group px-10 py-4 bg-white rounded-full font-bold text-slate-950 transition-all duration-500 hover:scale-[1.02] shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_50px_rgba(255,255,255,0.4)] overflow-hidden text-center w-full sm:w-auto font-sans tracking-widest uppercase text-xs"
               >
-                Inspect Projects
+                <span className="relative z-10">Inspect Projects</span>
               </a>
 
               <a 
                 href="#contact" 
-                className="px-8 py-4 bg-transparent backdrop-blur-xl rounded-full font-bold transition-all duration-300 border border-slate-600 hover:text-white hover:border-white hover:bg-white/5 text-[10px] tracking-[0.2em] uppercase text-slate-300 font-mono w-full sm:w-auto"
+                className="px-10 py-4 bg-[#030508]/50 backdrop-blur-xl rounded-full font-bold transition-all duration-300 border border-slate-700/50 hover:text-sky-400 hover:border-sky-500/50 hover:bg-sky-500/5 text-xs tracking-widest uppercase flex items-center justify-center gap-3 w-full sm:w-auto font-sans text-slate-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
               >
                 Contact Me
               </a>
             </div>
-
-            {/* Minimalist Download CV Link */}
-            <a 
-              href="/Shubhomoy_Sarkar_Resume.pdf" 
-              target="_blank" 
-              rel="noreferrer"
-              className="group flex items-center justify-center gap-2 text-slate-500 hover:text-sky-400 transition-colors duration-300 mt-2"
-            >
-              <span className="font-mono tracking-[0.2em] text-[9px] uppercase border-b border-transparent group-hover:border-sky-400/50 pb-0.5 transition-colors">
-                Download Curriculum Vitae
-              </span>
-              <svg className="w-3 h-3 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-              </svg>
-            </a>
-
           </div>
         </RevealSection>
       </header>
