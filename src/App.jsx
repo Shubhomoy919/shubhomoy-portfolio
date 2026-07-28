@@ -395,9 +395,8 @@ const DigitalTwin = () => {
           {!isOpen && <div className="absolute inset-0 rounded-full border border-sky-500/50 animate-ping"></div>}
         </button>
       </div>
-
-      {/* Main Terminal Window */}
-      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] ${isMaximized ? 'md:w-212.5 h-[82vh]' : 'md:w-125 h-160 max-h-[82vh]'} bg-[#030508]/95 backdrop-blur-3xl border border-slate-700 rounded-2xl shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] z-100 flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
+{/* Main Terminal Window */}
+      <div className={`fixed bottom-28 right-6 md:right-10 w-[calc(100vw-48px)] ${isMaximized ? 'md:w-[850px] h-[82vh]' : 'md:w-[500px] h-[640px] max-h-[82vh]'} bg-[#030508]/95 backdrop-blur-3xl border border-slate-700 rounded-2xl shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] z-[100] flex flex-col overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}`}>
         
         {/* Terminal Header */}
         <div className="bg-[#070b14] px-5 py-4 border-b border-slate-800 flex justify-between items-center relative overflow-hidden select-none">
