@@ -135,24 +135,23 @@ const OmniCore = () => {
             <meshStandardMaterial color="#0ea5e9" wireframe emissive="#0ea5e9" emissiveIntensity={2} transparent opacity={0.6} />
           </mesh>
 
-          {/* Gyro Ring 1 */}
+         {/* Gyro Ring 1 (Cyan) */}
           <mesh ref={ring1Ref}>
             <torusGeometry args={[5.5, 0.08, 16, 100]} />
-            <meshStandardMaterial color="#f59e0b" emissive="#f59e0b" emissiveIntensity={1.5} wireframe transparent opacity={0.3} />
+            <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1.2} wireframe transparent opacity={0.3} />
           </mesh>
 
-          {/* Gyro Ring 2 */}
+          {/* Gyro Ring 2 (Soft Purple) */}
           <mesh ref={ring2Ref}>
             <torusGeometry args={[7.5, 0.05, 16, 100]} />
-            <meshStandardMaterial color="#a855f7" emissive="#a855f7" emissiveIntensity={2} wireframe transparent opacity={0.3} />
+            <meshStandardMaterial color="#a855f7" emissive="#a855f7" emissiveIntensity={1.5} wireframe transparent opacity={0.3} />
           </mesh>
           
-          {/* Gyro Ring 3 (Outer) */}
+          {/* Gyro Ring 3 (Outer - Cyan) */}
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[9.5, 0.02, 16, 100]} />
-            <meshStandardMaterial color="#ec4899" emissive="#ec4899" emissiveIntensity={1.2} wireframe transparent opacity={0.3} />
+            <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={1.0} wireframe transparent opacity={0.3} />
           </mesh>
-
         </group>
       </Float>
 
@@ -1102,13 +1101,13 @@ return (
         {/* Clean Two-Line Syne Header (Advanced Contrast) */}
         <RevealSection delay="200ms">
           <h1 className="text-5xl md:text-7xl lg:text-[7rem] font-display tracking-tight mb-8 leading-[1.05] relative">
-            <span className="block text-white mb-2 font-bold drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
-              Shubhomoy <span className="text-transparent bg-clip-text bg-gradient-to-br from-slate-100 to-slate-500 font-black">Sarkar</span>
-            </span>
+  <span className="block text-white mb-2 font-bold drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
+    Shubhomoy <span className="text-sky-400 font-black">Sarkar</span>
+  </span>
             {/* The Ultimate Cyber Gradient */}
-            <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#ffffff_0%,#38bdf8_40%,#a855f7_70%,#ec4899_100%)] animate-bg-shift drop-shadow-[0_0_40px_rgba(56,189,248,0.4)] font-black pb-4 block">
-              Full Stack & AI Engineer
-            </span>
+            <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#38bdf8_0%,#818cf8_50%,#c084fc_100%)] drop-shadow-[0_0_30px_rgba(56,189,248,0.3)] font-black pb-4 block">
+  Full Stack & AI Engineer
+</span>
           </h1>
         </RevealSection>
         
