@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Float, } from '@react-three/drei';
+import { Stars, Float, MeshTransmissionMaterial } from '@react-three/drei';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { EffectComposer, Bloom, ChromaticAberration, Noise, Vignette } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';
