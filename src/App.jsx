@@ -180,18 +180,17 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
-    {/* RIGHT ORBITING SATELLITE (Agile, Ghostly Yellow Wireframe) */}
-      <Float speed={6} rotationIntensity={8} floatIntensity={8}>
+    {/* RIGHT ORBITING SATELLITE (Ghostly Yellow Wireframe, Slow Drift) */}
+      <Float speed={2} rotationIntensity={2} floatIntensity={2}>
         <mesh position={[16, -6, -15]}>
-          {/* Scaled down radius (2.0) & tube (0.4) but using the SAME high-density structure (256, 32) as the green Leviathan */}
           <torusKnotGeometry args={[2.0, 0.4, 256, 32]} />
           <meshStandardMaterial 
-            color="#eab308"           // Warm yellow
-            emissive="#ca8a04"        // Darker golden emissive to kill the white-hot blowout
-            emissiveIntensity={0.2}   // Super low glow so the intricate wireframe is perfectly visible
+            color="#eab308"           
+            emissive="#ca8a04"        
+            emissiveIntensity={0.2}   
             wireframe 
             transparent 
-            opacity={0.15}            // Ghostly transparency exactly like the green one
+            opacity={0.15}            
           />
         </mesh>
       </Float>
