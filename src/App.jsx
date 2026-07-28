@@ -596,6 +596,21 @@ const DigitalTwin = () => {
 
 const App = () => {
   const [booted, setBooted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate network request
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setSubmitStatus(null), 4000);
+    }, 1500);
+  };
   const trajectory = [
     {
       role: "Generative AI Engineering Intern",
@@ -1830,43 +1845,125 @@ return (
         </RevealSection>
       </section>
 
-      {/* --- 8. CONTACT SECTION --- */}
-      <section id="contact" className="relative z-10 border-t border-slate-900 bg-[#030508]/40 backdrop-blur-sm py-32">
+      {/* --- 8. CONTACT SECTION (ADVANCED UI) --- */}
+      <section id="contact" className="relative z-10 border-t border-slate-900 bg-[#030508]/40 backdrop-blur-sm py-32 overflow-hidden">
+        
+        {/* Deep Ambient Purple Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+
         <RevealSection>
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-white">
-              Ready to Engineer <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-500 to-fuchsia-400">The Future.</span>
-            </h2>
-            
-            <p className="text-lg md:text-xl text-slate-400 mb-12 font-normal max-w-2xl mx-auto leading-relaxed">
-              Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. Let&apos;s build something massive.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row justify-center items-stretch gap-6 mb-16">
-              <a href="mailto:shubhomoysarkar00@gmail.com" className="flex-1 max-w-85 p-6 bg-slate-900/40 border border-slate-800 hover:border-amber-500 rounded-2xl transition-all flex flex-col justify-center mx-auto sm:mx-0">
-                <span className="text-amber-400 font-mono text-xs uppercase block mb-2 tracking-widest">Email</span>
-                <span className="text-slate-200 text-lg font-normal">shubhomoysarkar00@gmail.com</span>
-              </a>
+          <div className="max-w-3xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl md:text-6xl font-display font-black tracking-tight text-white mb-6 drop-shadow-lg">
+                Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Me</span>
+              </h2>
+              <p className="text-lg text-slate-400 font-sans font-light max-w-xl mx-auto">
+                Actively seeking software engineering internships and highly challenging roles at tier-one technology companies. Let's build something massive.
+              </p>
+            </div>
+
+            {/* Advanced Glassmorphism Form */}
+            <div className="bg-[#070b14]/80 backdrop-blur-2xl border border-slate-800/80 p-8 md:p-12 rounded-[2.5rem] shadow-[0_30px_80px_rgba(0,0,0,0.6)] relative overflow-hidden group">
               
-              <a href="tel:+919163406409" className="flex-1 max-w-85 p-6 bg-slate-900/40 border border-slate-800 hover:border-indigo-500 rounded-2xl transition-all flex flex-col justify-center mx-auto sm:mx-0">
-                <span className="text-indigo-400 font-mono text-xs uppercase block mb-2 tracking-widest">Phone No</span>
-                <span className="text-slate-200 text-lg font-normal whitespace-nowrap">+91 9163406409</span>
+              {/* Subtle hover reveal gradient on the form border */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+              <form onSubmit={handleContactSubmit} className="relative z-10 space-y-6">
+                
+                {/* Name Input */}
+                <div>
+                  <label htmlFor="name" className="block text-slate-300 font-sans text-sm font-medium mb-2">
+                    Name <span className="text-pink-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    required
+                    placeholder="Your full name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
+                  />
+                </div>
+
+                {/* Email Input */}
+                <div>
+                  <label htmlFor="email" className="block text-slate-300 font-sans text-sm font-medium mb-2">
+                    Email <span className="text-pink-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    placeholder="your.email@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner"
+                  />
+                </div>
+
+                {/* Message Textarea */}
+                <div>
+                  <label htmlFor="message" className="block text-slate-300 font-sans text-sm font-medium mb-2">
+                    Message <span className="text-pink-500">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    required
+                    rows="5"
+                    maxLength={1000}
+                    placeholder="Tell me about your project or how I can help you..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full bg-[#030508]/50 border border-slate-700/80 rounded-xl px-5 py-4 text-white placeholder-slate-500 font-sans text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all shadow-inner resize-none custom-scrollbar"
+                  ></textarea>
+                  
+                  {/* Dynamic Character Counter */}
+                  <div className="flex justify-end mt-2">
+                    <span className={`text-xs font-mono ${formData.message.length >= 950 ? 'text-pink-500' : 'text-slate-500'}`}>
+                      {formData.message.length}/1000
+                    </span>
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="relative w-full inline-flex h-14 items-center justify-center px-8 py-0 bg-[#a855f7] hover:bg-[#9333ea] rounded-full font-bold text-white transition-all duration-300 hover:scale-[1.02] shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.7)] overflow-hidden font-sans tracking-[0.1em] uppercase text-sm disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                      Transmitting...
+                    </span>
+                  ) : submitStatus === 'success' ? (
+                    <span className="text-white">Message Secured ✓</span>
+                  ) : (
+                    <span>Send Message</span>
+                  )}
+                </button>
+              </form>
+            </div>
+
+            {/* Direct Contact Links */}
+            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-12 text-sm font-sans tracking-widest text-slate-400">
+              <a href="mailto:shubhomoysarkar00@gmail.com" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-2">
+                shubhomoysarkar00@gmail.com
+              </a>
+              <span className="hidden sm:block text-slate-700">|</span>
+              <a href="https://github.com/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-2">
+                GitHub
+              </a>
+              <span className="hidden sm:block text-slate-700">|</span>
+              <a href="https://www.linkedin.com/in/shubhomoy-sarkar-2b2171320" target="_blank" rel="noreferrer" className="hover:text-purple-400 transition-colors flex items-center justify-center gap-2">
+                LinkedIn
               </a>
             </div>
 
-            <div className="flex justify-center gap-10 border-t border-slate-900 pt-10 text-sm font-normal uppercase tracking-widest text-slate-400">
-              <a href="https://github.com/Shubhomoy919" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
-                GitHub Profile
-              </a>
-              <a href="https://www.linkedin.com/in/shubhomoy-sarkar-2b2171320" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
-                LinkedIn Network
-              </a>
-            </div>
           </div>
         </RevealSection>
       </section>
-
 <DigitalTwin />
 
     </div>
