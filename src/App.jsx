@@ -180,10 +180,19 @@ const OmniCore = () => {
         </mesh>
       </Float>
 
+     {/* RIGHT ORBITING SATELLITE (Sharper, Deep Blue Torus Knot) */}
       <Float speed={2.5} rotationIntensity={3} floatIntensity={4}>
         <mesh position={[16, -6, -15]}>
-          <torusKnotGeometry args={[2.5, 0.3, 128, 16]} />
-          <meshStandardMaterial color="#10b981" wireframe emissive="#10b981" emissiveIntensity={2} opacity={0.8} transparent />
+          {/* args: [radius, tubeThickness (thinner for sharpness), tubularSegments (higher for density), radialSegments] */}
+          <torusKnotGeometry args={[2.5, 0.12, 300, 32]} />
+          <meshStandardMaterial 
+            color="#1e3a8a"           // Deep navy base
+            wireframe 
+            emissive="#2563eb"        // Bright royal blue glow
+            emissiveIntensity={3}     // Cranked up the glow to compensate for thinner lines
+            opacity={0.8} 
+            transparent 
+          />
         </mesh>
       </Float>
 
