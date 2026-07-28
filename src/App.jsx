@@ -189,7 +189,7 @@ const OmniCore = () => {
 
       {/* --- THE LEVIATHAN (Smaller, Darker, More Transparent) --- */}
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
-        <mesh ref={leviathanRef} position={[-22, -10, -15]}>
+        <mesh ref={leviathanRef} position={[-40, -10, -15]}>
           {/* Reduced radius from 7 to 5.5, and tube thickness from 1.5 to 1.2 */}
           <torusKnotGeometry args={[5.5, 1.2, 256, 32]} />
           <meshStandardMaterial 
