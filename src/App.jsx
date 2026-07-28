@@ -795,19 +795,93 @@ const App = () => {
   const [activeProject, setActiveProject] = useState(null);
   const [modalTab, setModalTab] = useState("architecture");
 
-  // Architecture Projects Array
+  const [editableCode, setEditableCode] = useState('');
+  const [consoleOutput, setConsoleOutput] = useState([]);
+  const [isExecuting, setIsExecuting] = useState(false);
+
+  // Sync initial snippet when modal opens or activeProject changes
+  useEffect(() => {
+    if (activeProject) {
+      setEditableCode(activeProject.codeSnippet || '');
+      setConsoleOutput([]);
+      setIsExecuting(false);
+    }
+  }, [activeProject]);
+
+  const handleRunSimulation = () => {
+    setIsExecuting(true);
+    setConsoleOutput([{ type: 'sys', text: `[SANDBOX] Compiling & running ${activeProject.codeLanguage.toUpperCase()} runtime env...` }]);
+
+    // Simulated sandbox engine outputs
+    setTimeout(() => {
+      let mockOutputs = [];
+      if (activeProject.id === 'sentinel') {
+        mockOutputs = [
+          { type: 'out', text: '[RTSP] Streaming frame #1042 from ESP32-CAM...' },
+          { type: 'out', text: '[YOLO11n] Detected: Person (94.0% match)' },
+          { type: 'out', text: '[ByteTrack] Assigned Temporal ID: #102' },
+          { type: 'out', text: '[PostGIS] Indexed spatial coordinates to database.' },
+          { type: 'success', text: 'Program exited with code 0 (Execution time: 14ms)' }
+        ];
+      } else if (activeProject.id === 'boddai') {
+        mockOutputs = [
+          { type: 'out', text: 'Topological Linear Stream: [ "NodeA_Root", "NodeB_Branch", "NodeC_Context" ]' },
+          { type: 'out', text: '[DAG_CHECK] Zero circular dependencies detected via Kahn\'s sort.' },
+          { type: 'success', text: 'Program exited with code 0 (Execution time: 8ms)' }
+        ];
+      } else if (activeProject.id === 'greentravel') {
+        mockOutputs = [
+          { type: 'out', text: '[ENFORCE] Recommended Shift: RAIL | Saved: 68.48 kg CO2e (83.9% reduction)' },
+          { type: 'success', text: 'Program exited with code 0 (Execution time: 19ms)' }
+        ];
+      } else {
+        mockOutputs = [
+          { type: 'out', text: '[MEMORY_SYNC] Buffered state (1 interactions preserved)' },
+          { type: 'out', text: '[SECURITY_SCAN] Context sanitized. Transmitting to Gemini API...' },
+          { type: 'success', text: 'Program exited with code 0 (Execution time: 11ms)' }
+        ];
+      }
+
+      setConsoleOutput(prev => [...prev, ...mockOutputs]);
+      setIsExecuting(false);
+    }, 800);
+  };
+
   const architectureProjects = [
     {
       id: "sentinel",
       title: "SentinelAI",
       type: "IoT & Edge AI",
       status: "IN DEVELOPMENT",
-      desc: "An end-to-end edge surveillance architecture that upgrades a standard ESP32-CAM into a proactive AI assistant. Processes live streams to understand complex scenes and enables NLP video queries.",
+      desc: "An end-to-end edge surveillance architecture that upgrades a standard ESP32-CAM into a proactive AI assistant.",
       tech: ["ESP32-CAM", "YOLO11n", "ByteTrack", "Qwen2.5-VL", "Llama 3"],
       color: "sky",
       metrics: { Compute: "Edge-to-Local", Perception: "Real-Time", Tracking: "Temporal", Retrieval: "LLM NLP" },
-      github: "#",
+      github: "https://github.com/Shubhomoy919",
       live: "#",
+      codeLanguage: "cpp",
+      codeSnippet: `// SentinelAI // Edge YOLO11n Vision Pipeline Execution
+#include <iostream>
+#include <vector>
+
+struct Detection {
+    int id;
+    std::string label;
+    float confidence;
+};
+
+void processEdgeFrame(int frameId) {
+    std::cout << "[RTSP] Streaming frame #" << frameId << " from ESP32-CAM..." << std::endl;
+    Detection obj = {102, "Person", 0.94f};
+    std::cout << "[YOLO11n] Detected: " << obj.label << " (" << (obj.confidence * 100) << "% match)" << std::endl;
+    std::cout << "[ByteTrack] Assigned Temporal ID: #" << obj.id << std::endl;
+    std::cout << "[PostGIS] Indexed spatial coordinates to database." << std::endl;
+}
+
+int main() {
+    processEdgeFrame(1042);
+    return 0;
+}`,
       logs: [
         { time: "00:00:11.241", level: "INFO", module: "HARDWARE", msg: "ESP32-CAM initialized. Streaming via RTSP over Wi-Fi.", color: "text-blue-400" },
         { time: "00:00:14.002", level: "SUCCESS", module: "VISION", msg: "YOLO11n & ByteTrack loaded. Tracking temporal entities.", color: "text-emerald-400" },
@@ -827,12 +901,40 @@ const App = () => {
       title: "Bodd AI Workspace",
       type: "GenAI & Graph Theory",
       status: "SYSTEM ONLINE",
-      desc: "Engineered a next-generation AI workspace that replaces traditional linear chat with a Directed Acyclic Graph (DAG) topology for complex, multi-threaded reasoning without context truncation.",
+      desc: "Engineered a next-generation AI workspace that replaces traditional linear chat with a Directed Acyclic Graph (DAG) topology for complex reasoning.",
       tech: ["React 18", "Express.js", "Gemini SDK", "React Flow", "Kahn's Algo"],
       color: "amber",
       metrics: { Latency: "Zero-Latency SSE", Algorithm: "Kahn's Sort", Compression: "75% Token Red.", Topology: "DAG" },
       github: "https://github.com/Shubhomoy919/Bodd-2",
       live: "#",
+      codeLanguage: "javascript",
+      codeSnippet: `// Bodd AI // Kahn's Algorithm for DAG Topological Sort & Cycle Detection
+function kahnsTopologicalSort(nodes, edges) {
+    const inDegree = new Map();
+    nodes.forEach(n => inDegree.set(n, 0));
+    edges.forEach(([u, v]) => inDegree.set(v, inDegree.get(v) + 1));
+
+    const queue = [];
+    nodes.forEach(n => { if (inDegree.get(n) === 0) queue.push(n); });
+
+    const sorted = [];
+    while (queue.length > 0) {
+        const u = queue.shift();
+        sorted.push(u);
+        edges.filter(([src]) => src === u).forEach(([_, v]) => {
+            inDegree.set(v, inDegree.get(v) - 1);
+            if (inDegree.get(v) === 0) queue.push(v);
+        });
+    }
+
+    if (sorted.length !== nodes.length) throw new Error("Cycle detected!");
+    return sorted;
+}
+
+// Execution Sandbox Simulation
+const nodes = ['NodeA_Root', 'NodeB_Branch', 'NodeC_Context'];
+const edges = [['NodeA_Root', 'NodeB_Branch'], ['NodeB_Branch', 'NodeC_Context']];
+console.log("Topological Linear Stream:", kahnsTopologicalSort(nodes, edges));`,
       logs: [
         { time: "10:14:02.105", level: "INFO", module: "DAG_CORE", msg: "Initializing workspace UI. Allocating memory buffers.", color: "text-blue-400" },
         { time: "10:14:04.422", level: "WARN", module: "ALGO", msg: "Cyclical dependency detected. Kahn's Sorting bypassed corruption.", color: "text-amber-400" },
@@ -852,12 +954,29 @@ const App = () => {
       title: "GreenTravel API",
       type: "ML & Process Mining",
       status: "DATA MINED",
-      desc: "Analyzed historical corporate travel datasets, pinpointing process bottlenecks to enforce strategic modal shifts and architect a data-backed roadmap for Net-Zero emissions by 2030.",
+      desc: "Analyzed historical corporate travel datasets, pinpointing process bottlenecks to enforce strategic modal shifts.",
       tech: ["Python", "Scikit-Learn", "Celonis", "Pandas", "PostgreSQL"],
       color: "emerald",
       metrics: { Footprint: "178M kg CO2e", Reduction: "85% per-trip", Target: "Rail < 400km", Engine: "Predictive ML" },
       github: "https://github.com/Shubhomoy919/capstone-project_iit_guwahati",
       live: "#",
+      codeLanguage: "python",
+      codeSnippet: `# GreenTravel API // CO2 Decarbonization & Modal Shift Calculator
+import pandas as pd
+
+def calculate_decarbonization(distance_km, current_mode="flight"):
+    emission_factors = {"flight": 0.255, "rail": 0.041} # kg CO2e per km
+    
+    current_co2 = distance_km * emission_factors[current_mode]
+    
+    if distance_km < 400 and current_mode == "flight":
+        target_co2 = distance_km * emission_factors["rail"]
+        reduction_pct = ((current_co2 - target_co2) / current_co2) * 100
+        return f"[ENFORCE] Recommended Shift: RAIL | Saved: {current_co2 - target_co2:.2f} kg CO2e ({reduction_pct:.1f}% reduction)"
+    
+    return f"[OK] Standard Route: {current_co2:.2f} kg CO2e"
+
+print(calculate_decarbonization(320, "flight"))`,
       logs: [
         { time: "08:30:15.001", level: "INFO", module: "DATA", msg: "Relational pipeline established. 178M kg CO2e mapped.", color: "text-blue-400" },
         { time: "08:30:22.404", level: "WARN", module: "MINING", msg: "Policy deviations detected in Sales department logs.", color: "text-amber-400" },
@@ -877,12 +996,30 @@ const App = () => {
       title: "Decodelabs Suite",
       type: "Production Suite",
       status: "AGENTS DEPLOYED",
-      desc: "A comprehensive suite of production-grade generative AI systems spanning multi-turn conversational agents, static code review engines, and automated multi-modal content pipelines.",
+      desc: "A comprehensive suite of production-grade generative AI systems spanning multi-turn conversational agents and code review engines.",
       tech: ["Python", "Gemini API", "Modular Architecture", "Security Pipelines"],
       color: "indigo",
       metrics: { Memory: "Context-Aware", Analysis: "Multi-Language", Pipeline: "Multi-Modal", Scale: "Production" },
       github: "https://github.com/Shubhomoy919/decodelabs_tasks",
       live: "#",
+      codeLanguage: "python",
+      codeSnippet: `# Decodelabs // Multi-Turn Context Memory Buffer Execution
+class AgentMemoryBuffer:
+    def __init__(self, token_limit=2048):
+        self.history = []
+        self.token_limit = token_limit
+
+    def push_interaction(self, user_prompt, ai_response):
+        self.history.append({"user": user_prompt, "ai": ai_response})
+        print(f"[MEMORY_SYNC] Buffered state ({len(self.history)} interactions preserved)")
+
+    def inspect_context(self):
+        print(f"[SECURITY_SCAN] Context sanitized. Transmitting to Gemini API...")
+        return True
+
+buffer = AgentMemoryBuffer()
+buffer.push_interaction("Analyze code vulnerability", "Static Analysis: Passed. No SQLi detected.")
+buffer.inspect_context()`,
       logs: [
         { time: "SYS:BOOT", level: "INFO", module: "INIT", msg: "Decodelabs GenAI Engine Suite initialized.", color: "text-blue-400" },
         { time: "SYS:MEM", level: "SUCCESS", module: "AGENT", msg: "Context-aware conversational agent loaded into buffer.", color: "text-emerald-400" },
@@ -898,7 +1035,6 @@ const App = () => {
       ]
     }
   ];
-
   // --- OPERATOR TELEMETRY DATA (LIVE GITHUB INTEGRATION) ---
   const GITHUB_USERNAME = "Shubhomoy919";
 
@@ -1727,7 +1863,7 @@ return (
         </RevealSection>
       </section>
 
-      {/* --- COMMAND CENTER MODAL --- */}
+      {/* --- COMMAND CENTER MODAL WITH INTERACTIVE CODE PLAYGROUND --- */}
       {activeProject && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
           <div 
@@ -1736,6 +1872,8 @@ return (
           ></div>
 
           <div className="relative w-full max-w-5xl bg-[#030508] border border-slate-700 rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/10">
+            
+            {/* Modal Header */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-center px-6 py-5 border-b border-slate-800 bg-[#070b14]">
               <div className="flex items-center gap-4 mb-4 md:mb-0">
                 <span className="text-amber-500 font-mono text-sm tracking-widest uppercase border border-amber-500/30 bg-amber-500/10 px-3 py-1 rounded-md">
@@ -1744,34 +1882,45 @@ return (
                 <h3 className="text-white font-bold tracking-tight text-xl">{activeProject.title} // Command Center</h3>
               </div>
               
+              {/* Tab Selector */}
               <div className="flex items-center gap-2 bg-slate-900 rounded-lg p-1.5 border border-slate-800">
                 <button 
                   onClick={() => setModalTab("architecture")}
-                  className={`px-5 py-2.5 text-sm font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'architecture' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`px-4 py-2 text-xs font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'architecture' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
                 >
                   Architecture
                 </button>
                 <button 
                   onClick={() => setModalTab("telemetry")}
-                  className={`px-5 py-2.5 text-sm font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'telemetry' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`px-4 py-2 text-xs font-mono tracking-widest uppercase rounded-md transition-all ${modalTab === 'telemetry' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
                 >
                   Telemetry
                 </button>
-                <div className="w-px h-6 bg-slate-700 mx-2"></div>
+                <button 
+                  onClick={() => setModalTab("sandbox")}
+                  className={`px-4 py-2 text-xs font-mono tracking-widest uppercase rounded-md transition-all flex items-center gap-1.5 ${modalTab === 'sandbox' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                  Code Playground
+                </button>
+                <div className="w-px h-6 bg-slate-700 mx-1"></div>
                 <button 
                   onClick={() => setActiveProject(null)}
-                  className="px-5 py-2.5 text-sm font-mono tracking-widest uppercase text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
+                  className="px-3 py-2 text-xs font-mono tracking-widest uppercase text-red-400 hover:bg-red-500/10 rounded-md transition-colors"
                 >
                   Close
                 </button>
               </div>
             </div>
 
+            {/* Modal Body */}
             <div className="p-6 md:p-10 overflow-y-auto relative">
               <div className="absolute inset-0 bg-[#030508]/95 z-0"></div>
               
               <div className="relative z-10 flex flex-col gap-8">
-                {modalTab === 'architecture' ? (
+                
+                {/* --- TAB 1: ARCHITECTURE BLUEPRINT --- */}
+                {modalTab === 'architecture' && (
                   <div className="w-full bg-[#070b14] border border-slate-800 rounded-2xl p-8 relative overflow-hidden">
                     <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:30px_30px]"></div>
                     
@@ -1814,7 +1963,10 @@ return (
                       ))}
                     </div>
                   </div>
-                ) : (
+                )}
+
+                {/* --- TAB 2: LIVE TELEMETRY --- */}
+                {modalTab === 'telemetry' && (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div className="grid grid-cols-2 gap-6">
                       {Object.entries(activeProject.metrics).map(([key, value], i) => (
@@ -1843,14 +1995,106 @@ return (
                             </div>
                           </div>
                         ))}
-                        <p className="text-slate-500 mt-5">
-                          <span className="animate-pulse">_</span>
-                        </p>
                       </div>
                     </div>
                   </div>
                 )}
-                
+
+                {/* --- TAB 3: CODE PLAYGROUND SANDBOX --- */}
+                {modalTab === 'sandbox' && (
+                  <div className="flex flex-col gap-6">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-4 rounded-xl">
+                      <div>
+                        <h4 className="text-white font-bold text-sm md:text-base flex items-center gap-2 font-mono">
+                          <span className="text-sky-400">⚡</span> Interactive Algorithmic Simulator
+                        </h4>
+                        <p className="text-slate-400 text-xs font-sans mt-0.5">
+                          Recruiters can inspect the exact code snippet, modify parameters, and run browser-side execution.
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={handleRunSimulation}
+                        disabled={isExecuting}
+                        className="group relative inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-mono text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+                      >
+                        {isExecuting ? (
+                          <>
+                            <span className="w-3 h-3 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin"></span>
+                            Executing...
+                          </>
+                        ) : (
+                          <>
+                            <span>▶ Run Simulation</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Split View: Editor + Console */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      
+                      {/* Code Editor Window */}
+                      <div className="flex flex-col bg-[#020408] border border-slate-800 rounded-xl overflow-hidden font-mono">
+                        <div className="bg-[#070b14] px-4 py-2.5 border-b border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                          <span className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                            <span className="ml-2 font-bold text-slate-200">algorithm_kernel.{activeProject.codeLanguage}</span>
+                          </span>
+                          <span className="text-[10px] uppercase text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">
+                            {activeProject.codeLanguage}
+                          </span>
+                        </div>
+
+                        <textarea
+                          value={editableCode}
+                          onChange={(e) => setEditableCode(e.target.value)}
+                          rows={14}
+                          className="w-full bg-transparent p-4 text-xs font-mono text-slate-200 focus:outline-none resize-none leading-relaxed custom-scrollbar selection:bg-sky-500/30"
+                          spellCheck="false"
+                        ></textarea>
+                      </div>
+
+                      {/* Execution Console Terminal */}
+                      <div className="flex flex-col bg-[#020408] border border-slate-800 rounded-xl overflow-hidden font-mono">
+                        <div className="bg-[#070b14] px-4 py-2.5 border-b border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                          <span className="flex items-center gap-2 font-bold text-slate-200">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                            Output Terminal Console
+                          </span>
+                          <button 
+                            onClick={() => setConsoleOutput([])}
+                            className="text-[10px] text-slate-500 hover:text-white transition-colors uppercase"
+                          >
+                            Clear Console
+                          </button>
+                        </div>
+
+                        <div className="p-4 flex-1 min-h-[280px] max-h-[340px] overflow-y-auto space-y-2 text-xs custom-scrollbar">
+                          {consoleOutput.length === 0 ? (
+                            <span className="text-slate-600 italic">Awaiting simulation execution... Click "▶ Run Simulation" above.</span>
+                          ) : (
+                            consoleOutput.map((out, idx) => (
+                              <div key={idx} className={`leading-relaxed ${
+                                out.type === 'sys' ? 'text-sky-400 font-bold' :
+                                out.type === 'success' ? 'text-emerald-400 font-bold pt-2 border-t border-slate-800/60' :
+                                'text-slate-300'
+                              }`}>
+                                <span className="text-slate-600 mr-2">›</span>
+                                {out.text}
+                              </div>
+                            ))
+                          )}
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                )}
+
+                {/* Footer Action Bar */}
                 <div className="pt-8 mt-4 border-t border-slate-800/80 flex flex-col sm:flex-row gap-5 justify-end">
                   <a href={activeProject.github} target="_blank" rel="noreferrer" className="px-10 py-4 rounded-xl border border-slate-700 text-slate-300 font-mono text-sm tracking-widest uppercase hover:bg-slate-800 hover:text-white transition-all text-center flex items-center justify-center gap-3">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
@@ -1860,12 +2104,13 @@ return (
                     Execute Live ↗
                   </a>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       )}
-
+      
       {/* --- 6. ARSENAL (SKILLS) --- */}
       <section id="skills" className="relative z-10 py-32 border-t border-slate-900 bg-[#05070a]/90">
         <div className="max-w-7xl mx-auto px-6">
