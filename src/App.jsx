@@ -912,7 +912,7 @@ const App = () => {
 return (
     <>
       <AnimatePresence>
-        {!booted && <BootSequence onComplete={() => setBooted(true)} />}
+        {!booted && <BootSequence key="boot" onComplete={() => setBooted(true)} />}
       </AnimatePresence>
       
       <CustomCursor />
